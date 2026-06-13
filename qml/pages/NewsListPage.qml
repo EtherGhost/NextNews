@@ -888,6 +888,7 @@ Page {
                                 elide: Text.ElideRight
                                 maximumLineCount: 2
                                 wrapMode: Text.WordWrap
+                                verticalAlignment: Text.AlignTop
                             }
 
                             Label {
