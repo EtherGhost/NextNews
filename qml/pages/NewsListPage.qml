@@ -1,0 +1,1326 @@
+import QtQuick 2.7
+import QtQuick.Layouts 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
+import QtGraphicalEffects 1.0
+import Qt.labs.settings 1.0
+
+Page {
+    id: page
+
+    property var newsController
+    property bool menuOpen: false
+    property bool addFeedPanelOpen: false
+    property string addFeedUrl: ""
+    property int addFeedFolderId: 0
+    property string addFeedFolderName: i18n.tr("No folder")
+    property string addFeedNewFolderName: ""
+    property string pendingAddFeedFolderName: ""
+    property string newFolderName: ""
+    property int selectedFeedId: 0
+    property string selectedFeedTitle: ""
+    property string selectedFeedRenameTitle: ""
+    property int selectedFolderId: 0
+    property string selectedFolderTitle: ""
+    property string selectedFolderRenameTitle: ""
+    property bool markAllDragActive: false
+    property bool markAllDragAccepted: false
+    property real markAllOriginX: 0
+    property real markAllOriginY: 0
+    property bool userScrolledArticleList: false
+    readonly property real pullRefreshThreshold: units.gu(7)
+    property bool pullRefreshArmed: false
+    readonly property real oskOverlap: Qt.inputMethod.visible && Qt.inputMethod.keyboardRectangle.height > 0
+        ? Math.max(0, page.height - Qt.inputMethod.keyboardRectangle.y)
+        : 0
+    readonly property string accountInitial: accountSettings.displayName.length > 0
+        ? accountSettings.displayName.charAt(0).toUpperCase()
+        : "?"
+
+    Settings {
+        id: accountSettings
+        category: "account"
+        property string displayName: ""
+    }
+
+    Connections {
+        target: newsController
+
+        onFolderAvailable: {
+            if (page.pendingAddFeedFolderName.length > 0 && name === page.pendingAddFeedFolderName) {
+                page.selectPendingAddFeedFolder(folderId, name)
+            }
+        }
+    }
+
+    Timer {
+        id: pendingFolderSelectTimer
+        interval: 250
+        repeat: true
+        running: page.pendingAddFeedFolderName.length > 0
+        onTriggered: page.selectPendingAddFeedFolder(0, "")
+    }
+
+    function normalizedFolderName(value) {
+        return String(value || "").trim()
+    }
+
+    function selectPendingAddFeedFolder(folderId, name) {
+        var expectedName = normalizedFolderName(page.pendingAddFeedFolderName)
+        if (expectedName.length === 0) {
+            pendingFolderSelectTimer.stop()
+            return false
+        }
+
+        var resolvedFolderId = Number(folderId || 0)
+        var resolvedName = normalizedFolderName(name)
+        if (resolvedFolderId <= 0 || resolvedName !== expectedName) {
+            for (var i = 0; i < newsController.folders.count; ++i) {
+                var folder = newsController.folders.get(i)
+                if (normalizedFolderName(folder.name) === expectedName) {
+                    resolvedFolderId = Number(folder.folderId || 0)
+                    resolvedName = normalizedFolderName(folder.name)
+                    break
+                }
+            }
+        }
+
+        if (resolvedFolderId <= 0 || resolvedName !== expectedName) {
+            return false
+        }
+
+        page.addFeedFolderId = resolvedFolderId
+        page.addFeedFolderName = resolvedName
+        page.pendingAddFeedFolderName = ""
+        page.addFeedNewFolderName = ""
+        pendingFolderSelectTimer.stop()
+        console.log("NextNews AddFeed selected created folder folderId=" + resolvedFolderId)
+        return true
+    }
+
+    function openAddFeedPanel() {
+        page.addFeedUrl = ""
+        page.addFeedFolderId = 0
+        page.addFeedFolderName = i18n.tr("No folder")
+        page.addFeedNewFolderName = ""
+        page.pendingAddFeedFolderName = ""
+        page.addFeedPanelOpen = true
+    }
+
+    function closeAddFeedPanel() {
+        page.addFeedPanelOpen = false
+        page.pendingAddFeedFolderName = ""
+        Qt.inputMethod.hide()
+    }
+
+    header: PageHeader {
+        id: header
+        title: ""
+
+        contents: RowLayout {
+            anchors {
+                fill: parent
+                leftMargin: units.gu(1)
+                rightMargin: units.gu(1)
+            }
+            spacing: units.gu(0.75)
+
+            Button {
+                Layout.preferredWidth: units.gu(5)
+                Layout.preferredHeight: units.gu(5)
+                text: "\u2630"
+                onClicked: page.menuOpen = true
+            }
+
+            TextField {
+                id: searchField
+                Layout.fillWidth: true
+                placeholderText: i18n.tr("Search articles")
+                text: newsController.searchQuery
+                onTextChanged: newsController.setSearchQuery(text)
+            }
+
+            Button {
+                width: units.gu(5)
+                text: "\u2715"
+                visible: searchField.text.length > 0
+                onClicked: {
+                    searchField.text = ""
+                    newsController.clearSearch()
+                }
+            }
+
+            Rectangle {
+                Layout.preferredWidth: units.gu(5)
+                Layout.preferredHeight: units.gu(5)
+                radius: units.gu(2.5)
+                color: "#2c7fb8"
+                border.width: 1
+                border.color: "#7a7a7a"
+
+                Image {
+                    id: accountAvatarSource
+                    anchors.fill: parent
+                    source: newsController.accountAvatarUrl
+                    fillMode: Image.PreserveAspectCrop
+                    visible: false
+                }
+
+                Rectangle {
+                    id: accountAvatarMask
+                    anchors.fill: parent
+                    radius: width / 2
+                    visible: false
+                }
+
+                OpacityMask {
+                    anchors.fill: parent
+                    source: accountAvatarSource
+                    maskSource: accountAvatarMask
+                    visible: accountAvatarSource.status === Image.Ready
+                }
+
+                Label {
+                    anchors.centerIn: parent
+                    text: page.accountInitial
+                    color: "white"
+                    font.bold: true
+                    visible: accountAvatarSource.status !== Image.Ready
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: pageStack.push(Qt.resolvedUrl("AccountSelectionPage.qml"))
+                }
+            }
+        }
+    }
+
+    Item {
+        id: addFeedOverlay
+        anchors.fill: parent
+        visible: page.addFeedPanelOpen
+        z: 30
+
+        onVisibleChanged: {
+            if (visible) {
+                Qt.callLater(function() {
+                    addFeedFlickable.contentY = 0
+                    addFeedPanelUrlField.selectAll()
+                    addFeedPanelUrlField.forceActiveFocus()
+                })
+            }
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: "black"
+            opacity: 0.32
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: page.closeAddFeedPanel()
+        }
+
+        Rectangle {
+            id: addFeedPanel
+            anchors {
+                top: parent.top
+                bottom: parent.bottom
+                right: parent.right
+            }
+            width: Math.min(parent.width, units.gu(42))
+            color: theme.palette.normal.background
+            border.width: 1
+            border.color: "#7a7a7a"
+
+            Timer {
+                id: addFeedCreateFolderCommitTimer
+                interval: 80
+                repeat: false
+                onTriggered: {
+                    var folderName = addFeedPanelFolderNameField.text.trim()
+                    page.addFeedNewFolderName = folderName
+                    page.pendingAddFeedFolderName = folderName
+                    if (!newsController.createFolder(page.pendingAddFeedFolderName)) {
+                        page.pendingAddFeedFolderName = ""
+                    } else {
+                        pendingFolderSelectTimer.restart()
+                    }
+                }
+            }
+
+            Timer {
+                id: addFeedCommitTimer
+                interval: 80
+                repeat: false
+                onTriggered: {
+                    page.addFeedUrl = addFeedPanelUrlField.text
+                    if (newsController.createFeed(page.addFeedUrl, page.addFeedFolderId)) {
+                        page.addFeedUrl = ""
+                        page.closeAddFeedPanel()
+                    }
+                }
+            }
+
+            Flickable {
+                id: addFeedFlickable
+                anchors {
+                    fill: parent
+                    margins: units.gu(2)
+                    bottomMargin: units.gu(2) + page.oskOverlap
+                }
+                clip: true
+                contentWidth: width
+                contentHeight: addFeedColumn.height + units.gu(2)
+                boundsBehavior: Flickable.DragAndOvershootBounds
+
+                ColumnLayout {
+                    id: addFeedColumn
+                    width: addFeedFlickable.width
+                    spacing: units.gu(1.2)
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: units.gu(1)
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: i18n.tr("Add feed")
+                            fontSize: "x-large"
+                            font.bold: true
+                            elide: Text.ElideRight
+                        }
+
+                        Button {
+                            Layout.preferredWidth: units.gu(5)
+                            text: "\u2715"
+                            onClicked: page.closeAddFeedPanel()
+                        }
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: i18n.tr("Add an RSS or Atom feed to the selected Nextcloud News account.")
+                        wrapMode: Text.WordWrap
+                        opacity: 0.78
+                    }
+
+                    TextField {
+                        id: addFeedPanelUrlField
+                        Layout.fillWidth: true
+                        placeholderText: i18n.tr("Feed URL")
+                        text: page.addFeedUrl
+                        inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText
+                        onTextChanged: page.addFeedUrl = text
+                        onActiveFocusChanged: {
+                            if (activeFocus && text.length > 0) {
+                                selectAll()
+                            }
+                        }
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        text: i18n.tr("Clear feed URL")
+                        visible: page.addFeedUrl.length > 0
+                        onClicked: {
+                            page.addFeedUrl = ""
+                            addFeedPanelUrlField.text = ""
+                            addFeedPanelUrlField.forceActiveFocus()
+                        }
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: i18n.tr("Folder: %1").arg(page.addFeedFolderName)
+                        font.bold: true
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        text: i18n.tr("No folder")
+                        color: page.addFeedFolderId === 0 ? "#2c7fb8" : theme.palette.normal.background
+                        onClicked: {
+                            page.addFeedFolderId = 0
+                            page.addFeedFolderName = i18n.tr("No folder")
+                        }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: units.gu(1)
+
+                        TextField {
+                            id: addFeedPanelFolderNameField
+                            Layout.fillWidth: true
+                            placeholderText: i18n.tr("New folder name")
+                            text: page.addFeedNewFolderName
+                            onTextChanged: page.addFeedNewFolderName = text
+                        }
+
+                        Button {
+                            text: newsController.folderCreateRunning ? i18n.tr("Adding...") : i18n.tr("Create")
+                            enabled: !newsController.folderCreateRunning
+                            onClicked: {
+                                Qt.inputMethod.commit()
+                                addFeedPanelFolderNameField.focus = false
+                                addFeedCreateFolderCommitTimer.restart()
+                            }
+                        }
+                    }
+
+                    ListView {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: Math.min(Math.max(newsController.folders.count, 1) * units.gu(5.5), units.gu(22))
+                        clip: true
+                        model: newsController.folders
+
+                        delegate: Button {
+                            width: addFeedPanel.width - units.gu(4)
+                            text: name
+                            color: Number(folderId) === Number(page.addFeedFolderId) ? "#2c7fb8" : theme.palette.normal.background
+                            onClicked: {
+                                page.addFeedFolderId = folderId
+                                page.addFeedFolderName = name
+                            }
+                        }
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        text: page.pendingAddFeedFolderName.length > 0
+                            ? i18n.tr("Waiting for folder...")
+                            : newsController.feedCreateRunning
+                            ? i18n.tr("Adding...")
+                            : i18n.tr("Add")
+                        enabled: !newsController.feedCreateRunning && page.pendingAddFeedFolderName.length === 0
+                        color: "#2c7fb8"
+                        onClicked: {
+                            Qt.inputMethod.commit()
+                            addFeedPanelUrlField.focus = false
+                            addFeedPanelFolderNameField.focus = false
+                            addFeedCommitTimer.restart()
+                        }
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        text: i18n.tr("Cancel")
+                        onClicked: page.closeAddFeedPanel()
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: addFolderDialog
+
+        Dialog {
+            id: dialog
+            title: i18n.tr("New folder")
+            text: i18n.tr("Create a folder in Nextcloud News.")
+
+            TextField {
+                id: folderNameField
+                placeholderText: i18n.tr("Folder name")
+                text: page.newFolderName
+                onTextChanged: page.newFolderName = text
+                Component.onCompleted: forceActiveFocus()
+            }
+
+            Timer {
+                id: folderCommitTimer
+                interval: 80
+                repeat: false
+                onTriggered: {
+                    page.newFolderName = folderNameField.text
+                    if (newsController.createFolder(page.newFolderName)) {
+                        page.newFolderName = ""
+                        PopupUtils.close(dialog)
+                    }
+                }
+            }
+
+            Button {
+                text: newsController.folderCreateRunning ? i18n.tr("Adding...") : i18n.tr("Add")
+                enabled: !newsController.folderCreateRunning
+                color: "#2c7fb8"
+                onClicked: {
+                    Qt.inputMethod.commit()
+                    folderNameField.focus = false
+                    folderCommitTimer.restart()
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Component {
+        id: feedOptionsDialog
+
+        Dialog {
+            id: dialog
+            title: page.selectedFeedTitle
+            text: i18n.tr("Feed options")
+
+            Label {
+                text: i18n.tr("Move to folder")
+                font.bold: true
+            }
+
+            Button {
+                text: i18n.tr("No folder")
+                onClicked: {
+                    if (newsController.moveFeed(page.selectedFeedId, 0)) {
+                        PopupUtils.close(dialog)
+                    }
+                }
+            }
+
+            ListView {
+                width: parent ? parent.width : units.gu(32)
+                height: Math.min(contentHeight, units.gu(18))
+                clip: true
+                model: newsController.folders
+
+                delegate: Button {
+                    width: parent ? parent.width : units.gu(32)
+                    text: name
+                    onClicked: {
+                        if (newsController.moveFeed(page.selectedFeedId, folderId)) {
+                            PopupUtils.close(dialog)
+                        }
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Rename feed")
+                onClicked: {
+                    page.selectedFeedRenameTitle = page.selectedFeedTitle
+                    PopupUtils.close(dialog)
+                    Qt.callLater(function() { PopupUtils.open(renameFeedDialog) })
+                }
+            }
+
+            Button {
+                text: newsController.feedOpenExternal(page.selectedFeedId)
+                    ? i18n.tr("Open in app")
+                    : i18n.tr("Open in browser")
+                onClicked: {
+                    newsController.setFeedOpenExternal(page.selectedFeedId, !newsController.feedOpenExternal(page.selectedFeedId))
+                    PopupUtils.close(dialog)
+                }
+            }
+
+            Button {
+                text: i18n.tr("Delete feed")
+                color: "#c7162b"
+                onClicked: {
+                    PopupUtils.close(dialog)
+                    Qt.callLater(function() { PopupUtils.open(deleteFeedConfirmDialog) })
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Component {
+        id: renameFeedDialog
+
+        Dialog {
+            id: dialog
+            title: i18n.tr("Rename feed")
+            text: i18n.tr("Change the feed name on Nextcloud News.")
+
+            TextField {
+                id: feedTitleField
+                placeholderText: i18n.tr("Feed name")
+                text: page.selectedFeedRenameTitle
+                onTextChanged: page.selectedFeedRenameTitle = text
+                Component.onCompleted: forceActiveFocus()
+            }
+
+            Timer {
+                id: feedRenameCommitTimer
+                interval: 80
+                repeat: false
+                onTriggered: {
+                    page.selectedFeedRenameTitle = feedTitleField.text
+                    if (newsController.renameFeed(page.selectedFeedId, page.selectedFeedRenameTitle)) {
+                        PopupUtils.close(dialog)
+                    }
+                }
+            }
+
+            Button {
+                text: newsController.loading ? i18n.tr("Saving...") : i18n.tr("Save")
+                enabled: !newsController.loading
+                color: "#2c7fb8"
+                onClicked: {
+                    Qt.inputMethod.commit()
+                    feedTitleField.focus = false
+                    feedRenameCommitTimer.restart()
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Component {
+        id: deleteFeedConfirmDialog
+
+        Dialog {
+            id: dialog
+            title: i18n.tr("Delete feed?")
+            text: i18n.tr("This will remove \"%1\" from Nextcloud News.").arg(page.selectedFeedTitle)
+
+            Button {
+                text: i18n.tr("Delete")
+                color: "#c7162b"
+                onClicked: {
+                    if (newsController.deleteFeed(page.selectedFeedId)) {
+                        PopupUtils.close(dialog)
+                        page.selectedFeedId = 0
+                        page.selectedFeedTitle = ""
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Component {
+        id: folderOptionsDialog
+
+        Dialog {
+            id: dialog
+            title: page.selectedFolderTitle
+            text: i18n.tr("Folder options")
+
+            Button {
+                text: i18n.tr("Rename folder")
+                onClicked: {
+                    page.selectedFolderRenameTitle = page.selectedFolderTitle
+                    PopupUtils.close(dialog)
+                    Qt.callLater(function() { PopupUtils.open(renameFolderDialog) })
+                }
+            }
+
+            Button {
+                text: i18n.tr("Delete folder")
+                color: "#c7162b"
+                onClicked: {
+                    PopupUtils.close(dialog)
+                    Qt.callLater(function() { PopupUtils.open(deleteFolderConfirmDialog) })
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Component {
+        id: renameFolderDialog
+
+        Dialog {
+            id: dialog
+            title: i18n.tr("Rename folder")
+            text: i18n.tr("Change the folder name on Nextcloud News.")
+
+            TextField {
+                id: folderTitleField
+                placeholderText: i18n.tr("Folder name")
+                text: page.selectedFolderRenameTitle
+                onTextChanged: page.selectedFolderRenameTitle = text
+                Component.onCompleted: forceActiveFocus()
+            }
+
+            Timer {
+                id: folderRenameCommitTimer
+                interval: 80
+                repeat: false
+                onTriggered: {
+                    page.selectedFolderRenameTitle = folderTitleField.text
+                    if (newsController.renameFolder(page.selectedFolderId, page.selectedFolderRenameTitle)) {
+                        PopupUtils.close(dialog)
+                    }
+                }
+            }
+
+            Button {
+                text: newsController.loading ? i18n.tr("Saving...") : i18n.tr("Save")
+                enabled: !newsController.loading
+                color: "#2c7fb8"
+                onClicked: {
+                    Qt.inputMethod.commit()
+                    folderTitleField.focus = false
+                    folderRenameCommitTimer.restart()
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Component {
+        id: deleteFolderConfirmDialog
+
+        Dialog {
+            id: dialog
+            title: i18n.tr("Delete folder?")
+            text: i18n.tr("This will remove \"%1\" and all feeds in that folder from Nextcloud News.").arg(page.selectedFolderTitle)
+
+            Button {
+                text: i18n.tr("Delete")
+                color: "#c7162b"
+                onClicked: {
+                    if (newsController.deleteFolder(page.selectedFolderId)) {
+                        PopupUtils.close(dialog)
+                        page.selectedFolderId = 0
+                        page.selectedFolderTitle = ""
+                    }
+                }
+            }
+
+            Button {
+                text: i18n.tr("Cancel")
+                onClicked: PopupUtils.close(dialog)
+            }
+        }
+    }
+
+    Rectangle {
+        id: statusStrip
+        anchors {
+            top: header.bottom
+            left: parent.left
+            right: parent.right
+        }
+        height: newsController.statusText.length > 0 ? units.gu(4.5) : 0
+        color: theme.palette.normal.foreground
+        visible: height > 0
+
+        RowLayout {
+            anchors.fill: parent
+            anchors.margins: units.gu(1)
+            spacing: units.gu(1)
+
+            Rectangle {
+                width: units.gu(1.2)
+                height: width
+                radius: width / 2
+                color: newsController.loading ? "#2c7fb8" : newsController.syncStateColor
+            }
+
+            Label {
+                Layout.fillWidth: true
+                text: newsController.statusText + " - " + newsController.syncStateText
+                elide: Text.ElideRight
+                maximumLineCount: 1
+            }
+        }
+    }
+
+    ListView {
+        id: articleList
+        anchors {
+            top: statusStrip.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+            margins: units.gu(1)
+        }
+        clip: true
+        model: newsController.model
+
+        onContentYChanged: {
+            if (contentY < -page.pullRefreshThreshold && !newsController.loading) {
+                page.pullRefreshArmed = true
+            }
+            if (page.userScrolledArticleList && newsController.markReadWhileScrolling && moving) {
+                viewportReadTimer.restart()
+            }
+        }
+
+        onMovementStarted: page.userScrolledArticleList = true
+
+        onMovementEnded: {
+            if (page.pullRefreshArmed && !newsController.loading) {
+                newsController.loadNews()
+            }
+            page.pullRefreshArmed = false
+        }
+
+        Timer {
+            id: viewportReadTimer
+            interval: 850
+            repeat: false
+            onTriggered: page.markVisibleViewportArticlesRead()
+        }
+
+        section.property: "sectionKey"
+        section.criteria: ViewSection.FullString
+        section.delegate: Rectangle {
+            width: articleList.width
+            height: sectionLabel.implicitHeight + units.gu(1.4)
+            color: theme.palette.normal.background
+
+            Label {
+                id: sectionLabel
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    leftMargin: units.gu(0.5)
+                    rightMargin: units.gu(0.5)
+                }
+                text: page.displaySectionLabel(section)
+                font.bold: true
+                opacity: 0.78
+                elide: Text.ElideRight
+            }
+        }
+
+        delegate: Rectangle {
+            id: articleDelegate
+            property int currentItemId: model.itemId
+            property bool currentUnread: model.unread
+            width: articleList.width
+            height: units.gu(11)
+            radius: units.gu(0.8)
+            color: Math.abs(cardContent.x) > width * 0.12 ? "#2c7fb8" : "transparent"
+
+            Label {
+                anchors {
+                    left: parent.left
+                    leftMargin: units.gu(2)
+                    verticalCenter: parent.verticalCenter
+                }
+                text: model.unread ? i18n.tr("Mark read") : i18n.tr("Mark unread")
+                color: "white"
+                font.bold: true
+                opacity: cardContent.x > width * 0.08 ? 1 : 0
+            }
+
+            Label {
+                anchors {
+                    right: parent.right
+                    rightMargin: units.gu(2)
+                    verticalCenter: parent.verticalCenter
+                }
+                text: model.unread ? i18n.tr("Mark read") : i18n.tr("Mark unread")
+                color: "white"
+                font.bold: true
+                opacity: cardContent.x < -width * 0.08 ? 1 : 0
+            }
+
+            Rectangle {
+                id: cardContent
+                width: parent.width
+                height: parent.height
+                radius: units.gu(0.8)
+                opacity: model.unread ? 1.0 : 0.48
+                color: theme.palette.normal.foreground
+                border.width: 1
+                border.color: model.unread ? theme.palette.normal.base : "#9a9a9a"
+
+                Behavior on x {
+                    NumberAnimation { duration: 120 }
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: units.gu(1)
+                    spacing: units.gu(1)
+
+                    Item {
+                        Layout.preferredWidth: units.gu(5)
+                        Layout.preferredHeight: units.gu(5)
+
+                        Label {
+                            anchors.centerIn: parent
+                            text: model.starred ? "\u2605" : "\u2606"
+                            color: model.starred ? "#d9a300" : theme.palette.normal.backgroundText
+                            font.pixelSize: units.gu(3.2)
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                var previousY = articleList.contentY
+                                newsController.toggleStar(model.itemId)
+                                Qt.callLater(function() {
+                                    articleList.contentY = previousY
+                                })
+                            }
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: units.gu(0.25)
+
+                        RowLayout {
+                            Layout.fillWidth: true
+
+                            Label {
+                                Layout.fillWidth: true
+                                text: model.title
+                                font.bold: model.unread
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                            }
+
+                            Label {
+                                text: page.relativeTime(model.pubDate)
+                                opacity: 0.7
+                                fontSize: "small"
+                            }
+                        }
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: model.preview
+                            opacity: 0.72
+                            elide: Text.ElideRight
+                            maximumLineCount: 2
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: units.gu(0.7)
+
+                            Label {
+                                text: model.unread ? i18n.tr("Unread") : i18n.tr("Read")
+                                fontSize: "x-small"
+                                opacity: 0.65
+                            }
+
+                            Label {
+                                visible: model.pendingState.length > 0
+                                text: i18n.tr("Pending")
+                                fontSize: "x-small"
+                                color: "#b37a2a"
+                            }
+
+                            Item { Layout.fillWidth: true }
+                        }
+                    }
+                }
+            }
+
+            MouseArea {
+                id: articleMouseArea
+                anchors.fill: parent
+                anchors.leftMargin: units.gu(6)
+                property real pressX: 0
+                property bool movedHorizontally: false
+                preventStealing: movedHorizontally
+                onPressed: {
+                    pressX = mouse.x
+                    movedHorizontally = false
+                    cardContent.x = 0
+                }
+                onPositionChanged: {
+                    var delta = mouse.x - pressX
+                    if (Math.abs(delta) > units.gu(1.5)) {
+                        movedHorizontally = true
+                    }
+                    if (movedHorizontally) {
+                        cardContent.x = Math.max(-articleDelegate.width * 0.45, Math.min(articleDelegate.width * 0.45, delta))
+                    }
+                }
+                onReleased: {
+                    if (Math.abs(cardContent.x) > articleDelegate.width * 0.25) {
+                        var previousY = articleList.contentY
+                        newsController.toggleRead(model.itemId)
+                        Qt.callLater(function() {
+                            articleList.contentY = previousY
+                        })
+                    }
+                    cardContent.x = 0
+                }
+                onClicked: {
+                    if (movedHorizontally) {
+                        return
+                    }
+                    if (newsController.openItem(model.itemId) === "detail") {
+                        pageStack.push(Qt.resolvedUrl("ArticleDetailPage.qml"), {
+                            "itemId": model.itemId,
+                            "newsController": newsController
+                        })
+                    }
+                }
+            }
+
+            onVisibleChanged: {
+                if (visible && page.userScrolledArticleList && newsController.markReadWhileScrolling && model.unread) {
+                    visibleReadTimer.restart()
+                }
+            }
+
+            Timer {
+                id: visibleReadTimer
+                interval: 900
+                repeat: false
+                onTriggered: {
+                    if (articleDelegate.visible) {
+                        newsController.markReadFromScroll(model.itemId)
+                    }
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: markAllTarget
+        width: units.gu(10)
+        height: width
+        radius: width / 2
+        x: parent.width - width - units.gu(1.4)
+        y: parent.height - markAllFab.height - height - units.gu(4)
+        visible: page.markAllDragActive
+        color: page.markAllDragAccepted ? "#5a8f3c" : "transparent"
+        border.width: 2
+        border.color: page.markAllDragAccepted ? "#5a8f3c" : "#2c7fb8"
+        z: 8
+
+        Label {
+            anchors.centerIn: parent
+            text: "\u2713"
+            font.pixelSize: units.gu(4)
+            color: page.markAllDragAccepted ? "white" : "#2c7fb8"
+        }
+    }
+
+    Rectangle {
+        id: markAllFab
+        width: units.gu(7)
+        height: width
+        radius: width / 2
+        x: parent.width - width - units.gu(2)
+        y: parent.height - height - units.gu(2)
+        visible: newsController.visibleUnreadCount > 0 && !page.menuOpen
+        color: "#2c7fb8"
+        z: 9
+
+        Label {
+            anchors.centerIn: parent
+            text: "\u2713\u2713"
+            color: "white"
+            font.bold: true
+            font.pixelSize: units.gu(2.1)
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            drag.target: markAllFab
+            drag.axis: Drag.XAndYAxis
+            property real centerX: 0
+            property real centerY: 0
+
+            onPressed: {
+                page.markAllOriginX = markAllFab.x
+                page.markAllOriginY = markAllFab.y
+                page.markAllDragActive = true
+                page.markAllDragAccepted = false
+            }
+
+            onPositionChanged: {
+                centerX = markAllFab.x + markAllFab.width / 2
+                centerY = markAllFab.y + markAllFab.height / 2
+                page.markAllDragAccepted = centerX >= markAllTarget.x
+                    && centerX <= markAllTarget.x + markAllTarget.width
+                    && centerY >= markAllTarget.y
+                    && centerY <= markAllTarget.y + markAllTarget.height
+            }
+
+            onReleased: {
+                if (page.markAllDragAccepted) {
+                    newsController.markVisibleRead()
+                }
+                page.markAllDragActive = false
+                page.markAllDragAccepted = false
+                markAllFab.x = page.markAllOriginX
+                markAllFab.y = page.markAllOriginY
+            }
+        }
+    }
+
+    Column {
+        anchors.centerIn: articleList
+        width: parent.width - units.gu(6)
+        spacing: units.gu(1)
+        visible: newsController.model.count === 0 && !newsController.loading
+
+        Label {
+            width: parent.width
+            text: newsController.searchQuery.length > 0 ? i18n.tr("No matching articles") : i18n.tr("No articles to show")
+            horizontalAlignment: Text.AlignHCenter
+            fontSize: "large"
+        }
+
+        Label {
+            width: parent.width
+            text: newsController.hasCachedItems
+                ? i18n.tr("Try another feed or clear search.")
+                : i18n.tr("Connect to Nextcloud while online to cache articles on this device.")
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            opacity: 0.7
+        }
+    }
+
+    Rectangle {
+        id: drawer
+        anchors {
+            top: header.bottom
+            bottom: parent.bottom
+            left: parent.left
+        }
+        width: Math.min(parent.width * 0.82, units.gu(42))
+        visible: page.menuOpen
+        color: theme.palette.normal.background
+        border.color: theme.palette.normal.base
+        z: 10
+
+        ColumnLayout {
+            anchors.fill: parent
+            anchors.margins: units.gu(2)
+            spacing: units.gu(1)
+
+            Label {
+                text: i18n.tr("NextNews")
+                fontSize: "x-large"
+                font.bold: true
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: newsController.loading ? i18n.tr("Refreshing...") : i18n.tr("Refresh")
+                enabled: !newsController.loading
+                onClicked: {
+                    page.menuOpen = false
+                    newsController.loadNews()
+                }
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: i18n.tr("Language")
+                onClicked: {
+                    page.menuOpen = false
+                    pageStack.push(Qt.resolvedUrl("LanguageSelectionPage.qml"))
+                }
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: i18n.tr("Settings")
+                onClicked: {
+                    page.menuOpen = false
+                    pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), {
+                        "newsController": newsController
+                    })
+                }
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: i18n.tr("About")
+                onClicked: {
+                    page.menuOpen = false
+                    pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                }
+            }
+
+            ListView {
+                id: navigationList
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                clip: true
+                model: newsController.navigation
+                section.property: "groupLabel"
+                section.criteria: ViewSection.FullString
+                section.delegate: Rectangle {
+                    width: navigationList.width
+                    height: units.gu(5)
+                    color: theme.palette.normal.background
+
+                    RowLayout {
+                        anchors {
+                            left: parent.left
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                            leftMargin: units.gu(1)
+                            rightMargin: units.gu(1)
+                        }
+                        spacing: units.gu(0.8)
+
+                        Label {
+                            Layout.fillWidth: true
+                            text: section
+                            font.bold: true
+                            opacity: 0.58
+                            elide: Text.ElideRight
+                        }
+
+                        Button {
+                            Layout.preferredWidth: units.gu(5)
+                            text: "+"
+                            visible: section === i18n.tr("Folders")
+                            enabled: !newsController.folderCreateRunning
+                            onClicked: {
+                                page.menuOpen = false
+                                PopupUtils.open(addFolderDialog)
+                            }
+                        }
+
+                        Button {
+                            Layout.preferredWidth: units.gu(5)
+                            text: "+"
+                            visible: section === i18n.tr("Feeds")
+                            enabled: !newsController.feedCreateRunning
+                            onClicked: {
+                                page.menuOpen = false
+                                page.openAddFeedPanel()
+                            }
+                        }
+                    }
+                }
+
+                delegate: Rectangle {
+                    width: navigationList.width
+                    height: units.gu(5)
+                    color: model.type === newsController.selectedFilterType && Number(model.id) === Number(newsController.selectedFilterId)
+                        ? "#2c7fb8"
+                        : theme.palette.normal.background
+
+                    RowLayout {
+                        anchors.fill: parent
+                        spacing: units.gu(0.5)
+
+                        Button {
+                            Layout.fillWidth: true
+                            text: model.label
+                            color: "transparent"
+                            onClicked: {
+                                page.menuOpen = false
+                                newsController.selectFilter(model.type, model.id, model.label)
+                            }
+                        }
+
+                        Label {
+                            visible: model.count > 0
+                            text: model.count
+                            color: model.type === newsController.selectedFilterType && Number(model.id) === Number(newsController.selectedFilterId)
+                                ? "white"
+                                : theme.palette.normal.backgroundText
+                            opacity: 0.75
+                        }
+
+                        Item {
+                            Layout.preferredWidth: units.gu(5)
+                            Layout.fillHeight: true
+                            visible: model.type === "feed" || model.type === "folder"
+
+                            Label {
+                                anchors.centerIn: parent
+                                text: "\u22ee"
+                                font.pixelSize: units.gu(2.6)
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    page.menuOpen = false
+                                    if (model.type === "feed") {
+                                        page.selectedFeedId = model.id
+                                        page.selectedFeedTitle = model.label
+                                        PopupUtils.open(feedOptionsDialog)
+                                    } else {
+                                        page.selectedFolderId = model.id
+                                        page.selectedFolderTitle = model.label
+                                        PopupUtils.open(folderOptionsDialog)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        visible: page.menuOpen
+        z: 9
+        onClicked: page.menuOpen = false
+    }
+
+    function displaySectionLabel(sectionKey) {
+        var value = String(sectionKey || "")
+        var split = value.indexOf("|")
+        return split >= 0 ? value.slice(split + 1) : value
+    }
+
+    function markVisibleViewportArticlesRead() {
+        if (!newsController.markReadWhileScrolling || !page.userScrolledArticleList) {
+            return
+        }
+        var seen = {}
+        var step = units.gu(6)
+        for (var y = units.gu(1); y < articleList.height - units.gu(1); y += step) {
+            var item = articleList.itemAt(articleList.width / 2, articleList.contentY + y)
+            if (!item || !item.currentItemId || seen[item.currentItemId]) {
+                continue
+            }
+            seen[item.currentItemId] = true
+            if (item.currentUnread) {
+                newsController.markReadFromScroll(item.currentItemId)
+            }
+        }
+    }
+
+    function relativeTime(seconds) {
+        if (!seconds || seconds <= 0) {
+            return ""
+        }
+        var diff = Math.max(0, Math.floor(Date.now() / 1000) - Number(seconds))
+        if (diff < 3600) {
+            return i18n.tr("%1m").arg(Math.max(1, Math.floor(diff / 60)))
+        }
+        if (diff < 86400) {
+            return i18n.tr("%1h").arg(Math.floor(diff / 3600))
+        }
+        var d = new Date(Number(seconds) * 1000)
+        return Qt.formatDate(d, "d MMM")
+    }
+}

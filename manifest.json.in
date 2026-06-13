@@ -1,0 +1,16 @@
+{
+    "name": "nextnews.cloudsite",
+    "description": "Native but simple Ubuntu Touch client for Nextcloud News.",
+    "architecture": "$ENV{ARCH}",
+    "title": "NextNews",
+    "hooks": {
+        "nextnews": {
+            "accounts": "nextnews.accounts",
+            "apparmor": "nextnews.apparmor",
+            "desktop": "nextnews.desktop"
+        }
+    },
+    "version": "0.1.0",
+    "maintainer": "Etherghost <noreply@cloudsite.se>",
+    "framework": "$ENV{CLICK_FRAMEWORK}"
+}

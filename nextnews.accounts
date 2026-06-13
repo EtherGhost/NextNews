@@ -1,0 +1,14 @@
+{
+    "services": [
+        {
+            "name": "NextNews",
+            "description": "Use this Nextcloud account for NextNews.",
+            "provider": "nextcloud"
+        },
+        {
+            "name": "NextNews",
+            "description": "Use this ownCloud account for NextNews.",
+            "provider": "owncloud"
+        }
+    ]
+}

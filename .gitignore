@@ -1,0 +1,11 @@
+build/
+.clickable/
+*.click
+__pycache__/
+*.py[cod]
+*.po~
+.idea/
+.env.test.local
+*.local.md
+*-private/
+release-assets/
