@@ -822,7 +822,7 @@ Page {
                     leftMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-                text: model.unread ? i18n.tr("Mark read") : i18n.tr("Mark unread")
+                text: model.starred ? i18n.tr("Unstar") : i18n.tr("Star")
                 color: "white"
                 font.bold: true
                 opacity: cardContent.x > width * 0.08 ? 1 : 0
@@ -959,7 +959,11 @@ Page {
                 onReleased: {
                     if (Math.abs(cardContent.x) > articleDelegate.width * 0.25) {
                         var previousY = articleList.contentY
-                        newsController.toggleRead(model.itemId)
+                        if (cardContent.x > 0) {
+                            newsController.toggleStar(model.itemId)
+                        } else {
+                            newsController.toggleRead(model.itemId)
+                        }
                         Qt.callLater(function() {
                             articleList.contentY = previousY
                         })

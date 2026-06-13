@@ -27,7 +27,7 @@ Current V1 scaffold:
 - Read cached articles offline.
 - Retry failed feed/folder rename, move, and delete operations on the next successful sync.
 - Mark articles read or unread.
-- Swipe article rows left or right to toggle read/unread state.
+- Swipe article rows right to star/unstar and left to toggle read/unread state.
 - Star or unstar articles when the API has the required `feedId` and `guidHash`.
 - Mark all unread articles in the current view as read with the drag-up floating action button.
 - Preserve pending local read/star state when upload fails.

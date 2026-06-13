@@ -284,6 +284,7 @@ class UiContractTests(unittest.TestCase):
             "markAllTarget",
             "Mark read",
             "Mark unread",
+            "cardContent.x > 0",
             "toggleStar",
             "toggleRead",
             "markVisibleRead",
