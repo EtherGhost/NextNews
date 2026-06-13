@@ -290,6 +290,8 @@ class UiContractTests(unittest.TestCase):
             "cardContent.x > 0",
             "readStateBadgeLabel",
             "pendingBadgeLabel",
+            "feedFaviconLink",
+            "Unknown feed",
             "theme.palette.normal.background",
             "navigationRowSelected",
             "color: page.navigationRowSelected(model.type, model.id) ? \"white\" : theme.palette.normal.backgroundText",
@@ -311,6 +313,8 @@ class UiContractTests(unittest.TestCase):
         ]:
             self.assertIn(snippet, page)
         for snippet in ["All articles", "Unread", "Starred", "Folders", "Feeds", "Today", "Yesterday", "emitRequestedFolderIfAvailable(folders)", "setAutoSyncEnabled", "setSortOldestFirst", "setSearchIn", "leftId", "rightId", "sectionKeyForTimestamp"]:
+            self.assertIn(snippet, controller)
+        for snippet in ["feedForId", "item.feedTitle", "item.feedFaviconLink"]:
             self.assertIn(snippet, controller)
         for snippet in ["folderCreateRunning", "feedCreateRunning"]:
             self.assertIn(snippet, controller)

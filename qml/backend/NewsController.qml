@@ -989,11 +989,23 @@ Item {
             if (item.unread) {
                 unread += 1
             }
+            var feed = feedForId(item.feedId)
+            item.feedTitle = feed.title || ""
+            item.feedFaviconLink = feed.faviconLink || ""
             item.sectionKey = sectionKeyForTimestamp(item.pubDate)
             item.sectionLabel = sectionLabelForTimestamp(item.pubDate)
             model.append(item)
         }
         visibleUnreadCount = unread
+    }
+
+    function feedForId(feedId) {
+        for (var i = 0; i < allFeeds.length; ++i) {
+            if (Number(allFeeds[i].feedId) === Number(feedId)) {
+                return allFeeds[i]
+            }
+        }
+        return {}
     }
 
     function sectionKeyForTimestamp(seconds) {

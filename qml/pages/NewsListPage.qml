@@ -817,7 +817,7 @@ Page {
             property int currentItemId: model.itemId
             property bool currentUnread: model.unread
             width: articleList.width
-            height: units.gu(8.2)
+            height: units.gu(10.2)
             radius: units.gu(0.8)
             color: Math.abs(cardContent.x) > width * 0.12 ? "#2c7fb8" : "transparent"
 
@@ -937,6 +937,56 @@ Page {
                                 opacity: model.unread ? 0.76 : 0.58
                                 elide: Text.ElideRight
                                 maximumLineCount: 1
+                            }
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: units.gu(2.4)
+                            spacing: units.gu(0.75)
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: units.gu(0.45)
+
+                                Rectangle {
+                                    Layout.preferredWidth: units.gu(2)
+                                    Layout.preferredHeight: units.gu(2)
+                                    Layout.alignment: Qt.AlignVCenter
+                                    radius: units.gu(1)
+                                    color: model.feedFaviconLink && model.feedFaviconLink.length > 0
+                                        ? "transparent"
+                                        : "#4d6f8f"
+                                    border.width: model.feedFaviconLink && model.feedFaviconLink.length > 0 ? 0 : 1
+                                    border.color: "#7a7a7a"
+                                    clip: true
+
+                                    Image {
+                                        anchors.fill: parent
+                                        source: model.feedFaviconLink
+                                        fillMode: Image.PreserveAspectCrop
+                                        visible: model.feedFaviconLink && model.feedFaviconLink.length > 0
+                                    }
+
+                                    Label {
+                                        anchors.centerIn: parent
+                                        visible: !model.feedFaviconLink || model.feedFaviconLink.length === 0
+                                        text: model.feedTitle && model.feedTitle.length > 0
+                                            ? model.feedTitle.charAt(0).toUpperCase()
+                                            : "?"
+                                        color: "white"
+                                        font.bold: true
+                                        font.pixelSize: units.gu(1.2)
+                                    }
+                                }
+
+                                Label {
+                                    Layout.fillWidth: true
+                                    text: model.feedTitle && model.feedTitle.length > 0 ? model.feedTitle : i18n.tr("Unknown feed")
+                                    opacity: model.unread ? 0.72 : 0.56
+                                    elide: Text.ElideRight
+                                    maximumLineCount: 1
+                                }
                             }
 
                             Row {
