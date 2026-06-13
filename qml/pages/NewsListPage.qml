@@ -882,6 +882,7 @@ Page {
 
                             Label {
                                 Layout.fillWidth: true
+                                Layout.alignment: Qt.AlignTop
                                 text: model.title
                                 font.bold: model.unread
                                 opacity: model.unread ? 1.0 : 0.74
@@ -893,6 +894,7 @@ Page {
 
                             Label {
                                 Layout.preferredWidth: Math.max(units.gu(4.5), implicitWidth)
+                                Layout.alignment: Qt.AlignTop
                                 text: page.relativeTime(model.pubDate)
                                 horizontalAlignment: Text.AlignRight
                                 opacity: 0.72
