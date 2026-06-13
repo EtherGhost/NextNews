@@ -377,8 +377,11 @@ class UiContractTests(unittest.TestCase):
 
     def test_about_page_records_version_license_and_disclaimer(self):
         page = read_text("qml/pages/AboutPage.qml")
+        manifest = json.loads(read_text("manifest.json.in"))
+        changelog = read_text("CHANGELOG.md")
 
         for snippet in [
+            "0.1.1",
             "Version %1",
             "MIT License",
             "Etherghost",
@@ -386,6 +389,9 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
+        self.assertEqual(manifest["version"], "0.1.1")
+        self.assertIn("## 0.1.1", changelog)
+        self.assertIn("## 0.1.0", changelog)
 
 
 class DocumentationTests(unittest.TestCase):
