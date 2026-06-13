@@ -644,7 +644,7 @@ Page {
     }
 
     function authorizeSelectedAccount() {
-        page.commitServerUrlInput("authorize")
+        page.commitServerUrlInput("authenticate")
     }
 
     function authorizeSelectedAccountAfterCommit() {
@@ -653,16 +653,7 @@ Page {
             return
         }
 
-        refreshSelectedServiceHandle()
-        console.log(
-            "NextNews OnlineAccountsSetup starting"
-            + " accountId=" + selectedAccountId
-            + " providerId=" + selectedProviderId
-            + " applicationId=" + nextNewsApplicationId
-            + " serviceId=" + selectedServiceId
-        )
-        authorizationStatus = i18n.tr("Opening the system Online Accounts authorization flow...")
-        accountSetup.exec()
+        authenticateSelectedAccountAfterCommit()
     }
 
     function authenticateSelectedAccount() {

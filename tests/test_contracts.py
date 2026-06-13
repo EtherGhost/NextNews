@@ -28,6 +28,9 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("nextnews.cloudsite_nextnews", page)
         self.assertIn("nextnews.cloudsite_nextnews_nextcloud", page)
         self.assertIn("nextnews.cloudsite_nextnews_owncloud", page)
+        self.assertIn("findPreferredAppService", page)
+        self.assertIn("selectedService.updateServiceEnabled(true)", page)
+        self.assertNotIn("accountSetup.exec()", page)
         self.assertNotIn("nextnotes", page.lower())
 
     def test_apparmor_is_minimal(self):

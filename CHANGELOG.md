@@ -4,6 +4,7 @@
 
 - Fixed article swipe actions: swipe right now toggles star/favorite, and swipe left toggles read/unread.
 - Fixed unreadable navigation drawer row text in light mode for Views, Folders, and Feeds.
+- Fixed Online Accounts authorization so selecting an existing Ubuntu Touch account does not open the provider login page.
 
 ## 0.1.0 - 2026-06-13
 

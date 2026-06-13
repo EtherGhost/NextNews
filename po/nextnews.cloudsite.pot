@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-13 18:29+0000\n"
+"POT-Creation-Date: 2026-06-13 18:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,44 +470,40 @@ msgid "Selected %1. Authorize the account before using it."
 msgstr ""
 
 #: qml/pages/AccountSelectionPage.qml:652
-#: qml/pages/AccountSelectionPage.qml:674
+#: qml/pages/AccountSelectionPage.qml:665
 msgid "Select an account first."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:664
-msgid "Opening the system Online Accounts authorization flow..."
-msgstr ""
-
-#: qml/pages/AccountSelectionPage.qml:679
+#: qml/pages/AccountSelectionPage.qml:670
 msgid "Verifying Online Accounts authorization..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:733
+#: qml/pages/AccountSelectionPage.qml:724
 msgid ""
 "No account is saved yet. Select a Nextcloud account below, authorize it, and "
 "verify access."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:736
+#: qml/pages/AccountSelectionPage.qml:727
 msgid ""
 "%1 on %2\n"
 "providerId=%3 serviceId=%4"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:737
+#: qml/pages/AccountSelectionPage.qml:728
 msgid "Saved account"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:738
+#: qml/pages/AccountSelectionPage.qml:729
 msgid "server URL missing"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:750
-#: qml/pages/AccountSelectionPage.qml:778
+#: qml/pages/AccountSelectionPage.qml:741
+#: qml/pages/AccountSelectionPage.qml:769
 msgid "No account selected"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:761
+#: qml/pages/AccountSelectionPage.qml:752
 msgid "The selected Ubuntu Touch account did not expose a server address."
 msgstr ""
 
