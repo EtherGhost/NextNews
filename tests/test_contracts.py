@@ -96,6 +96,24 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("mktemp .clickable/nextnews-desktop-test", desktop_script)
         self.assertIn("nextnews-desktop-env.local", desktop_script)
 
+    def test_translation_structure_matches_visible_language_choices(self):
+        main = read_text("main.cpp")
+        language_page = read_text("qml/pages/LanguageSelectionPage.qml")
+        readme = read_text("README.md")
+
+        for language_code in ["sv", "de", "fr", "nl", "da", "nb", "es", "fi"]:
+            self.assertIn(f'"{language_code}"', language_page)
+            self.assertIn(f'QStringLiteral("{language_code}")', main)
+            self.assertTrue((ROOT / "po" / f"{language_code}.po").exists())
+
+        for snippet in [
+            "AI-assisted translation",
+            "Some translations are AI-assisted and not fully reviewed",
+            "Translations are gettext `.po` files under `po/`",
+            "German, French, Dutch, Danish, Norwegian Bokmal, Spanish, and Finnish",
+        ]:
+            self.assertIn(snippet, language_page + readme)
+
 
 class NewsApiContractTests(unittest.TestCase):
     def test_news_api_endpoints_are_v1_2(self):

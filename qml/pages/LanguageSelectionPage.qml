@@ -9,7 +9,14 @@ Page {
     property var languageOptions: [
         { "code": "", "label": i18n.tr("Follow system language"), "detail": i18n.tr("Default") },
         { "code": "en", "label": "English", "detail": i18n.tr("Built-in source language") },
-        { "code": "sv", "label": "Svenska", "detail": i18n.tr("Initial translation") }
+        { "code": "sv", "label": "Svenska", "detail": "" },
+        { "code": "de", "label": "Deutsch", "detail": i18n.tr("AI-assisted translation") },
+        { "code": "fr", "label": "Francais", "detail": i18n.tr("AI-assisted translation") },
+        { "code": "nl", "label": "Nederlands", "detail": i18n.tr("AI-assisted translation") },
+        { "code": "da", "label": "Dansk", "detail": i18n.tr("AI-assisted translation") },
+        { "code": "nb", "label": "Norsk bokmal", "detail": i18n.tr("AI-assisted translation") },
+        { "code": "es", "label": "Espanol", "detail": i18n.tr("AI-assisted translation") },
+        { "code": "fi", "label": "Suomi", "detail": i18n.tr("AI-assisted translation") }
     ]
 
     header: PageHeader {
@@ -36,6 +43,14 @@ Page {
             text: i18n.tr("Choose the language NextNews should use. Restart the app after changing language.")
             wrapMode: Text.WordWrap
             color: theme.palette.normal.backgroundText
+        }
+
+        Label {
+            Layout.fillWidth: true
+            text: i18n.tr("Some translations are AI-assisted and not fully reviewed. You can help improve translations in the project repository.")
+            wrapMode: Text.WordWrap
+            fontSize: "small"
+            color: "#7a7a7a"
         }
 
         Rectangle {

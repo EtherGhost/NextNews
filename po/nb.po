@@ -1,20 +1,19 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Norwegian Bokmal translations for nextnews.cloudsite package.
+# Copyright (C) 2026 THE nextnews.cloudsite'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the nextnews.cloudsite package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Automatically generated, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-13 20:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2026-06-13 20:25+0000\n"
+"PO-Revision-Date: 2026-06-13 00:00+0200\n"
+"Last-Translator: AI-assisted starter translation\n"
+"Language-Team: Norwegian Bokmal\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: qml/backend/AccountSessionAdapter.qml:66
@@ -25,7 +24,7 @@ msgstr ""
 
 #: qml/backend/AccountSessionAdapter.qml:93
 msgid "Authentication failed: %1"
-msgstr ""
+msgstr "Autentisering mislyktes: %1"
 
 #: qml/backend/AccountSessionAdapter.qml:101
 msgid "Desktop test credentials are incomplete."
@@ -42,7 +41,7 @@ msgstr ""
 
 #: qml/backend/AccountSessionAdapter.qml:152
 msgid "Waiting for Online Accounts..."
-msgstr ""
+msgstr "Venter på Online Accounts..."
 
 #: qml/backend/AccountSessionAdapter.qml:154
 msgid ""
@@ -90,20 +89,20 @@ msgstr ""
 
 #: qml/backend/NewsCache.qml:319
 msgid "Untitled article"
-msgstr ""
+msgstr "Artikkel uten tittel"
 
 #: qml/backend/NewsController.qml:14
 msgid "Idle"
-msgstr ""
+msgstr "Klar"
 
 #: qml/backend/NewsController.qml:18 qml/backend/NewsController.qml:448
 #: qml/backend/NewsController.qml:933 qml/backend/NewsController.qml:958
 msgid "All articles"
-msgstr ""
+msgstr "Alle artikler"
 
 #: qml/backend/NewsController.qml:118
 msgid "Authentication failed"
-msgstr ""
+msgstr "Autentisering mislyktes"
 
 #: qml/backend/NewsController.qml:144
 msgid "Folder added. Refreshing..."
@@ -118,7 +117,7 @@ msgstr ""
 #: qml/backend/NewsController.qml:849 qml/backend/NewsController.qml:869
 #: qml/backend/NewsController.qml:895
 msgid "Syncing"
-msgstr ""
+msgstr "Synkroniserer"
 
 #: qml/backend/NewsController.qml:153
 msgid "Folder renamed. Refreshing..."
@@ -146,20 +145,20 @@ msgstr ""
 
 #: qml/backend/NewsController.qml:228
 msgid "Articles refreshed."
-msgstr ""
+msgstr "Artikler oppdatert."
 
 #: qml/backend/NewsController.qml:229 qml/backend/NewsController.qml:402
 #: qml/backend/NewsController.qml:590
 msgid "Up to date"
-msgstr ""
+msgstr "Oppdatert"
 
 #: qml/backend/NewsController.qml:250
 msgid "Offline cache"
-msgstr ""
+msgstr "Frakoblet hurtiglager"
 
 #: qml/backend/NewsController.qml:250
 msgid "Sync failed"
-msgstr ""
+msgstr "Synkronisering mislyktes"
 
 #: qml/backend/NewsController.qml:308
 msgid ""
@@ -172,11 +171,11 @@ msgstr ""
 #: qml/backend/NewsController.qml:822 qml/backend/NewsController.qml:843
 #: qml/backend/NewsController.qml:863 qml/backend/NewsController.qml:884
 msgid "No account"
-msgstr ""
+msgstr "Ingen konto"
 
 #: qml/backend/NewsController.qml:314
 msgid "Loading articles..."
-msgstr ""
+msgstr "Laster artikler..."
 
 #: qml/backend/NewsController.qml:314
 msgid "Showing cached articles. Refreshing..."
@@ -306,40 +305,40 @@ msgstr ""
 #: qml/backend/NewsController.qml:958 qml/backend/NewsController.qml:959
 #: qml/backend/NewsController.qml:960
 msgid "Views"
-msgstr ""
+msgstr "Visninger"
 
 #: qml/backend/NewsController.qml:959 qml/pages/ArticleDetailPage.qml:88
 #: qml/pages/NewsListPage.qml:976
 msgid "Unread"
-msgstr ""
+msgstr "Uleste"
 
 #: qml/backend/NewsController.qml:960 qml/pages/ArticleDetailPage.qml:94
 msgid "Starred"
-msgstr ""
+msgstr "Stjernemerket"
 
 #: qml/backend/NewsController.qml:962 qml/pages/NewsListPage.qml:1264
 msgid "Folders"
-msgstr ""
+msgstr "Mapper"
 
 #: qml/backend/NewsController.qml:965 qml/pages/NewsListPage.qml:1275
 msgid "Feeds"
-msgstr ""
+msgstr "Feeder"
 
 #: qml/backend/NewsController.qml:1029
 msgid "Older"
-msgstr ""
+msgstr "Eldre"
 
 #: qml/backend/NewsController.qml:1036
 msgid "Today"
-msgstr ""
+msgstr "I dag"
 
 #: qml/backend/NewsController.qml:1039
 msgid "Yesterday"
-msgstr ""
+msgstr "I går"
 
 #: qml/pages/AboutPage.qml:11 qml/pages/NewsListPage.qml:1222
 msgid "About"
-msgstr ""
+msgstr "Om"
 
 #: qml/pages/AboutPage.qml:44 qml/pages/NewsListPage.qml:1185
 msgid "NextNews"
@@ -347,15 +346,15 @@ msgstr ""
 
 #: qml/pages/AboutPage.qml:52
 msgid "Version %1"
-msgstr ""
+msgstr "Versjon %1"
 
 #: qml/pages/AboutPage.qml:59
 msgid "Native but simple Ubuntu Touch client for Nextcloud News."
-msgstr ""
+msgstr "Innfødt, men enkel Ubuntu Touch-klient for Nextcloud News."
 
 #: qml/pages/AboutPage.qml:72
 msgid "License"
-msgstr ""
+msgstr "Lisens"
 
 #: qml/pages/AboutPage.qml:78
 msgid "NextNews is licensed under the MIT License."
@@ -405,11 +404,11 @@ msgstr ""
 
 #: qml/pages/AccountSelectionPage.qml:181
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 #: qml/pages/AccountSelectionPage.qml:248
 msgid "Server address"
-msgstr ""
+msgstr "Serveradresse"
 
 #: qml/pages/AccountSelectionPage.qml:256
 msgid "https://cloud.example.com"
@@ -423,7 +422,7 @@ msgstr ""
 
 #: qml/pages/AccountSelectionPage.qml:273
 msgid "Available accounts"
-msgstr ""
+msgstr "Tilgjengelige kontoer"
 
 #: qml/pages/AccountSelectionPage.qml:299
 msgid "No Nextcloud account found"
@@ -437,27 +436,27 @@ msgstr ""
 
 #: qml/pages/AccountSelectionPage.qml:401
 msgid "Selected"
-msgstr ""
+msgstr "Valgt"
 
 #: qml/pages/AccountSelectionPage.qml:401
 msgid "Use"
-msgstr ""
+msgstr "Bruk"
 
 #: qml/pages/AccountSelectionPage.qml:424
 msgid "Authorize"
-msgstr ""
+msgstr "Autoriser"
 
 #: qml/pages/AccountSelectionPage.qml:431
 msgid "Verify"
-msgstr ""
+msgstr "Kontroller"
 
 #: qml/pages/AccountSelectionPage.qml:447
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostikk"
 
 #: qml/pages/AccountSelectionPage.qml:447
 msgid "Hide diagnostics"
-msgstr ""
+msgstr "Skjul diagnostikk"
 
 #: qml/pages/AccountSelectionPage.qml:454
 msgid ""
@@ -509,43 +508,43 @@ msgstr ""
 
 #: qml/pages/ArticleDetailPage.qml:15 qml/pages/ArticleDetailPage.qml:144
 msgid "Article"
-msgstr ""
+msgstr "Artikkel"
 
 #: qml/pages/ArticleDetailPage.qml:20
 msgid "Open"
-msgstr ""
+msgstr "Åpne"
 
 #: qml/pages/ArticleDetailPage.qml:26
 msgid "Share"
-msgstr ""
+msgstr "Del"
 
 #: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:830
 msgid "Star"
-msgstr ""
+msgstr "Stjernemerk"
 
 #: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:830
 msgid "Unstar"
-msgstr ""
+msgstr "Fjern stjerne"
 
 #: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:842
 msgid "Mark read"
-msgstr ""
+msgstr "Merk som lest"
 
 #: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:842
 msgid "Mark unread"
-msgstr ""
+msgstr "Merk som ulest"
 
 #: qml/pages/ArticleDetailPage.qml:70
 msgid "Article not cached"
-msgstr ""
+msgstr "Artikkel ikke lagret lokalt"
 
 #: qml/pages/ArticleDetailPage.qml:88 qml/pages/NewsListPage.qml:976
 msgid "Read"
-msgstr ""
+msgstr "Lest"
 
 #: qml/pages/ArticleDetailPage.qml:100
 msgid "Pending sync"
-msgstr ""
+msgstr "Venter på synkronisering"
 
 #: qml/pages/ArticleDetailPage.qml:107
 msgid "Open this article online once to cache it for offline reading."
@@ -553,71 +552,59 @@ msgstr ""
 
 #: qml/pages/ArticleDetailPage.qml:114
 msgid "Open original link"
-msgstr ""
+msgstr "Åpne opprinnelig lenke"
 
 #: qml/pages/ArticleDetailPage.qml:120
 msgid "Share by email"
-msgstr ""
+msgstr "Del via e-post"
 
 #: qml/pages/LanguageSelectionPage.qml:10
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: qml/pages/LanguageSelectionPage.qml:10
 msgid "Follow system language"
-msgstr ""
+msgstr "Følg systemspråk"
 
 #: qml/pages/LanguageSelectionPage.qml:11
 msgid "Built-in source language"
+msgstr "Innebygd kildespråk"
+
+#: qml/pages/LanguageSelectionPage.qml:12
+msgid "Initial translation"
 msgstr ""
 
-#: qml/pages/LanguageSelectionPage.qml:13
-#: qml/pages/LanguageSelectionPage.qml:14
-#: qml/pages/LanguageSelectionPage.qml:15
-#: qml/pages/LanguageSelectionPage.qml:16
-#: qml/pages/LanguageSelectionPage.qml:17
-#: qml/pages/LanguageSelectionPage.qml:18
-#: qml/pages/LanguageSelectionPage.qml:19
-msgid "AI-assisted translation"
-msgstr ""
-
-#: qml/pages/LanguageSelectionPage.qml:23 qml/pages/NewsListPage.qml:1202
+#: qml/pages/LanguageSelectionPage.qml:16 qml/pages/NewsListPage.qml:1202
 msgid "Language"
-msgstr ""
+msgstr "Språk"
 
-#: qml/pages/LanguageSelectionPage.qml:43
+#: qml/pages/LanguageSelectionPage.qml:36
 msgid ""
 "Choose the language NextNews should use. Restart the app after changing "
 "language."
-msgstr ""
+msgstr "Velg språket NextNews skal bruke. Start appen på nytt etter å ha endret språk."
 
-#: qml/pages/LanguageSelectionPage.qml:50
-msgid ""
-"Some translations are AI-assisted and not fully reviewed. You can help "
-"improve translations in the project repository."
-msgstr ""
-
-#: qml/pages/LanguageSelectionPage.qml:139
+#: qml/pages/LanguageSelectionPage.qml:124
 msgid "NextNews will follow the system language after restart."
-msgstr ""
+msgstr "NextNews følger systemspråket etter omstart."
 
-#: qml/pages/LanguageSelectionPage.qml:140
+#: qml/pages/LanguageSelectionPage.qml:125
 msgid "NextNews will use %1 after restart."
-msgstr ""
+msgstr "NextNews bruker %1 etter omstart."
 
 #: qml/pages/NewsListPage.qml:16 qml/pages/NewsListPage.qml:104
 #: qml/pages/NewsListPage.qml:348 qml/pages/NewsListPage.qml:352
 #: qml/pages/NewsListPage.qml:484
 msgid "No folder"
-msgstr ""
+msgstr "Ingen mappe"
 
 #: qml/pages/NewsListPage.qml:143
 msgid "Search articles"
-msgstr ""
+msgstr "Søk i artikler"
 
 #: qml/pages/NewsListPage.qml:295
 msgid "Add feed"
-msgstr ""
+msgstr "Legg til feed"
 
 #: qml/pages/NewsListPage.qml:310
 msgid "Add an RSS or Atom feed to the selected Nextcloud News account."
@@ -625,7 +612,7 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:318
 msgid "Feed URL"
-msgstr ""
+msgstr "Feed-URL"
 
 #: qml/pages/NewsListPage.qml:331
 msgid "Clear feed URL"
@@ -633,20 +620,20 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:342
 msgid "Folder: %1"
-msgstr ""
+msgstr "Mappe: %1"
 
 #: qml/pages/NewsListPage.qml:363
 msgid "New folder name"
-msgstr ""
+msgstr "Nytt mappenavn"
 
 #: qml/pages/NewsListPage.qml:369 qml/pages/NewsListPage.qml:401
 #: qml/pages/NewsListPage.qml:453
 msgid "Adding..."
-msgstr ""
+msgstr "Legger til..."
 
 #: qml/pages/NewsListPage.qml:369
 msgid "Create"
-msgstr ""
+msgstr "Opprett"
 
 #: qml/pages/NewsListPage.qml:399
 msgid "Waiting for folder..."
@@ -654,18 +641,18 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:402 qml/pages/NewsListPage.qml:453
 msgid "Add"
-msgstr ""
+msgstr "Legg til"
 
 #: qml/pages/NewsListPage.qml:415 qml/pages/NewsListPage.qml:464
 #: qml/pages/NewsListPage.qml:538 qml/pages/NewsListPage.qml:584
 #: qml/pages/NewsListPage.qml:611 qml/pages/NewsListPage.qml:644
 #: qml/pages/NewsListPage.qml:690 qml/pages/NewsListPage.qml:717
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: qml/pages/NewsListPage.qml:428
 msgid "New folder"
-msgstr ""
+msgstr "Ny mappe"
 
 #: qml/pages/NewsListPage.qml:429
 msgid "Create a folder in Nextcloud News."
@@ -673,31 +660,31 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:433 qml/pages/NewsListPage.qml:660
 msgid "Folder name"
-msgstr ""
+msgstr "Mappenavn"
 
 #: qml/pages/NewsListPage.qml:476
 msgid "Feed options"
-msgstr ""
+msgstr "Feedvalg"
 
 #: qml/pages/NewsListPage.qml:479
 msgid "Move to folder"
-msgstr ""
+msgstr "Flytt til mappe"
 
 #: qml/pages/NewsListPage.qml:510 qml/pages/NewsListPage.qml:549
 msgid "Rename feed"
-msgstr ""
+msgstr "Gi feed nytt navn"
 
 #: qml/pages/NewsListPage.qml:520
 msgid "Open in app"
-msgstr ""
+msgstr "Åpne i app"
 
 #: qml/pages/NewsListPage.qml:521
 msgid "Open in browser"
-msgstr ""
+msgstr "Åpne i nettleser"
 
 #: qml/pages/NewsListPage.qml:529
 msgid "Delete feed"
-msgstr ""
+msgstr "Slett feed"
 
 #: qml/pages/NewsListPage.qml:550
 msgid "Change the feed name on Nextcloud News."
@@ -705,15 +692,15 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:554
 msgid "Feed name"
-msgstr ""
+msgstr "Feednavn"
 
 #: qml/pages/NewsListPage.qml:573 qml/pages/NewsListPage.qml:679
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #: qml/pages/NewsListPage.qml:573 qml/pages/NewsListPage.qml:679
 msgid "Saving..."
-msgstr ""
+msgstr "Lagrer..."
 
 #: qml/pages/NewsListPage.qml:595
 msgid "Delete feed?"
@@ -725,19 +712,19 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:599 qml/pages/NewsListPage.qml:705
 msgid "Delete"
-msgstr ""
+msgstr "Slett"
 
 #: qml/pages/NewsListPage.qml:623
 msgid "Folder options"
-msgstr ""
+msgstr "Mappevalg"
 
 #: qml/pages/NewsListPage.qml:626 qml/pages/NewsListPage.qml:655
 msgid "Rename folder"
-msgstr ""
+msgstr "Gi mappe nytt navn"
 
 #: qml/pages/NewsListPage.qml:635
 msgid "Delete folder"
-msgstr ""
+msgstr "Slett mappe"
 
 #: qml/pages/NewsListPage.qml:656
 msgid "Change the folder name on Nextcloud News."
@@ -754,19 +741,19 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:956
 msgid "Unknown feed"
-msgstr ""
+msgstr "Ukjent feed"
 
 #: qml/pages/NewsListPage.qml:991
 msgid "Pending"
-msgstr ""
+msgstr "Venter"
 
 #: qml/pages/NewsListPage.qml:1150
 msgid "No articles to show"
-msgstr ""
+msgstr "Ingen artikler å vise"
 
 #: qml/pages/NewsListPage.qml:1150
 msgid "No matching articles"
-msgstr ""
+msgstr "Ingen samsvarende artikler"
 
 #: qml/pages/NewsListPage.qml:1158
 msgid "Try another feed or clear search."
@@ -778,15 +765,15 @@ msgstr ""
 
 #: qml/pages/NewsListPage.qml:1192
 msgid "Refresh"
-msgstr ""
+msgstr "Oppdater"
 
 #: qml/pages/NewsListPage.qml:1192
 msgid "Refreshing..."
-msgstr ""
+msgstr "Oppdaterer..."
 
 #: qml/pages/NewsListPage.qml:1211 qml/pages/SettingsPage.qml:12
 msgid "Settings"
-msgstr ""
+msgstr "Innstillinger"
 
 #: qml/pages/NewsListPage.qml:1403
 msgid "%1m"
@@ -798,15 +785,15 @@ msgstr ""
 
 #: qml/pages/SettingsPage.qml:34
 msgid "Sync"
-msgstr ""
+msgstr "Synkronisering"
 
 #: qml/pages/SettingsPage.qml:40
 msgid "Sync while app is active"
-msgstr ""
+msgstr "Synkroniser mens appen er aktiv"
 
 #: qml/pages/SettingsPage.qml:46
 msgid "Sync on startup"
-msgstr ""
+msgstr "Synkroniser ved oppstart"
 
 #: qml/pages/SettingsPage.qml:57
 msgid "Active sync interval"
@@ -820,28 +807,28 @@ msgstr ""
 
 #: qml/pages/SettingsPage.qml:88
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: qml/pages/SettingsPage.qml:94
 msgid "Oldest articles first"
-msgstr ""
+msgstr "Eldste artikler først"
 
 #: qml/pages/SettingsPage.qml:100
 msgid "Open articles in browser directly"
-msgstr ""
+msgstr "Åpne artikler direkte i nettleseren"
 
 #: qml/pages/SettingsPage.qml:107
 msgid "Search"
-msgstr ""
+msgstr "Søk"
 
 #: qml/pages/SettingsPage.qml:118
 msgid "Title"
-msgstr ""
+msgstr "Tittel"
 
 #: qml/pages/SettingsPage.qml:125
 msgid "Content"
-msgstr ""
+msgstr "Innhold"
 
 #: qml/pages/SettingsPage.qml:132
 msgid "Both"
-msgstr ""
+msgstr "Begge"

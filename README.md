@@ -62,6 +62,25 @@ NextNews uses Ubuntu Touch Online Accounts only.
 
 Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings > Accounts, then authorize that account inside NextNews. Credentials are taken from the selected system account. The server address is read from the account when available and can be corrected in the account page if Ubuntu Touch does not expose the correct host. Credentials are requested from Online Accounts at runtime and are not stored by NextNews. After successful runtime authentication, credentials may be kept only in process memory for the current app session.
 
+## Languages
+
+Current language choices:
+
+- Follow system language
+- English
+- Swedish
+- German
+- French
+- Dutch
+- Danish
+- Norwegian Bokmal
+- Spanish
+- Finnish
+
+Swedish has an initial translation for the current UI. German, French, Dutch, Danish, Norwegian Bokmal, Spanish, and Finnish currently use partial AI-assisted starter translations and need review by fluent speakers. Untranslated strings fall back to the built-in English source text.
+
+Translations are gettext `.po` files under `po/`. Improvements are welcome by editing the relevant language file or adding a new `.po` catalog based on `po/nextnews.cloudsite.pot`.
+
 ## Architecture
 
 NextNews is a Clickable QML/C++ Ubuntu Touch application.
