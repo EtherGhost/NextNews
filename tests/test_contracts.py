@@ -60,6 +60,8 @@ class ProjectIdentityTests(unittest.TestCase):
         controller = read_text("qml/backend/NewsController.qml")
         clickable = read_text("clickable.yaml")
         desktop_script = read_text("scripts/desktop-test.sh")
+        dark_script = read_text("scripts/desktop-dark.sh")
+        main_qml = read_text("qml/Main.qml")
 
         for snippet in [
             "NEXTNEWS_DESKTOP_TEST_AUTH",
@@ -82,8 +84,15 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("accountSession.envTestAuthEnabled", controller)
         self.assertIn("accountSettings.serverUrl = serverUrl", controller)
         self.assertIn("desktop-test: bash scripts/desktop-test.sh", clickable)
+        self.assertIn("desktop-dark: bash scripts/desktop-dark.sh", clickable)
+        self.assertIn("desktop-test-dark: bash scripts/desktop-test.sh --dark", clickable)
         self.assertIn("env_vars:", desktop_script)
         self.assertIn("NEXTNEWS_DESKTOP_TEST_AUTH", desktop_script)
+        self.assertIn("NEXTNEWS_DESKTOP_DARK_MODE", desktop_script)
+        self.assertIn("NEXTNEWS_DESKTOP_DARK_MODE", dark_script)
+        self.assertIn("desktopDarkMode", main)
+        self.assertIn("desktopDarkMode", main_qml)
+        self.assertIn("SuruDark", main_qml)
         self.assertIn("mktemp .clickable/nextnews-desktop-test", desktop_script)
         self.assertIn("nextnews-desktop-env.local", desktop_script)
 
