@@ -113,6 +113,11 @@ Page {
         Qt.inputMethod.hide()
     }
 
+    function navigationRowSelected(type, id) {
+        return type === newsController.selectedFilterType
+            && Number(id) === Number(newsController.selectedFilterId)
+    }
+
     header: PageHeader {
         id: header
         title: ""
@@ -1190,6 +1195,7 @@ Page {
                         Label {
                             Layout.fillWidth: true
                             text: section
+                            color: theme.palette.normal.backgroundText
                             font.bold: true
                             opacity: 0.58
                             elide: Text.ElideRight
@@ -1222,30 +1228,33 @@ Page {
                 delegate: Rectangle {
                     width: navigationList.width
                     height: units.gu(5)
-                    color: model.type === newsController.selectedFilterType && Number(model.id) === Number(newsController.selectedFilterId)
-                        ? "#2c7fb8"
-                        : theme.palette.normal.background
+                    color: page.navigationRowSelected(model.type, model.id) ? "#2c7fb8" : theme.palette.normal.background
 
                     RowLayout {
                         anchors.fill: parent
                         spacing: units.gu(0.5)
 
-                        Button {
+                        Item {
                             Layout.fillWidth: true
-                            text: model.label
-                            color: "transparent"
-                            onClicked: {
-                                page.menuOpen = false
-                                newsController.selectFilter(model.type, model.id, model.label)
+                            Layout.fillHeight: true
+
+                            Label {
+                                anchors {
+                                    fill: parent
+                                    leftMargin: units.gu(1)
+                                    rightMargin: units.gu(1)
+                                }
+                                text: model.label
+                                color: page.navigationRowSelected(model.type, model.id) ? "white" : theme.palette.normal.backgroundText
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
                             }
                         }
 
                         Label {
                             visible: model.count > 0
                             text: model.count
-                            color: model.type === newsController.selectedFilterType && Number(model.id) === Number(newsController.selectedFilterId)
-                                ? "white"
-                                : theme.palette.normal.backgroundText
+                            color: page.navigationRowSelected(model.type, model.id) ? "white" : theme.palette.normal.backgroundText
                             opacity: 0.75
                         }
 
@@ -1257,6 +1266,7 @@ Page {
                             Label {
                                 anchors.centerIn: parent
                                 text: "\u22ee"
+                                color: page.navigationRowSelected(model.type, model.id) ? "white" : theme.palette.normal.backgroundText
                                 font.pixelSize: units.gu(2.6)
                             }
 
@@ -1275,6 +1285,20 @@ Page {
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    MouseArea {
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                            rightMargin: model.type === "feed" || model.type === "folder" ? units.gu(5) : 0
+                        }
+                        onClicked: {
+                            page.menuOpen = false
+                            newsController.selectFilter(model.type, model.id, model.label)
                         }
                     }
                 }
