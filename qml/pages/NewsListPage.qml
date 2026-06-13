@@ -817,7 +817,7 @@ Page {
             property int currentItemId: model.itemId
             property bool currentUnread: model.unread
             width: articleList.width
-            height: units.gu(11)
+            height: units.gu(8.2)
             radius: units.gu(0.8)
             color: Math.abs(cardContent.x) > width * 0.12 ? "#2c7fb8" : "transparent"
 
@@ -847,35 +847,45 @@ Page {
 
             Rectangle {
                 id: cardContent
-                width: parent.width
+                x: units.gu(0.25)
+                width: parent.width - units.gu(0.5)
                 height: parent.height
-                radius: units.gu(0.8)
-                opacity: model.unread ? 1.0 : 0.48
-                color: theme.palette.normal.foreground
+                radius: units.gu(0.75)
+                color: theme.palette.normal.background
                 border.width: 1
-                border.color: model.unread ? theme.palette.normal.base : "#9a9a9a"
+                border.color: model.unread ? "#7a7a7a" : "#a5a5a5"
 
                 Behavior on x {
                     NumberAnimation { duration: 120 }
                 }
 
                 RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: units.gu(1)
-                    spacing: units.gu(1)
+                    anchors {
+                        fill: parent
+                        leftMargin: units.gu(0.75)
+                        rightMargin: units.gu(0.75)
+                        topMargin: units.gu(0.55)
+                        bottomMargin: units.gu(0.55)
+                    }
+                    spacing: units.gu(0.75)
 
-                    Item {
-                        Layout.preferredWidth: units.gu(5)
-                        Layout.preferredHeight: units.gu(5)
+                    Rectangle {
+                        Layout.preferredWidth: units.gu(4)
+                        Layout.preferredHeight: units.gu(4)
+                        Layout.alignment: Qt.AlignVCenter
+                        radius: units.gu(2)
+                        color: starMouseArea.pressed ? "#dedede" : "transparent"
 
                         Label {
                             anchors.centerIn: parent
                             text: model.starred ? "\u2605" : "\u2606"
-                            color: model.starred ? "#d9a300" : theme.palette.normal.backgroundText
-                            font.pixelSize: units.gu(3.2)
+                            color: model.starred ? "#f6c343" : "#6f6f6f"
+                            font.pixelSize: units.gu(2.4)
+                            opacity: model.unread ? 1.0 : 0.68
                         }
 
                         MouseArea {
+                            id: starMouseArea
                             anchors.fill: parent
                             onClicked: {
                                 var previousY = articleList.contentY
@@ -889,52 +899,79 @@ Page {
 
                     ColumnLayout {
                         Layout.fillWidth: true
-                        spacing: units.gu(0.25)
+                        Layout.fillHeight: true
+                        spacing: units.gu(0.1)
 
                         RowLayout {
                             Layout.fillWidth: true
+                            Layout.preferredHeight: units.gu(2.4)
+                            spacing: units.gu(0.75)
 
                             Label {
                                 Layout.fillWidth: true
                                 text: model.title
                                 font.bold: model.unread
+                                opacity: model.unread ? 1.0 : 0.74
                                 elide: Text.ElideRight
                                 maximumLineCount: 1
                             }
 
                             Label {
+                                Layout.preferredWidth: Math.max(units.gu(4.5), implicitWidth)
                                 text: page.relativeTime(model.pubDate)
-                                opacity: 0.7
-                                fontSize: "small"
+                                horizontalAlignment: Text.AlignRight
+                                opacity: 0.72
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
                             }
-                        }
-
-                        Label {
-                            Layout.fillWidth: true
-                            text: model.preview
-                            opacity: 0.72
-                            elide: Text.ElideRight
-                            maximumLineCount: 2
                         }
 
                         RowLayout {
                             Layout.fillWidth: true
-                            spacing: units.gu(0.7)
+                            Layout.preferredHeight: units.gu(2.4)
+                            spacing: units.gu(0.75)
 
                             Label {
-                                text: model.unread ? i18n.tr("Unread") : i18n.tr("Read")
-                                fontSize: "x-small"
-                                opacity: 0.65
+                                Layout.fillWidth: true
+                                text: model.preview
+                                opacity: model.unread ? 0.76 : 0.58
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
                             }
 
-                            Label {
-                                visible: model.pendingState.length > 0
-                                text: i18n.tr("Pending")
-                                fontSize: "x-small"
-                                color: "#b37a2a"
-                            }
+                            Row {
+                                Layout.alignment: Qt.AlignVCenter
+                                spacing: units.gu(0.4)
 
-                            Item { Layout.fillWidth: true }
+                                Rectangle {
+                                    color: model.unread ? "#2c7fb8" : "#6f6f6f"
+                                    height: readStateBadgeLabel.implicitHeight + units.gu(0.35)
+                                    width: readStateBadgeLabel.implicitWidth + units.gu(0.9)
+                                    radius: units.gu(0.3)
+
+                                    Label {
+                                        id: readStateBadgeLabel
+                                        anchors.centerIn: parent
+                                        text: model.unread ? i18n.tr("Unread") : i18n.tr("Read")
+                                        color: "white"
+                                    }
+                                }
+
+                                Rectangle {
+                                    visible: model.pendingState.length > 0
+                                    color: "#c65d00"
+                                    height: pendingBadgeLabel.implicitHeight + units.gu(0.35)
+                                    width: pendingBadgeLabel.implicitWidth + units.gu(0.9)
+                                    radius: units.gu(0.3)
+
+                                    Label {
+                                        id: pendingBadgeLabel
+                                        anchors.centerIn: parent
+                                        text: i18n.tr("Pending")
+                                        color: "white"
+                                    }
+                                }
+                            }
                         }
                     }
                 }

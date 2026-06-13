@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Restyled article list cards to better match the polished NextNotes card layout, with a subtler read/unread visual treatment.
+
 ## 0.1.2 - 2026-06-13
 
 - Fixed Online Accounts authorization so selecting an existing Ubuntu Touch account does not open the provider login page.
