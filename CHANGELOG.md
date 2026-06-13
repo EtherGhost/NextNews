@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Restyled article list cards to better match the polished NextNotes card layout, with a subtler read/unread visual treatment.
-- Added feed identity to article cards with feed favicon or fallback initial plus feed name.
+- Added feed identity to article cards with feed favicon or fallback initial, visual favorite star, and feed name.
 
 ## 0.1.2 - 2026-06-13
 

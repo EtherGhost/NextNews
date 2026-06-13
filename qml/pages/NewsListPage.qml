@@ -869,34 +869,6 @@ Page {
                     }
                     spacing: units.gu(0.75)
 
-                    Rectangle {
-                        Layout.preferredWidth: units.gu(4)
-                        Layout.preferredHeight: units.gu(4)
-                        Layout.alignment: Qt.AlignVCenter
-                        radius: units.gu(2)
-                        color: starMouseArea.pressed ? "#dedede" : "transparent"
-
-                        Label {
-                            anchors.centerIn: parent
-                            text: model.starred ? "\u2605" : "\u2606"
-                            color: model.starred ? "#f6c343" : "#6f6f6f"
-                            font.pixelSize: units.gu(2.4)
-                            opacity: model.unread ? 1.0 : 0.68
-                        }
-
-                        MouseArea {
-                            id: starMouseArea
-                            anchors.fill: parent
-                            onClicked: {
-                                var previousY = articleList.contentY
-                                newsController.toggleStar(model.itemId)
-                                Qt.callLater(function() {
-                                    articleList.contentY = previousY
-                                })
-                            }
-                        }
-                    }
-
                     ColumnLayout {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
@@ -904,7 +876,7 @@ Page {
 
                         RowLayout {
                             Layout.fillWidth: true
-                            Layout.preferredHeight: units.gu(2.4)
+                            Layout.preferredHeight: units.gu(5.0)
                             spacing: units.gu(0.75)
 
                             Label {
@@ -913,7 +885,8 @@ Page {
                                 font.bold: model.unread
                                 opacity: model.unread ? 1.0 : 0.74
                                 elide: Text.ElideRight
-                                maximumLineCount: 1
+                                maximumLineCount: 2
+                                wrapMode: Text.WordWrap
                             }
 
                             Label {
@@ -921,20 +894,6 @@ Page {
                                 text: page.relativeTime(model.pubDate)
                                 horizontalAlignment: Text.AlignRight
                                 opacity: 0.72
-                                elide: Text.ElideRight
-                                maximumLineCount: 1
-                            }
-                        }
-
-                        RowLayout {
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: units.gu(2.4)
-                            spacing: units.gu(0.75)
-
-                            Label {
-                                Layout.fillWidth: true
-                                text: model.preview
-                                opacity: model.unread ? 0.76 : 0.58
                                 elide: Text.ElideRight
                                 maximumLineCount: 1
                             }
@@ -978,6 +937,14 @@ Page {
                                         font.bold: true
                                         font.pixelSize: units.gu(1.2)
                                     }
+                                }
+
+                                Label {
+                                    visible: model.starred
+                                    text: "\u2605"
+                                    color: "#f6c343"
+                                    font.pixelSize: units.gu(1.8)
+                                    opacity: model.unread ? 1.0 : 0.72
                                 }
 
                                 Label {
@@ -1030,7 +997,6 @@ Page {
             MouseArea {
                 id: articleMouseArea
                 anchors.fill: parent
-                anchors.leftMargin: units.gu(6)
                 property real pressX: 0
                 property bool movedHorizontally: false
                 preventStealing: movedHorizontally

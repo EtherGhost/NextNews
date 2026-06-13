@@ -292,6 +292,7 @@ class UiContractTests(unittest.TestCase):
             "pendingBadgeLabel",
             "feedFaviconLink",
             "Unknown feed",
+            "maximumLineCount: 2",
             "theme.palette.normal.background",
             "navigationRowSelected",
             "color: page.navigationRowSelected(model.type, model.id) ? \"white\" : theme.palette.normal.backgroundText",
@@ -300,7 +301,6 @@ class UiContractTests(unittest.TestCase):
             "toggleRead",
             "markVisibleRead",
             "\\u2605",
-            "\\u2606",
             "pullRefreshThreshold",
             "ArticleDetailPage.qml",
             "AboutPage.qml",
@@ -319,6 +319,7 @@ class UiContractTests(unittest.TestCase):
         for snippet in ["folderCreateRunning", "feedCreateRunning"]:
             self.assertIn(snippet, controller)
         self.assertNotIn("enabled: !newsController.folderCreateRunning && addFeedPanelFolderNameField.text.trim().length > 0", page)
+        self.assertNotIn("\\u2606", page)
 
     def test_account_page_has_editable_server_address_without_manual_login(self):
         page = read_text("qml/pages/AccountSelectionPage.qml")
