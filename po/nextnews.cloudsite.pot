@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-13 14:48+0000\n"
+"POT-Creation-Date: 2026-06-13 18:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,30 +17,34 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: qml/backend/AccountSessionAdapter.qml:62
+#: qml/backend/AccountSessionAdapter.qml:66
 msgid ""
 "Authentication succeeded, but the required Online Accounts credentials were "
 "not available."
 msgstr ""
 
-#: qml/backend/AccountSessionAdapter.qml:89
+#: qml/backend/AccountSessionAdapter.qml:93
 msgid "Authentication failed: %1"
 msgstr ""
 
-#: qml/backend/AccountSessionAdapter.qml:95
+#: qml/backend/AccountSessionAdapter.qml:101
+msgid "Desktop test credentials are incomplete."
+msgstr ""
+
+#: qml/backend/AccountSessionAdapter.qml:121
 msgid ""
 "No account selected. Open Account first and authorize a Nextcloud account."
 msgstr ""
 
-#: qml/backend/AccountSessionAdapter.qml:101
+#: qml/backend/AccountSessionAdapter.qml:127
 msgid "No server URL configured. Open Account and authorize the OS account."
 msgstr ""
 
-#: qml/backend/AccountSessionAdapter.qml:126
+#: qml/backend/AccountSessionAdapter.qml:152
 msgid "Waiting for Online Accounts..."
 msgstr ""
 
-#: qml/backend/AccountSessionAdapter.qml:128
+#: qml/backend/AccountSessionAdapter.qml:154
 msgid ""
 "Selected Online Accounts service was not found. Open Account and verify the "
 "account again."
@@ -92,244 +96,244 @@ msgstr ""
 msgid "Idle"
 msgstr ""
 
-#: qml/backend/NewsController.qml:18 qml/backend/NewsController.qml:445
-#: qml/backend/NewsController.qml:930 qml/backend/NewsController.qml:955
+#: qml/backend/NewsController.qml:18 qml/backend/NewsController.qml:448
+#: qml/backend/NewsController.qml:933 qml/backend/NewsController.qml:958
 msgid "All articles"
 msgstr ""
 
-#: qml/backend/NewsController.qml:115
+#: qml/backend/NewsController.qml:118
 msgid "Authentication failed"
 msgstr ""
 
-#: qml/backend/NewsController.qml:141
+#: qml/backend/NewsController.qml:144
 msgid "Folder added. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:142 qml/backend/NewsController.qml:151
-#: qml/backend/NewsController.qml:168 qml/backend/NewsController.qml:177
-#: qml/backend/NewsController.qml:186 qml/backend/NewsController.qml:200
-#: qml/backend/NewsController.qml:212 qml/backend/NewsController.qml:312
-#: qml/backend/NewsController.qml:729 qml/backend/NewsController.qml:757
-#: qml/backend/NewsController.qml:798 qml/backend/NewsController.qml:826
-#: qml/backend/NewsController.qml:846 qml/backend/NewsController.qml:866
-#: qml/backend/NewsController.qml:892
+#: qml/backend/NewsController.qml:145 qml/backend/NewsController.qml:154
+#: qml/backend/NewsController.qml:171 qml/backend/NewsController.qml:180
+#: qml/backend/NewsController.qml:189 qml/backend/NewsController.qml:203
+#: qml/backend/NewsController.qml:215 qml/backend/NewsController.qml:315
+#: qml/backend/NewsController.qml:732 qml/backend/NewsController.qml:760
+#: qml/backend/NewsController.qml:801 qml/backend/NewsController.qml:829
+#: qml/backend/NewsController.qml:849 qml/backend/NewsController.qml:869
+#: qml/backend/NewsController.qml:895
 msgid "Syncing"
 msgstr ""
 
-#: qml/backend/NewsController.qml:150
+#: qml/backend/NewsController.qml:153
 msgid "Folder renamed. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:167
+#: qml/backend/NewsController.qml:170
 msgid "Feed added. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:176
+#: qml/backend/NewsController.qml:179
 msgid "Feed renamed. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:185
+#: qml/backend/NewsController.qml:188
 msgid "Feed moved. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:199
+#: qml/backend/NewsController.qml:202
 msgid "Feed deleted. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:211
+#: qml/backend/NewsController.qml:214
 msgid "Folder deleted. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:225
+#: qml/backend/NewsController.qml:228
 msgid "Articles refreshed."
 msgstr ""
 
-#: qml/backend/NewsController.qml:226 qml/backend/NewsController.qml:399
-#: qml/backend/NewsController.qml:587
+#: qml/backend/NewsController.qml:229 qml/backend/NewsController.qml:402
+#: qml/backend/NewsController.qml:590
 msgid "Up to date"
 msgstr ""
 
-#: qml/backend/NewsController.qml:247
+#: qml/backend/NewsController.qml:250
 msgid "Offline cache"
 msgstr ""
 
-#: qml/backend/NewsController.qml:247
+#: qml/backend/NewsController.qml:250
 msgid "Sync failed"
 msgstr ""
 
-#: qml/backend/NewsController.qml:305
+#: qml/backend/NewsController.qml:308
 msgid ""
 "Add a Nextcloud or ownCloud account in System Settings > Accounts, then "
 "authorize it here."
 msgstr ""
 
-#: qml/backend/NewsController.qml:306 qml/backend/NewsController.qml:721
-#: qml/backend/NewsController.qml:749 qml/backend/NewsController.qml:791
-#: qml/backend/NewsController.qml:819 qml/backend/NewsController.qml:840
-#: qml/backend/NewsController.qml:860 qml/backend/NewsController.qml:881
+#: qml/backend/NewsController.qml:309 qml/backend/NewsController.qml:724
+#: qml/backend/NewsController.qml:752 qml/backend/NewsController.qml:794
+#: qml/backend/NewsController.qml:822 qml/backend/NewsController.qml:843
+#: qml/backend/NewsController.qml:863 qml/backend/NewsController.qml:884
 msgid "No account"
 msgstr ""
 
-#: qml/backend/NewsController.qml:311
+#: qml/backend/NewsController.qml:314
 msgid "Loading articles..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:311
+#: qml/backend/NewsController.qml:314
 msgid "Showing cached articles. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:348
+#: qml/backend/NewsController.qml:351
 msgid "Uploading subscription changes"
 msgstr ""
 
-#: qml/backend/NewsController.qml:387
+#: qml/backend/NewsController.qml:390
 msgid "Subscription change saved and will retry on next sync."
 msgstr ""
 
-#: qml/backend/NewsController.qml:398
+#: qml/backend/NewsController.qml:401
 msgid "Local article changes uploaded."
 msgstr ""
 
-#: qml/backend/NewsController.qml:409 qml/backend/NewsController.qml:596
-#: qml/backend/NewsController.qml:690
+#: qml/backend/NewsController.qml:412 qml/backend/NewsController.qml:599
+#: qml/backend/NewsController.qml:693
 msgid "Uploading local changes"
 msgstr ""
 
-#: qml/backend/NewsController.qml:586
+#: qml/backend/NewsController.qml:589
 msgid "No unread articles in this view."
 msgstr ""
 
-#: qml/backend/NewsController.qml:594
+#: qml/backend/NewsController.qml:597
 msgid "Marked 1 article as read."
 msgstr ""
 
-#: qml/backend/NewsController.qml:595
+#: qml/backend/NewsController.qml:598
 msgid "Marked %1 articles as read."
 msgstr ""
 
-#: qml/backend/NewsController.qml:689
+#: qml/backend/NewsController.qml:692
 msgid "Local article change saved."
 msgstr ""
 
-#: qml/backend/NewsController.qml:711
+#: qml/backend/NewsController.qml:714
 msgid "Enter a feed URL."
 msgstr ""
 
-#: qml/backend/NewsController.qml:712
+#: qml/backend/NewsController.qml:715
 msgid "Feed not added"
 msgstr ""
 
-#: qml/backend/NewsController.qml:720
+#: qml/backend/NewsController.qml:723
 msgid "Authorize a Nextcloud account before adding feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:728
+#: qml/backend/NewsController.qml:731
 msgid "Adding feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:742 qml/backend/NewsController.qml:812
+#: qml/backend/NewsController.qml:745 qml/backend/NewsController.qml:815
 msgid "Enter a folder name."
 msgstr ""
 
-#: qml/backend/NewsController.qml:743
+#: qml/backend/NewsController.qml:746
 msgid "Folder not added"
 msgstr ""
 
-#: qml/backend/NewsController.qml:748
+#: qml/backend/NewsController.qml:751
 msgid "Authorize a Nextcloud account before adding folders."
 msgstr ""
 
-#: qml/backend/NewsController.qml:756
+#: qml/backend/NewsController.qml:759
 msgid "Adding folder..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:784
+#: qml/backend/NewsController.qml:787
 msgid "Enter a feed name."
 msgstr ""
 
-#: qml/backend/NewsController.qml:785
+#: qml/backend/NewsController.qml:788
 msgid "Feed not renamed"
 msgstr ""
 
-#: qml/backend/NewsController.qml:790
+#: qml/backend/NewsController.qml:793
 msgid "Authorize a Nextcloud account before renaming feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:797
+#: qml/backend/NewsController.qml:800
 msgid "Renaming feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:813
+#: qml/backend/NewsController.qml:816
 msgid "Folder not renamed"
 msgstr ""
 
-#: qml/backend/NewsController.qml:818
+#: qml/backend/NewsController.qml:821
 msgid "Authorize a Nextcloud account before renaming folders."
 msgstr ""
 
-#: qml/backend/NewsController.qml:825
+#: qml/backend/NewsController.qml:828
 msgid "Renaming folder..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:839
+#: qml/backend/NewsController.qml:842
 msgid "Authorize a Nextcloud account before moving feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:845
+#: qml/backend/NewsController.qml:848
 msgid "Moving feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:859
+#: qml/backend/NewsController.qml:862
 msgid "Authorize a Nextcloud account before deleting feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:865
+#: qml/backend/NewsController.qml:868
 msgid "Deleting feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:880
+#: qml/backend/NewsController.qml:883
 msgid "Authorize a Nextcloud account before deleting folders."
 msgstr ""
 
-#: qml/backend/NewsController.qml:890 qml/backend/NewsController.qml:919
+#: qml/backend/NewsController.qml:893 qml/backend/NewsController.qml:922
 msgid "Deleting folder feeds..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:891
+#: qml/backend/NewsController.qml:894
 msgid "Deleting folder..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:955 qml/backend/NewsController.qml:956
-#: qml/backend/NewsController.qml:957
+#: qml/backend/NewsController.qml:958 qml/backend/NewsController.qml:959
+#: qml/backend/NewsController.qml:960
 msgid "Views"
 msgstr ""
 
-#: qml/backend/NewsController.qml:956 qml/pages/ArticleDetailPage.qml:88
+#: qml/backend/NewsController.qml:959 qml/pages/ArticleDetailPage.qml:88
 #: qml/pages/NewsListPage.qml:920
 msgid "Unread"
 msgstr ""
 
-#: qml/backend/NewsController.qml:957 qml/pages/ArticleDetailPage.qml:94
+#: qml/backend/NewsController.qml:960 qml/pages/ArticleDetailPage.qml:94
 msgid "Starred"
 msgstr ""
 
-#: qml/backend/NewsController.qml:959 qml/pages/NewsListPage.qml:1197
+#: qml/backend/NewsController.qml:962 qml/pages/NewsListPage.qml:1197
 msgid "Folders"
 msgstr ""
 
-#: qml/backend/NewsController.qml:962 qml/pages/NewsListPage.qml:1208
+#: qml/backend/NewsController.qml:965 qml/pages/NewsListPage.qml:1208
 msgid "Feeds"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1014
+#: qml/backend/NewsController.qml:1017
 msgid "Older"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1021
+#: qml/backend/NewsController.qml:1024
 msgid "Today"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1024
+#: qml/backend/NewsController.qml:1027
 msgid "Yesterday"
 msgstr ""
 

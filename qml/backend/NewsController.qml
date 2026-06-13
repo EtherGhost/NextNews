@@ -100,6 +100,9 @@ Item {
         onAuthenticated: {
             controller.runtimeUserName = userName
             controller.runtimeSecret = secret
+            if (serverUrl && serverUrl.length > 0) {
+                accountSettings.serverUrl = serverUrl
+            }
             controller.accountAvatarUrl = controller.avatarUrl(accountSettings.serverUrl, userName)
             accountSettings.avatarUrl = controller.accountAvatarUrl
         }
@@ -1099,6 +1102,9 @@ Item {
     }
 
     function accountReady() {
+        if (accountSession.envTestAuthEnabled) {
+            return true
+        }
         return accountSettings.accountId > 0
             && accountSettings.serviceId.length > 0
             && accountSettings.serverUrl.length > 0

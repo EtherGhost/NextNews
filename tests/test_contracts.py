@@ -51,6 +51,39 @@ class ProjectIdentityTests(unittest.TestCase):
         ]:
             self.assertIn(filename, qrc)
 
+    def test_desktop_test_auth_is_opt_in_and_env_backed(self):
+        main = read_text("main.cpp")
+        session = read_text("qml/backend/AccountSessionAdapter.qml")
+        controller = read_text("qml/backend/NewsController.qml")
+        clickable = read_text("clickable.yaml")
+        desktop_script = read_text("scripts/desktop-test.sh")
+
+        for snippet in [
+            "NEXTNEWS_DESKTOP_TEST_AUTH",
+            "NEXTNEWS_TEST_SERVER",
+            "NEXTNEWS_TEST_USERNAME",
+            "NEXTNEWS_TEST_APP_PASSWORD",
+            "desktopTestAuthEnabled",
+            "readDesktopTestEnvFile",
+            ".clickable/nextnews-desktop-env.local",
+        ]:
+            self.assertIn(snippet, main)
+
+        for snippet in [
+            "envTestAuthEnabled",
+            "desktop-test-env",
+            "auth using desktop test environment credentials",
+        ]:
+            self.assertIn(snippet, session)
+
+        self.assertIn("accountSession.envTestAuthEnabled", controller)
+        self.assertIn("accountSettings.serverUrl = serverUrl", controller)
+        self.assertIn("desktop-test: bash scripts/desktop-test.sh", clickable)
+        self.assertIn("env_vars:", desktop_script)
+        self.assertIn("NEXTNEWS_DESKTOP_TEST_AUTH", desktop_script)
+        self.assertIn("mktemp .clickable/nextnews-desktop-test", desktop_script)
+        self.assertIn("nextnews-desktop-env.local", desktop_script)
+
 
 class NewsApiContractTests(unittest.TestCase):
     def test_news_api_endpoints_are_v1_2(self):
