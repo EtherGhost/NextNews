@@ -817,7 +817,7 @@ Page {
             property int currentItemId: model.itemId
             property bool currentUnread: model.unread
             width: articleList.width
-            height: units.gu(10.2)
+            height: units.gu(11.0)
             radius: units.gu(0.8)
             color: Math.abs(cardContent.x) > width * 0.12 ? "#2c7fb8" : "transparent"
 
@@ -848,8 +848,9 @@ Page {
             Rectangle {
                 id: cardContent
                 x: units.gu(0.25)
+                y: units.gu(0.35)
                 width: parent.width - units.gu(0.5)
-                height: parent.height
+                height: parent.height - units.gu(0.7)
                 radius: units.gu(0.75)
                 color: theme.palette.normal.background
                 border.width: 1
@@ -864,8 +865,8 @@ Page {
                         fill: parent
                         leftMargin: units.gu(0.75)
                         rightMargin: units.gu(0.75)
-                        topMargin: units.gu(0.55)
-                        bottomMargin: units.gu(0.55)
+                        topMargin: units.gu(0.15)
+                        bottomMargin: units.gu(0.45)
                     }
                     spacing: units.gu(0.75)
 
