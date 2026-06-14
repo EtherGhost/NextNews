@@ -195,7 +195,9 @@ Page {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: pageStack.push(Qt.resolvedUrl("AccountSelectionPage.qml"))
+                    onClicked: pageStack.push(Qt.resolvedUrl("AccountSelectionPage.qml"), {
+                        "newsController": newsController
+                    })
                 }
             }
         }

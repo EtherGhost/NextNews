@@ -9,7 +9,9 @@ import "../backend/AuthCore.js" as AuthCore
 Page {
     id: page
 
-    readonly property string nextNewsApplicationId: "nextnews.cloudsite_nextnews"
+    property var newsController
+
+    readonly property string appApplicationId: "nextnews.cloudsite_nextnews"
     readonly property string nextcloudServiceId: "nextnews.cloudsite_nextnews_nextcloud"
     readonly property string owncloudServiceId: "nextnews.cloudsite_nextnews_owncloud"
 
@@ -50,7 +52,10 @@ Page {
         id: accountServices
         includeDisabled: true
 
-        onCountChanged: page.updateVisibleCloudAccounts()
+        onCountChanged: {
+            page.updateVisibleCloudAccounts()
+            Qt.callLater(page.restoreSelectedAccountFromSettings)
+        }
     }
 
     AccountService {
@@ -86,6 +91,16 @@ Page {
             accountSettings.serviceId = page.selectedServiceId
             accountSettings.serverUrl = page.normalizeServerUrl(page.serverUrl)
             accountSettings.avatarUrl = page.avatarUrl(accountSettings.serverUrl, userName)
+            if (page.newsController && page.newsController.applyAccountSelection) {
+                page.newsController.applyAccountSelection(
+                    accountSettings.accountId,
+                    accountSettings.displayName,
+                    accountSettings.providerId,
+                    accountSettings.serviceId,
+                    accountSettings.serverUrl,
+                    accountSettings.avatarUrl
+                )
+            }
         }
 
         onAuthenticationError: {
@@ -109,7 +124,7 @@ Page {
 
     Setup {
         id: accountSetup
-        applicationId: page.nextNewsApplicationId
+        applicationId: page.appApplicationId
         providerId: page.selectedProviderId.length > 0 ? page.selectedProviderId : "nextcloud"
 
         onFinished: {
@@ -153,7 +168,10 @@ Page {
         }
     }
 
-    Component.onCompleted: Qt.callLater(page.updateVisibleCloudAccounts)
+    Component.onCompleted: Qt.callLater(function() {
+        page.updateVisibleCloudAccounts()
+        page.restoreSelectedAccountFromSettings()
+    })
 
     Flickable {
         id: pageFlickable
@@ -336,16 +354,32 @@ Page {
                     property string rowServiceId: rowServiceInfo.id || row.role("serviceName")
                     property string rowServiceTypeId: rowServiceInfo.serviceTypeId || rowServiceInfo.type || ""
                     property bool isCloudAccount: rowProviderId === "nextcloud" || rowProviderId === "owncloud"
-                    property bool isNextNewsService: rowServiceId === page.nextcloudServiceId || rowServiceId === page.owncloudServiceId
+                    property bool isAppService: rowServiceId === page.nextcloudServiceId || rowServiceId === page.owncloudServiceId
                     property bool isGenericCloudService: rowServiceId.length === 0
                         || rowServiceId === rowProviderId
                         || rowServiceId === row.role("serviceName")
                             && rowServiceTypeId.length === 0
-                    property bool isSelected: page.selectedAccountId === row.role("accountId")
-                        && page.selectedServiceId === rowServiceId
+                    property bool isSelected: (page.selectedAccountId === row.role("accountId")
+                            && page.selectedServiceId === rowServiceId)
+                        || (page.selectedAccountId <= 0
+                            && accountSettings.accountId === row.role("accountId")
+                            && accountSettings.serviceId === rowServiceId)
 
                     height: visible ? units.gu(7) : 0
-                    visible: isCloudAccount && (isNextNewsService || isGenericCloudService)
+                    visible: isCloudAccount && (isAppService || isGenericCloudService)
+                    color: row.isSelected ? Qt.rgba(0.17, 0.5, 0.72, 0.16) : "transparent"
+
+                    onClicked: page.selectAccount(
+                        row.role("accountServiceHandle"),
+                        row.role("accountId"),
+                        row.role("displayName"),
+                        row.role("providerName"),
+                        rowProviderId,
+                        row.role("serviceName"),
+                        rowServiceId,
+                        rowServiceTypeId,
+                        row.role("enabled")
+                    )
 
                     RowLayout {
                         id: content
@@ -394,51 +428,34 @@ Page {
                                 maximumLineCount: 1
                                 opacity: 0.72
                             }
-                        }
 
-                        Button {
-                            Layout.preferredWidth: units.gu(9)
-                            text: row.isSelected ? i18n.tr("Selected") : i18n.tr("Use")
-                            onClicked: page.selectAccount(
-                                row.role("accountServiceHandle"),
-                                row.role("accountId"),
-                                row.role("displayName"),
-                                row.role("providerName"),
-                                rowProviderId,
-                                row.role("serviceName"),
-                                rowServiceId,
-                                rowServiceTypeId,
-                                row.role("enabled")
-                            )
+                            Label {
+                                Layout.fillWidth: true
+                                text: row.isAppService
+                                    ? (row.role("enabled") ? i18n.tr("Allowed for NextNews") : i18n.tr("Allow NextNews in Ubuntu Touch account settings first"))
+                                    : i18n.tr("Nextcloud account discovered")
+                                textSize: Label.Small
+                                elide: Text.ElideRight
+                                maximumLineCount: 1
+                                opacity: row.isAppService && row.role("enabled") ? 0.72 : 0.9
+                            }
                         }
                     }
                 }
             }
 
-            RowLayout {
+            Button {
                 Layout.fillWidth: true
-                spacing: units.gu(1)
-
-                Button {
-                    Layout.fillWidth: true
-                    text: i18n.tr("Authorize")
-                    enabled: page.selectedAccountId > 0
-                    onClicked: page.authorizeSelectedAccount()
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: i18n.tr("Verify")
-                    enabled: page.selectedAccountId > 0
-                    onClicked: page.authenticateSelectedAccount()
-                }
+                text: i18n.tr("Verify selected account")
+                enabled: page.selectedAccountId > 0
+                onClicked: page.authenticateSelectedAccount()
             }
 
             Label {
                 Layout.fillWidth: true
                 text: authorizationStatus
-                elide: Text.ElideRight
-                maximumLineCount: 2
+                wrapMode: Text.WordWrap
+                maximumLineCount: 5
                 opacity: 0.82
             }
 
@@ -499,8 +516,9 @@ Page {
             + " preferredAppService=" + (appService.handle ? true : false)
         )
 
-        authorizationStatus = i18n.tr("Selected %1. Authorize the account before using it.")
+        authorizationStatus = i18n.tr("Selected %1. Verifying authorization...")
             .arg(selectedDisplayName)
+        page.commitServerUrlInput("authenticate")
     }
 
     function findPreferredAppService(accountId, providerId) {
@@ -532,6 +550,30 @@ Page {
         }
 
         return {}
+    }
+
+    function restoreSelectedAccountFromSettings() {
+        if (selectedAccountId > 0 || accountSettings.accountId <= 0 || accountSettings.providerId.length === 0) {
+            return
+        }
+
+        var appService = findPreferredAppService(accountSettings.accountId, accountSettings.providerId)
+        if (!appService.handle) {
+            return
+        }
+
+        selectedService.objectHandle = appService.handle
+        selectedAccountId = accountSettings.accountId
+        selectedDisplayName = accountSettings.displayName
+        selectedProviderId = accountSettings.providerId
+        selectedProviderName = accountSettings.providerId
+        selectedServiceName = appService.serviceName
+        selectedServiceId = appService.serviceId
+        selectedServiceTypeId = appService.serviceTypeId
+        selectedEnabled = appService.enabled
+        serverUrl = normalizeServerUrl(accountSettings.serverUrl)
+        serverUrlField.text = serverUrl
+        authorizationStatus = i18n.tr("Saved account selected. Verify again if needed.")
     }
 
     function findServerUrlForAccount(accountId, displayName) {
@@ -632,11 +674,11 @@ Page {
             var serviceId = service.id || accountServices.get(i, "serviceName")
             var enabled = accountServices.get(i, "enabled")
             var cloud = providerId === "nextcloud" || providerId === "owncloud"
-            var nextNewsService = serviceId === nextcloudServiceId || serviceId === owncloudServiceId
+            var cloudAppService = serviceId === nextcloudServiceId || serviceId === owncloudServiceId
             var genericCloudService = serviceId.length === 0
                 || serviceId === providerId
                 || serviceId === accountServices.get(i, "serviceName") && (service.serviceTypeId || service.type || "").length === 0
-            if (cloud && (nextNewsService || genericCloudService)) {
+            if (cloud && (cloudAppService || genericCloudService)) {
                 count += 1
             }
         }
@@ -679,14 +721,30 @@ Page {
         )
 
         if (!selectedEnabled) {
-            console.log("NextNews OnlineAccountsAuthorization enabling serviceId=" + selectedServiceId)
-            selectedService.updateServiceEnabled(true)
-            selectedEnabled = true
-            enableThenAuthenticateTimer.start()
+            console.log(
+                "NextNews OnlineAccountsAuthorization service-not-enabled"
+                + " accountId=" + selectedAccountId
+                + " providerId=" + selectedProviderId
+                + " serviceId=" + selectedServiceId
+            )
+            authorizationStatus = i18n.tr("This account is not allowed for NextNews yet. Open Ubuntu Touch System Settings > Accounts, select the Nextcloud account, allow NextNews, then return here and select the account again.")
+            clearSelectedAccount()
             return
         }
 
         selectedService.authenticate({})
+    }
+
+    function clearSelectedAccount() {
+        selectedService.objectHandle = null
+        selectedAccountId = 0
+        selectedDisplayName = ""
+        selectedProviderName = ""
+        selectedProviderId = ""
+        selectedServiceName = ""
+        selectedServiceId = ""
+        selectedServiceTypeId = ""
+        selectedEnabled = false
     }
 
     function commitServerUrlInput(action) {

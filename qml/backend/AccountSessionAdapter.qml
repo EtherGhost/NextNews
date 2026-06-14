@@ -12,6 +12,10 @@ Item {
     property string cachedServerUrl: ""
     property string cachedUserName: ""
     property string cachedSecret: ""
+    property int currentAccountId: 0
+    property string currentProviderId: ""
+    property string currentServiceId: ""
+    property string currentServerUrl: ""
     property var pendingCallback: null
     property bool envTestAuthEnabled: typeof desktopTestAuthEnabled !== "undefined" && desktopTestAuthEnabled
     property string envTestServerUrl: typeof desktopTestServerUrl !== "undefined" ? desktopTestServerUrl : ""
@@ -53,9 +57,9 @@ Item {
 
             console.log(
                 "NextNews NewsApi auth success"
-                + " accountId=" + accountSettings.accountId
-                + " providerId=" + accountSettings.providerId
-                + " serviceId=" + accountSettings.serviceId
+                + " accountId=" + adapter.effectiveAccountId()
+                + " providerId=" + adapter.effectiveProviderId()
+                + " serviceId=" + adapter.effectiveServiceId()
                 + " dataKeys=" + adapter.objectKeys(data).join(",")
                 + " hasUserName=" + adapter.hasValue(userName)
                 + " hasPasswordOrSecret=" + adapter.hasValue(secret)
@@ -67,9 +71,9 @@ Item {
                 return
             }
 
-            adapter.cachedAccountId = accountSettings.accountId
-            adapter.cachedServiceId = accountSettings.serviceId
-            adapter.cachedServerUrl = adapter.normalizeServerUrl(accountSettings.serverUrl)
+            adapter.cachedAccountId = adapter.effectiveAccountId()
+            adapter.cachedServiceId = adapter.effectiveServiceId()
+            adapter.cachedServerUrl = adapter.normalizeServerUrl(adapter.effectiveServerUrl())
             adapter.cachedUserName = userName
             adapter.cachedSecret = secret
 
@@ -85,9 +89,9 @@ Item {
             var message = error && error.message ? error.message : JSON.stringify(error)
             console.log(
                 "NextNews NewsApi auth error"
-                + " accountId=" + accountSettings.accountId
-                + " providerId=" + accountSettings.providerId
-                + " serviceId=" + accountSettings.serviceId
+                + " accountId=" + adapter.effectiveAccountId()
+                + " providerId=" + adapter.effectiveProviderId()
+                + " serviceId=" + adapter.effectiveServiceId()
                 + " message=" + message
             )
             adapter.failed(i18n.tr("Authentication failed: %1").arg(message))
@@ -117,12 +121,12 @@ Item {
             return
         }
 
-        if (accountSettings.accountId <= 0 || accountSettings.serviceId.length === 0) {
+        if (effectiveAccountId() <= 0 || effectiveServiceId().length === 0) {
             failed(i18n.tr("No account selected. Open Account first and authorize a Nextcloud account."))
             return
         }
 
-        var serverUrl = normalizeServerUrl(accountSettings.serverUrl)
+        var serverUrl = normalizeServerUrl(effectiveServerUrl())
         if (serverUrl.length === 0) {
             failed(i18n.tr("No server URL configured. Open Account and authorize the OS account."))
             return
@@ -131,9 +135,9 @@ Item {
         if (hasCachedCredentials(serverUrl)) {
             console.log(
                 "NextNews NewsApi auth reused in-memory credentials"
-                + " accountId=" + accountSettings.accountId
-                + " providerId=" + accountSettings.providerId
-                + " serviceId=" + accountSettings.serviceId
+                + " accountId=" + effectiveAccountId()
+                + " providerId=" + effectiveProviderId()
+                + " serviceId=" + effectiveServiceId()
                 + " serverUrlConfigured=" + hasValue(serverUrl)
             )
             authenticated(cachedUserName, cachedSecret, cachedServerUrl)
@@ -160,9 +164,9 @@ Item {
         accountService.objectHandle = handle
         console.log(
             "NextNews NewsApi auth requesting"
-            + " accountId=" + accountSettings.accountId
-            + " providerId=" + accountSettings.providerId
-            + " serviceId=" + accountSettings.serviceId
+            + " accountId=" + effectiveAccountId()
+            + " providerId=" + effectiveProviderId()
+            + " serviceId=" + effectiveServiceId()
             + " serverUrlConfigured=" + hasValue(serverUrl)
         )
         accountService.authenticate({})
@@ -173,9 +177,16 @@ Item {
         authenticate()
     }
 
+    function setAccount(accountId, providerId, serviceId, serverUrl) {
+        currentAccountId = accountId
+        currentProviderId = providerId || ""
+        currentServiceId = serviceId || ""
+        currentServerUrl = normalizeServerUrl(serverUrl)
+    }
+
     function hasCachedCredentials(serverUrl) {
-        return cachedAccountId === accountSettings.accountId
-            && cachedServiceId === accountSettings.serviceId
+        return cachedAccountId === effectiveAccountId()
+            && cachedServiceId === effectiveServiceId()
             && cachedServerUrl === serverUrl
             && cachedUserName.length > 0
             && cachedSecret.length > 0
@@ -183,7 +194,7 @@ Item {
 
     function findSelectedAccountService() {
         for (var i = 0; i < accountServices.count; ++i) {
-            if (accountServices.get(i, "accountId") === accountSettings.accountId) {
+            if (accountServices.get(i, "accountId") === effectiveAccountId()) {
                 var handle = accountServices.get(i, "accountServiceHandle")
                 accountService.objectHandle = handle
                 var provider = accountService.provider || {}
@@ -191,12 +202,28 @@ Item {
                 var providerId = provider.id || accountServices.get(i, "providerName")
                 var serviceId = service.id || accountServices.get(i, "serviceName")
 
-                if (providerId === accountSettings.providerId && serviceId === accountSettings.serviceId) {
+                if (providerId === effectiveProviderId() && serviceId === effectiveServiceId()) {
                     return handle
                 }
             }
         }
         return null
+    }
+
+    function effectiveAccountId() {
+        return currentAccountId > 0 ? currentAccountId : accountSettings.accountId
+    }
+
+    function effectiveProviderId() {
+        return currentProviderId.length > 0 ? currentProviderId : accountSettings.providerId
+    }
+
+    function effectiveServiceId() {
+        return currentServiceId.length > 0 ? currentServiceId : accountSettings.serviceId
+    }
+
+    function effectiveServerUrl() {
+        return currentServerUrl.length > 0 ? currentServerUrl : accountSettings.serverUrl
     }
 
     function normalizeServerUrl(value) {

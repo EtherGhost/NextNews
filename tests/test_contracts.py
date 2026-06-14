@@ -29,7 +29,14 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("nextnews.cloudsite_nextnews_nextcloud", page)
         self.assertIn("nextnews.cloudsite_nextnews_owncloud", page)
         self.assertIn("findPreferredAppService", page)
-        self.assertIn("selectedService.updateServiceEnabled(true)", page)
+        self.assertIn("service-not-enabled", page)
+        self.assertIn("clearSelectedAccount()", page)
+        self.assertIn("newsController.applyAccountSelection(", page)
+        self.assertIn("onClicked: page.selectAccount(", page)
+        self.assertIn("function restoreSelectedAccountFromSettings()", page)
+        self.assertIn("Open Ubuntu Touch System Settings > Accounts", page)
+        self.assertNotIn("selectedService.updateServiceEnabled(true)", page)
+        self.assertNotIn('text: row.isSelected ? i18n.tr("Selected") : i18n.tr("Use")', page)
         self.assertNotIn("accountSetup.exec()", page)
         self.assertNotIn("nextnotes", page.lower())
 
@@ -427,7 +434,7 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertEqual(manifest["version"], "0.1.3")
+        self.assertEqual(manifest["version"], "0.1.3.1")
         self.assertIn("## 0.1.3", changelog)
         self.assertIn("## 0.1.2", changelog)
         self.assertIn("## 0.1.1", changelog)

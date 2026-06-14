@@ -44,6 +44,7 @@ Item {
     property string createFolderRequestedName: ""
     property string runtimeUserName: ""
     property string runtimeSecret: ""
+    property string activeAccountKey: ""
     property int feedDeleteInProgressId: 0
     property int folderDeleteInProgressId: 0
     property var folderDeleteFeedIds: []
@@ -268,11 +269,20 @@ Item {
         onTriggered: controller.uploadLocalStateOnly()
     }
 
+    Timer {
+        id: accountRefreshTimer
+        interval: 150
+        repeat: false
+        onTriggered: controller.loadNews()
+    }
+
     Component.onCompleted: {
         if (preferences.markReadWhileScrolling) {
             preferences.markReadWhileScrolling = false
         }
         markReadWhileScrolling = false
+        activeAccountKey = accountKey()
+        accountSession.setAccount(accountSettings.accountId, accountSettings.providerId, accountSettings.serviceId, accountSettings.serverUrl)
         accountAvatarUrl = accountSettings.avatarUrl || ""
         loadCached()
         if (syncOnStartup) {
@@ -303,6 +313,7 @@ Item {
     }
 
     function loadNews() {
+        accountSession.setAccount(accountSettings.accountId, accountSettings.providerId, accountSettings.serviceId, accountSettings.serverUrl)
         loadCached()
         if (!accountReady()) {
             statusText = i18n.tr("Add a Nextcloud or ownCloud account in System Settings > Accounts, then authorize it here.")
@@ -319,6 +330,44 @@ Item {
             controller.runtimeSecret = secret
             syncPendingThenPull()
         })
+    }
+
+    function applyAccountSelection(accountId, displayName, providerId, serviceId, serverUrl, avatarUrl) {
+        accountSettings.accountId = accountId
+        accountSettings.displayName = displayName || ""
+        accountSettings.providerId = providerId || ""
+        accountSettings.serviceId = serviceId || ""
+        accountSettings.serverUrl = serverUrl || ""
+        accountSettings.avatarUrl = avatarUrl || ""
+        accountSession.setAccount(accountSettings.accountId, accountSettings.providerId, accountSettings.serviceId, accountSettings.serverUrl)
+        clearAccountData()
+        activeAccountKey = accountKey()
+        accountRefreshTimer.restart()
+    }
+
+    function clearAccountData() {
+        foldersModel.clear()
+        feedsModel.clear()
+        navigationModel.clear()
+        itemsModel.clear()
+        allFolders = []
+        allFeeds = []
+        allItems = []
+        hasCachedItems = false
+        pendingCount = 0
+        accountAvatarUrl = accountSettings.avatarUrl || ""
+        loading = false
+        syncRunning = false
+        statusText = accountSettings.accountId > 0
+            ? i18n.tr("Account changed. Refreshing...")
+            : i18n.tr("Add a Nextcloud or ownCloud account in System Settings > Accounts, then authorize it here.")
+    }
+
+    function accountKey() {
+        return String(accountSettings.accountId)
+            + "|" + String(accountSettings.providerId || "")
+            + "|" + String(accountSettings.serviceId || "")
+            + "|" + String(accountSettings.serverUrl || "")
     }
 
     function syncPendingThenPull() {

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Aligned the account page with the shared Nextcloud suite flow: clickable account rows, guided Ubuntu Touch account-setting approval, automatic verification after account selection, and immediate controller refresh after changing account.
+
 ## 0.1.3 - 2026-06-14
 
 - Improved article list cards with a cleaner NextNotes-inspired layout, better spacing, and a subtler read/unread visual treatment.
