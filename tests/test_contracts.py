@@ -40,10 +40,18 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertNotIn("accountSetup.exec()", page)
         self.assertNotIn("nextnotes", page.lower())
 
+        session = read_text("qml/backend/AccountSessionAdapter.qml")
+        controller = read_text("qml/backend/NewsController.qml")
+        self.assertIn("AccountServiceModel", session)
+        self.assertIn("accountSettings.serviceId.length > 0", controller)
+
     def test_apparmor_is_minimal(self):
         apparmor = json.loads(read_text("nextnews.apparmor"))
 
-        self.assertEqual(sorted(apparmor["policy_groups"]), ["accounts", "networking"])
+        self.assertEqual(
+            sorted(apparmor["policy_groups"]),
+            ["accounts", "content_exchange", "content_exchange_source", "networking"],
+        )
         self.assertNotIn("unconfined", json.dumps(apparmor).lower())
 
     def test_qml_resources_include_news_runtime_files(self):
@@ -434,7 +442,7 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertEqual(manifest["version"], "0.1.3.1")
+        self.assertEqual(manifest["version"], "0.1.3.2")
         self.assertIn("## 0.1.3", changelog)
         self.assertIn("## 0.1.2", changelog)
         self.assertIn("## 0.1.1", changelog)
