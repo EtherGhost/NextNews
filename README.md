@@ -58,7 +58,7 @@ The first version intentionally does not implement:
 
 ## Authentication
 
-NextNews uses Ubuntu Touch Online Accounts only.
+NextNews always uses Ubuntu Touch Online Accounts only.
 
 Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings > Accounts, then authorize that account inside NextNews. Credentials are taken from the selected system account. The server address is read from the account when available and can be corrected in the account page if Ubuntu Touch does not expose the correct host. Credentials are requested from Online Accounts at runtime and are not stored by NextNews. After successful runtime authentication, credentials may be kept only in process memory for the current app session.
 
