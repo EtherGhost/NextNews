@@ -4,6 +4,9 @@
 
 - Aligned the account page with the shared Nextcloud suite flow: clickable account rows, guided Ubuntu Touch account-setting approval, automatic verification after account selection, and immediate controller refresh after changing account.
 - Added the Content Hub AppArmor permissions required by NextNews external link and email sharing actions, while keeping Online Accounts and networking unchanged.
+- Removed normal account-page diagnostic output and made account switching clear stale in-memory credentials before verifying the newly selected account.
+- Fixed an account-list layout warning in Lomiri `ListItem` during account switching.
+- Fixed the Swedish account authorization success text after a translation merge issue.
 
 ## 0.1.3 - 2026-06-14
 

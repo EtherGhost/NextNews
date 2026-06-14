@@ -215,7 +215,7 @@ NextNews does not request unconfined mode.
 
 ## Current Status
 
-Initial NextNews scaffold is complete. The app builds as `nextnews.cloudsite`, includes a News-specific API/cache/controller boundary, passes local contract tests, and has been installed on Ubuntu Touch for Online Accounts testing. The account flow is intentionally OS-account-only and does not expose manual login. Feed creation, folder creation, feed/folder rename, feed move/delete, folder delete, active sync settings, unread navigation counts, search scope, sort settings, direct browser opening, and mail sharing are implemented. Version 0.1.3.2 is prepared as a development bugfix after the published 0.1.3 release. The experimental mark-read-while-scrolling option is disabled and hidden because device testing showed unreliable behavior; it is deferred to a future release.
+Initial NextNews scaffold is complete. The app builds as `nextnews.cloudsite`, includes a News-specific API/cache/controller boundary, passes local contract tests, and has been installed on Ubuntu Touch for Online Accounts testing. The account flow is intentionally OS-account-only and does not expose manual login. Feed creation, folder creation, feed/folder rename, feed move/delete, folder delete, active sync settings, unread navigation counts, search scope, sort settings, direct browser opening, and mail sharing are implemented. Version 0.1.3.5 is prepared as a development bugfix after the published 0.1.3 release. The experimental mark-read-while-scrolling option is disabled and hidden because device testing showed unreliable behavior; it is deferred to a future release.
 
 ## License
 

@@ -10,7 +10,7 @@
             "desktop": "nextnews.desktop"
         }
     },
-    "version": "0.1.3.2",
+    "version": "0.1.3.5",
     "maintainer": "Etherghost <noreply@cloudsite.se>",
     "framework": "$ENV{CLICK_FRAMEWORK}"
 }

@@ -32,17 +32,24 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("service-not-enabled", page)
         self.assertIn("clearSelectedAccount()", page)
         self.assertIn("newsController.applyAccountSelection(", page)
-        self.assertIn("onClicked: page.selectAccount(", page)
+        self.assertIn("authorizationRunning", page)
+        self.assertIn("if (page.authorizationRunning)", page)
+        self.assertIn("page.selectAccount(", page)
         self.assertIn("function restoreSelectedAccountFromSettings()", page)
         self.assertIn("Open Ubuntu Touch System Settings > Accounts", page)
         self.assertNotIn("selectedService.updateServiceEnabled(true)", page)
         self.assertNotIn('text: row.isSelected ? i18n.tr("Selected") : i18n.tr("Use")', page)
         self.assertNotIn("accountSetup.exec()", page)
+        self.assertNotIn("Discovered services:", page)
+        self.assertNotIn("Diagnostics", page)
         self.assertNotIn("nextnotes", page.lower())
 
         session = read_text("qml/backend/AccountSessionAdapter.qml")
         controller = read_text("qml/backend/NewsController.qml")
         self.assertIn("AccountServiceModel", session)
+        self.assertIn("var accountChanged = currentAccountId !== accountId", session)
+        self.assertIn("cachedSecret = \"\"", session)
+        self.assertIn("pendingCallback = null", session)
         self.assertIn("accountSettings.serviceId.length > 0", controller)
 
     def test_apparmor_is_minimal(self):
@@ -128,6 +135,12 @@ class ProjectIdentityTests(unittest.TestCase):
             "German, French, Dutch, Danish, Norwegian Bokmal, Spanish, and Finnish",
         ]:
             self.assertIn(snippet, language_page + readme)
+
+    def test_swedish_account_success_translation_is_not_diagnostics_text(self):
+        sv = read_text("po/sv.po")
+
+        self.assertIn("Auktorisering lyckades för %1.", sv)
+        self.assertNotIn("enabled=%6Auktorisering lyckades", sv)
 
 
 class NewsApiContractTests(unittest.TestCase):
@@ -442,7 +455,7 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertEqual(manifest["version"], "0.1.3.2")
+        self.assertEqual(manifest["version"], "0.1.3.5")
         self.assertIn("## 0.1.3", changelog)
         self.assertIn("## 0.1.2", changelog)
         self.assertIn("## 0.1.1", changelog)
