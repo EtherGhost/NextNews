@@ -7,6 +7,7 @@
 - Improved article list cards with a cleaner NextNotes-inspired layout, better spacing, and a subtler read/unread visual treatment.
 - Added feed identity to article cards, including feed favicon or fallback initial, feed name, and a visual favorite star for starred articles.
 - Fixed short article titles so they align to the top of the card instead of appearing on the second line.
+- Added pull-to-refresh status text in the article list: pull, release, and refreshing states now match the NextNotes behavior.
 - Added visible language choices matching NextNotes: English, Swedish, German, French, Dutch, Danish, Norwegian Bokmal, Spanish, and Finnish.
 - Added partial AI-assisted starter translation catalogs for German, French, Dutch, Danish, Norwegian Bokmal, Spanish, and Finnish. Untranslated strings fall back to English.
 - Added dark desktop debug launch scripts for development and translation testing.

@@ -789,6 +789,32 @@ Page {
             onTriggered: page.markVisibleViewportArticlesRead()
         }
 
+        Rectangle {
+            anchors {
+                top: parent.top
+                horizontalCenter: parent.horizontalCenter
+                topMargin: units.gu(0.6)
+            }
+            width: refreshPullLabel.implicitWidth + units.gu(2)
+            height: units.gu(3.2)
+            radius: units.gu(1.6)
+            color: "#2c7fb8"
+            opacity: articleList.contentY < -units.gu(2) || newsController.loading ? 0.92 : 0
+            visible: opacity > 0
+            z: 4
+
+            Label {
+                id: refreshPullLabel
+                anchors.centerIn: parent
+                text: newsController.loading
+                    ? i18n.tr("Refreshing...")
+                    : articleList.contentY < -page.pullRefreshThreshold
+                    ? i18n.tr("Release to refresh")
+                    : i18n.tr("Pull to refresh")
+                color: "white"
+            }
+        }
+
         section.property: "sectionKey"
         section.criteria: ViewSection.FullString
         section.delegate: Rectangle {
