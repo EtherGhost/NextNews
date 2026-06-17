@@ -237,6 +237,14 @@ Item {
             controller.processNextPending()
         }
 
+        onItemStatesUploaded: {
+            for (var i = 0; i < itemIds.length; ++i) {
+                cache.clearPending(itemIds[i])
+                controller.clearPendingInModels(itemIds[i])
+            }
+            controller.processNextPending()
+        }
+
         onFailed: {
             var queuedManagement = controller.queueCurrentManagementOperation()
             controller.loading = false
@@ -299,6 +307,10 @@ Item {
 
     function handleApplicationDeactivated() {
         activeRefreshTimer.stop()
+        if (cache.loadPendingItems().length > 0 && accountReady() && !syncRunning) {
+            localStateUploadTimer.stop()
+            uploadLocalStateOnly()
+        }
     }
 
     function loadCached() {
@@ -649,7 +661,7 @@ Item {
         syncStateColor = "#2c7fb8"
         loadCached()
         if (accountReady()) {
-            scheduleLocalStateUpload()
+            uploadReadStatesNow(ids, true)
         }
         return ids.length
     }
@@ -806,6 +818,22 @@ Item {
             controller.localStateUploadOnly = true
             controller.syncRunning = true
             controller.processNextPending()
+        })
+    }
+
+    function uploadReadStatesNow(itemIds, read) {
+        if (!accountReady() || !itemIds || itemIds.length === 0) {
+            return
+        }
+        localStateUploadTimer.stop()
+        accountSession.withCredentials(function(userName, secret) {
+            controller.runtimeUserName = userName
+            controller.runtimeSecret = secret
+            controller.localStateUploadOnly = true
+            controller.syncRunning = true
+            controller.syncStateText = i18n.tr("Uploading local changes")
+            controller.syncStateColor = "#2c7fb8"
+            api.markItemsRead(accountSettings.serverUrl, userName, secret, itemIds, read)
         })
     }
 

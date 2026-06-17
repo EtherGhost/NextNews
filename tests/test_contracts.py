@@ -287,6 +287,10 @@ class CacheAndSyncContractTests(unittest.TestCase):
         self.assertIn("localStateUploadOnly", controller)
         self.assertIn("localStateUploadTimer", controller)
         self.assertIn("scheduleLocalStateUpload", controller)
+        self.assertIn("uploadReadStatesNow", controller)
+        self.assertIn("api.markItemsRead", controller)
+        self.assertIn("handleApplicationDeactivated", controller)
+        self.assertIn("uploadLocalStateOnly()", controller)
         self.assertIn("clearPendingInModels", controller)
         self.assertIn("updateLocalReadStateInModels", controller)
         self.assertIn("updateLocalStarStateInModels", controller)
@@ -301,6 +305,11 @@ class CacheAndSyncContractTests(unittest.TestCase):
         self.assertIn("handleApplicationActivated", controller)
         self.assertIn("runtimeUserName", controller)
         self.assertIn("runtimeSecret", controller)
+
+        api_client = read_text("qml/backend/NewsApiClient.qml")
+        self.assertIn("signal itemStatesUploaded", api_client)
+        self.assertIn("function markItemsRead", api_client)
+        self.assertIn("idsPayload(itemIds)", api_client)
 
     def test_sync_planner_classifies_local_state(self):
         planner = read_text("qml/backend/SyncPlanner.js")

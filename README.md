@@ -29,8 +29,9 @@ Current V1 scaffold:
 - Mark articles read or unread.
 - Swipe article rows right to star/unstar and left to toggle read/unread state.
 - Star or unstar articles when the API has the required `feedId` and `guidHash`.
-- Mark all unread articles in the current view as read with the drag-up floating action button.
+- Mark all unread articles in the current view as read with the drag-up floating action button, then upload that read state as a single batch when online.
 - Preserve pending local read/star state when upload fails.
+- Attempt to upload pending local article state when the app is deactivated.
 - Review pending local article/subscription changes from the sync status icon and choose whether to keep, retry, or discard them. Pending sync uses a filled status dot; warning symbols are reserved for real failures.
 - Refresh while the app is active, with settings for active sync, startup sync, and interval.
 - Search cached titles, authors, and cached article text.

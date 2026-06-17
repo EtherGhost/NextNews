@@ -15,6 +15,7 @@ Item {
     signal feedDeleted(int feedId)
     signal itemsLoaded(var items)
     signal itemStateUploaded(int itemId, bool unread, bool starred)
+    signal itemStatesUploaded(var itemIds, bool unread)
     signal failed(string message)
 
     function fetchFolders(serverUrl, userName, secret) {
@@ -121,6 +122,14 @@ Item {
         requestJson("PUT", NewsApiCore.markReadUrl(serverUrl, read), userName, secret, payload, function() {
             console.log("NextNews NewsApi PUT read-state success itemId=" + itemId + " read=" + read)
             itemStateUploaded(itemId, !read, undefined)
+        }, read ? "PUT /items/read/multiple" : "PUT /items/unread/multiple")
+    }
+
+    function markItemsRead(serverUrl, userName, secret, itemIds, read) {
+        var payload = NewsApiCore.idsPayload(itemIds)
+        requestJson("PUT", NewsApiCore.markReadUrl(serverUrl, read), userName, secret, payload, function() {
+            console.log("NextNews NewsApi PUT read-state batch success count=" + payload.items.length + " read=" + read)
+            itemStatesUploaded(payload.items, !read)
         }, read ? "PUT /items/read/multiple" : "PUT /items/unread/multiple")
     }
 
