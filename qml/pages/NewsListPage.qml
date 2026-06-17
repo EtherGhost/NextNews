@@ -242,18 +242,8 @@ Page {
                         visible: page.statusIconKind() === "pending"
 
                         Rectangle {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            y: parent.height * 0.12
-                            width: Math.max(3, parent.width * 0.16)
-                            height: parent.height * 0.52
-                            radius: width / 2
-                            color: page.statusAccentColor()
-                        }
-
-                        Rectangle {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            y: parent.height * 0.76
-                            width: Math.max(4, parent.width * 0.20)
+                            anchors.centerIn: parent
+                            width: parent.width * 0.58
                             height: width
                             radius: width / 2
                             color: page.statusAccentColor()

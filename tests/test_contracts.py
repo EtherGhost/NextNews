@@ -392,7 +392,7 @@ class UiContractTests(unittest.TestCase):
 
         self.assertIn("pages/ConflictResolutionPage.qml", qrc)
         for snippet in [
-            "Sync conflict",
+            "Pending changes",
             "pendingChangeRows",
             "Keep local",
             "Retry now",

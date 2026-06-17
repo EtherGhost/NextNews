@@ -9,7 +9,7 @@ Page {
     property var pendingRows: newsController ? newsController.pendingChangeRows() : []
 
     header: PageHeader {
-        title: i18n.tr("Sync conflict")
+        title: i18n.tr("Pending changes")
     }
 
     Flickable {
