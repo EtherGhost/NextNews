@@ -31,6 +31,7 @@ Current V1 scaffold:
 - Star or unstar articles when the API has the required `feedId` and `guidHash`.
 - Mark all unread articles in the current view as read with the drag-up floating action button.
 - Preserve pending local read/star state when upload fails.
+- Review pending local article/subscription changes from the sync status icon and choose whether to keep, retry, or discard them.
 - Refresh while the app is active, with settings for active sync, startup sync, and interval.
 - Search cached titles, authors, and cached article text.
 - Choose title/content/both search scope.
@@ -53,7 +54,7 @@ The first version intentionally does not implement:
 - Podcast playback
 - Image caching
 - Native content-hub sharing
-- Complex conflict UI
+- Complex merge-style conflict UI
 - Rich article rendering
 
 ## Authentication

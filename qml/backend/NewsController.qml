@@ -727,6 +727,58 @@ Item {
         pendingCount = cache.loadPendingItems().length + cache.loadPendingManagementOperations().length
     }
 
+    function pendingChangeRows() {
+        var rows = []
+        var pendingItems = cache.loadPendingItems()
+        for (var i = 0; i < pendingItems.length; ++i) {
+            var item = pendingItems[i]
+            rows.push({
+                "kind": item.pendingState === "star" ? i18n.tr("Star change") : i18n.tr("Read state change"),
+                "title": item.title || i18n.tr("Untitled article"),
+                "detail": item.pendingState === "star"
+                    ? (item.starred ? i18n.tr("Will be starred on the server.") : i18n.tr("Will be unstarred on the server."))
+                    : (item.unread ? i18n.tr("Will be marked unread on the server.") : i18n.tr("Will be marked read on the server."))
+            })
+        }
+
+        var pendingManagement = cache.loadPendingManagementOperations()
+        for (var m = 0; m < pendingManagement.length; ++m) {
+            var operation = pendingManagement[m]
+            rows.push({
+                "kind": i18n.tr("Subscription change"),
+                "title": operation.kind || i18n.tr("Queued operation"),
+                "detail": i18n.tr("Will retry on the next sync.")
+            })
+        }
+        return rows
+    }
+
+    function retryPendingChanges() {
+        if (!accountReady()) {
+            statusText = i18n.tr("Authorize a Nextcloud account before retrying sync.")
+            syncStateText = i18n.tr("No account")
+            syncStateColor = "#b37a2a"
+            return false
+        }
+        statusText = i18n.tr("Retrying local changes...")
+        syncStateText = i18n.tr("Syncing")
+        syncStateColor = "#2c7fb8"
+        loadNews()
+        return true
+    }
+
+    function discardPendingChangesAndRefresh() {
+        cache.clearAllPendingItems()
+        cache.clearPendingManagementOperations()
+        loadCached()
+        statusText = i18n.tr("Local pending changes discarded. Refreshing...")
+        syncStateText = i18n.tr("Syncing")
+        syncStateColor = "#2c7fb8"
+        if (accountReady()) {
+            loadNews()
+        }
+    }
+
     function countVisibleUnread() {
         var unread = 0
         for (var i = 0; i < model.count; ++i) {

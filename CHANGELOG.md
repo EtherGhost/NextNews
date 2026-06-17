@@ -7,6 +7,8 @@
 - Removed normal account-page diagnostic output and made account switching clear stale in-memory credentials before verifying the newly selected account.
 - Fixed an account-list layout warning in Lomiri `ListItem` during account switching.
 - Fixed the Swedish account authorization success text after a translation merge issue.
+- Replaced the height-changing article-list status strip with a top-bar sync status icon.
+- Added a pending-changes review page for local article read/star and subscription changes, with actions to keep local changes, retry sync, or discard local pending changes and refresh from the server.
 
 ## 0.1.3 - 2026-06-14
 

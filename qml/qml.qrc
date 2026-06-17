@@ -5,6 +5,7 @@
         <file>pages/AboutPage.qml</file>
         <file>pages/LanguageSelectionPage.qml</file>
         <file>pages/SettingsPage.qml</file>
+        <file>pages/ConflictResolutionPage.qml</file>
         <file>pages/NewsListPage.qml</file>
         <file>pages/ArticleDetailPage.qml</file>
         <file>backend/AccountSessionAdapter.qml</file>

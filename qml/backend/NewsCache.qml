@@ -103,6 +103,14 @@ Item {
         return rows
     }
 
+    function clearAllPendingItems() {
+        ensureOpen()
+        database.transaction(function(tx) {
+            tx.executeSql("UPDATE items SET pending_state = '', updated_at = ? WHERE pending_state != ''", [Date.now()])
+        })
+        console.log("NextNews NewsCache clearAllPendingItems")
+    }
+
     function loadPendingManagementOperations() {
         ensureOpen()
         var rows = []
@@ -135,6 +143,14 @@ Item {
             tx.executeSql("DELETE FROM pending_management WHERE id = ?", [operationId])
         })
         console.log("NextNews NewsCache removePendingManagementOperation operationId=" + operationId)
+    }
+
+    function clearPendingManagementOperations() {
+        ensureOpen()
+        database.transaction(function(tx) {
+            tx.executeSql("DELETE FROM pending_management")
+        })
+        console.log("NextNews NewsCache clearPendingManagementOperations")
     }
 
     function saveFolders(folders) {

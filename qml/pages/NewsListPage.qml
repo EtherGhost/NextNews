@@ -159,6 +159,118 @@ Page {
                 Layout.preferredWidth: units.gu(5)
                 Layout.preferredHeight: units.gu(5)
                 radius: units.gu(2.5)
+                color: "transparent"
+                border.width: 2
+                border.color: page.statusAccentColor()
+
+                Item {
+                    id: statusIcon
+                    anchors.centerIn: parent
+                    width: units.gu(2.8)
+                    height: units.gu(2.8)
+
+                    RotationAnimation on rotation {
+                        from: 0
+                        to: 360
+                        duration: 900
+                        loops: Animation.Infinite
+                        running: newsController.loading || newsController.syncRunning
+                    }
+
+                    Connections {
+                        target: newsController
+                        onLoadingChanged: {
+                            if (!newsController.loading && !newsController.syncRunning) {
+                                statusIcon.rotation = 0
+                            }
+                        }
+                        onSyncRunningChanged: {
+                            if (!newsController.loading && !newsController.syncRunning) {
+                                statusIcon.rotation = 0
+                            }
+                        }
+                    }
+
+                    Canvas {
+                        id: statusCanvas
+                        anchors.fill: parent
+                        property string paintColor: page.statusAccentColor()
+                        visible: page.statusIconKind() !== "pending"
+                        onVisibleChanged: requestPaint()
+                        onPaintColorChanged: requestPaint()
+                        onPaint: {
+                            var ctx = getContext("2d")
+                            var w = width
+                            var h = height
+                            var s = Math.min(w, h)
+                            ctx.clearRect(0, 0, w, h)
+                            ctx.strokeStyle = paintColor
+                            ctx.fillStyle = paintColor
+                            ctx.lineWidth = Math.max(2.4, s * 0.13)
+                            ctx.lineCap = "round"
+                            ctx.lineJoin = "round"
+
+                            if (newsController.loading || newsController.syncRunning) {
+                                ctx.beginPath()
+                                ctx.arc(w / 2, h / 2, s * 0.35, Math.PI * 0.15, Math.PI * 1.55, false)
+                                ctx.stroke()
+                                ctx.beginPath()
+                                ctx.moveTo(w * 0.77, h * 0.30)
+                                ctx.lineTo(w * 0.82, h * 0.52)
+                                ctx.lineTo(w * 0.62, h * 0.45)
+                                ctx.stroke()
+                            } else {
+                                ctx.beginPath()
+                                ctx.moveTo(w * 0.22, h * 0.54)
+                                ctx.lineTo(w * 0.42, h * 0.72)
+                                ctx.lineTo(w * 0.78, h * 0.28)
+                                ctx.stroke()
+                            }
+                        }
+
+                        Connections {
+                            target: newsController
+                            onLoadingChanged: statusCanvas.requestPaint()
+                            onSyncRunningChanged: statusCanvas.requestPaint()
+                            onPendingCountChanged: statusCanvas.requestPaint()
+                            onSyncStateColorChanged: statusCanvas.requestPaint()
+                        }
+                    }
+
+                    Item {
+                        anchors.fill: parent
+                        visible: page.statusIconKind() === "pending"
+
+                        Rectangle {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            y: parent.height * 0.12
+                            width: Math.max(3, parent.width * 0.16)
+                            height: parent.height * 0.52
+                            radius: width / 2
+                            color: page.statusAccentColor()
+                        }
+
+                        Rectangle {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            y: parent.height * 0.76
+                            width: Math.max(4, parent.width * 0.20)
+                            height: width
+                            radius: width / 2
+                            color: page.statusAccentColor()
+                        }
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: page.openStatusFromIcon()
+                }
+            }
+
+            Rectangle {
+                Layout.preferredWidth: units.gu(5)
+                Layout.preferredHeight: units.gu(5)
+                radius: units.gu(2.5)
                 color: "#2c7fb8"
                 border.width: 1
                 border.color: "#7a7a7a"
@@ -199,6 +311,30 @@ Page {
                         "newsController": newsController
                     })
                 }
+            }
+        }
+    }
+
+    Component {
+        id: statusDetailsDialog
+
+        Dialog {
+            id: dialog
+            title: i18n.tr("Sync status")
+            text: page.statusDetailsText()
+
+            Button {
+                visible: newsController.pendingCount > 0
+                text: i18n.tr("Review pending changes")
+                onClicked: {
+                    PopupUtils.close(dialog)
+                    page.openConflictResolution()
+                }
+            }
+
+            Button {
+                text: i18n.tr("Close")
+                onClicked: PopupUtils.close(dialog)
             }
         }
     }
@@ -722,42 +858,10 @@ Page {
         }
     }
 
-    Rectangle {
-        id: statusStrip
-        anchors {
-            top: header.bottom
-            left: parent.left
-            right: parent.right
-        }
-        height: newsController.statusText.length > 0 ? units.gu(4.5) : 0
-        color: theme.palette.normal.foreground
-        visible: height > 0
-
-        RowLayout {
-            anchors.fill: parent
-            anchors.margins: units.gu(1)
-            spacing: units.gu(1)
-
-            Rectangle {
-                width: units.gu(1.2)
-                height: width
-                radius: width / 2
-                color: newsController.loading ? "#2c7fb8" : newsController.syncStateColor
-            }
-
-            Label {
-                Layout.fillWidth: true
-                text: newsController.statusText + " - " + newsController.syncStateText
-                elide: Text.ElideRight
-                maximumLineCount: 1
-            }
-        }
-    }
-
     ListView {
         id: articleList
         anchors {
-            top: statusStrip.bottom
+            top: header.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
@@ -1435,5 +1539,56 @@ Page {
         }
         var d = new Date(Number(seconds) * 1000)
         return Qt.formatDate(d, "d MMM")
+    }
+
+    function statusIconKind() {
+        if (newsController.loading || newsController.syncRunning) {
+            return "syncing"
+        }
+        if (newsController.pendingCount > 0) {
+            return "pending"
+        }
+        return "synced"
+    }
+
+    function statusAccentColor() {
+        if (newsController.loading || newsController.syncRunning) {
+            return "#2c7fb8"
+        }
+        if (newsController.pendingCount > 0) {
+            return "#c65d00"
+        }
+        return newsController.syncStateColor
+    }
+
+    function statusDetailsText() {
+        var parts = []
+        if (newsController.statusText.length > 0) {
+            parts.push(newsController.statusText)
+        }
+        if (newsController.syncStateText.length > 0) {
+            parts.push(i18n.tr("Sync: %1").arg(newsController.syncStateText))
+        }
+        if (newsController.pendingCount > 0) {
+            parts.push(i18n.tr("%1 local changes are waiting for sync.").arg(newsController.pendingCount))
+        }
+        if (parts.length === 0) {
+            parts.push(i18n.tr("No status message."))
+        }
+        return parts.join("\n")
+    }
+
+    function openStatusFromIcon() {
+        if (newsController.pendingCount > 0) {
+            page.openConflictResolution()
+            return
+        }
+        PopupUtils.open(statusDetailsDialog)
+    }
+
+    function openConflictResolution() {
+        pageStack.push(Qt.resolvedUrl("ConflictResolutionPage.qml"), {
+            "newsController": newsController
+        })
     }
 }

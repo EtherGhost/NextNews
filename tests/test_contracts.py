@@ -266,6 +266,8 @@ class CacheAndSyncContractTests(unittest.TestCase):
             "function queueManagementOperation",
             "function loadPendingManagementOperations",
             "function removePendingManagementOperation",
+            "function clearAllPendingItems",
+            "function clearPendingManagementOperations",
             "existingOpenExternal",
             "pending_state",
             "guid_hash",
@@ -290,6 +292,9 @@ class CacheAndSyncContractTests(unittest.TestCase):
         self.assertIn("updateLocalStarStateInModels", controller)
         self.assertIn("queueCurrentManagementOperation", controller)
         self.assertIn("processNextPending", controller)
+        self.assertIn("pendingChangeRows", controller)
+        self.assertIn("retryPendingChanges", controller)
+        self.assertIn("discardPendingChangesAndRefresh", controller)
         self.assertIn("api.fetchFolders", controller)
         self.assertIn("api.fetchFeeds", controller)
         self.assertIn("api.fetchItems", controller)
@@ -349,6 +354,9 @@ class UiContractTests(unittest.TestCase):
             "Unknown feed",
             "maximumLineCount: 2",
             "theme.palette.normal.background",
+            "statusIconKind",
+            "openStatusFromIcon",
+            "ConflictResolutionPage.qml",
             "navigationRowSelected",
             "color: page.navigationRowSelected(model.type, model.id) ? \"white\" : theme.palette.normal.backgroundText",
             "rightMargin: model.type === \"feed\" || model.type === \"folder\" ? units.gu(5) : 0",
@@ -374,7 +382,25 @@ class UiContractTests(unittest.TestCase):
         for snippet in ["folderCreateRunning", "feedCreateRunning"]:
             self.assertIn(snippet, controller)
         self.assertNotIn("enabled: !newsController.folderCreateRunning && addFeedPanelFolderNameField.text.trim().length > 0", page)
+        self.assertNotIn("id: statusStrip", page)
         self.assertNotIn("\\u2606", page)
+
+    def test_pending_changes_conflict_page_is_registered(self):
+        qrc = read_text("qml/qml.qrc")
+        page = read_text("qml/pages/ConflictResolutionPage.qml")
+        controller = read_text("qml/backend/NewsController.qml")
+
+        self.assertIn("pages/ConflictResolutionPage.qml", qrc)
+        for snippet in [
+            "Sync conflict",
+            "pendingChangeRows",
+            "Keep local",
+            "Retry now",
+            "Discard",
+            "discardPendingChangesAndRefresh",
+            "retryPendingChanges",
+        ]:
+            self.assertIn(snippet, page + controller)
 
     def test_account_page_has_editable_server_address_without_manual_login(self):
         page = read_text("qml/pages/AccountSelectionPage.qml")
