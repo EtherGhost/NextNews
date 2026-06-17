@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.5 - 2026-06-17
+
+- Replaced the height-changing article-list status strip with a compact top-bar sync status icon.
+- Added a pending-changes review page for local article read/star and subscription changes, with actions to keep local changes, retry sync, or discard local pending changes and refresh from the server.
+- Changed pending sync to use a filled status dot instead of a warning icon.
+- Uploads "mark all read" changes immediately as one batch request, while ordinary read/star changes still use the short 1.2 second debounce.
+- Attempts to upload pending local article state when the app is deactivated.
+
 ## 0.1.4 - 2026-06-17
 
 - Aligned the account page with the shared Nextcloud suite flow: clickable account rows, guided Ubuntu Touch account-setting approval, automatic verification after account selection, and immediate controller refresh after changing account.
@@ -7,10 +15,6 @@
 - Removed normal account-page diagnostic output and made account switching clear stale in-memory credentials before verifying the newly selected account.
 - Fixed an account-list layout warning in Lomiri `ListItem` during account switching.
 - Fixed the Swedish account authorization success text after a translation merge issue.
-- Replaced the height-changing article-list status strip with a top-bar sync status icon.
-- Added a pending-changes review page for local article read/star and subscription changes, with actions to keep local changes, retry sync, or discard local pending changes and refresh from the server.
-- Uploads "mark all read" changes immediately as one batch request, while ordinary read/star changes still use the short 1.2 second debounce.
-- Attempts to upload pending local article state when the app is deactivated.
 
 ## 0.1.3 - 2026-06-14
 

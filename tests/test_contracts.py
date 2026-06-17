@@ -482,7 +482,7 @@ class UiContractTests(unittest.TestCase):
         changelog = read_text("CHANGELOG.md")
 
         for snippet in [
-            "0.1.4",
+            "0.1.5",
             "Version %1",
             "MIT License",
             "Etherghost",
@@ -490,7 +490,8 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertEqual(manifest["version"], "0.1.4")
+        self.assertEqual(manifest["version"], "0.1.5")
+        self.assertIn("## 0.1.5", changelog)
         self.assertIn("## 0.1.4", changelog)
         self.assertIn("## 0.1.2", changelog)
         self.assertIn("## 0.1.1", changelog)
