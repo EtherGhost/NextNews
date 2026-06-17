@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.4 - 2026-06-15
+## 0.1.4 - 2026-06-17
 
 - Aligned the account page with the shared Nextcloud suite flow: clickable account rows, guided Ubuntu Touch account-setting approval, automatic verification after account selection, and immediate controller refresh after changing account.
 - Added the Content Hub AppArmor permissions required by NextNews external link and email sharing actions, while keeping Online Accounts and networking unchanged.
