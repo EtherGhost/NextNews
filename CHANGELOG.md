@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Improved the account setup prompt so a selected account stays selected and is verified automatically after the user returns from Ubuntu Touch account settings.
+- Hardened account switching so stale Online Accounts callbacks and delayed News API responses from a previous account are ignored after selecting another account.
 
 ## 0.1.5 - 2026-06-17
 

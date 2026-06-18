@@ -16,13 +16,16 @@ Item {
     property string currentProviderId: ""
     property string currentServiceId: ""
     property string currentServerUrl: ""
+    property int pendingAuthAccountId: 0
+    property string pendingAuthServiceId: ""
+    property string pendingAuthServerUrl: ""
     property var pendingCallback: null
     property bool envTestAuthEnabled: typeof desktopTestAuthEnabled !== "undefined" && desktopTestAuthEnabled
     property string envTestServerUrl: typeof desktopTestServerUrl !== "undefined" ? desktopTestServerUrl : ""
     property string envTestUserName: typeof desktopTestUserName !== "undefined" ? desktopTestUserName : ""
     property string envTestSecret: typeof desktopTestSecret !== "undefined" ? desktopTestSecret : ""
 
-    signal authenticated(string userName, string secret, string serverUrl)
+    signal authenticated(string userName, string secret, string serverUrl, int accountId, string serviceId)
     signal failed(string message)
 
     Settings {
@@ -71,22 +74,31 @@ Item {
                 return
             }
 
-            adapter.cachedAccountId = adapter.effectiveAccountId()
-            adapter.cachedServiceId = adapter.effectiveServiceId()
-            adapter.cachedServerUrl = adapter.normalizeServerUrl(adapter.effectiveServerUrl())
+            if (!adapter.pendingAuthMatchesCurrent()) {
+                console.log("NextNews NewsApi auth ignored stale response accountId=" + adapter.pendingAuthAccountId + " serviceId=" + adapter.pendingAuthServiceId)
+                return
+            }
+
+            adapter.cachedAccountId = adapter.pendingAuthAccountId
+            adapter.cachedServiceId = adapter.pendingAuthServiceId
+            adapter.cachedServerUrl = adapter.pendingAuthServerUrl
             adapter.cachedUserName = userName
             adapter.cachedSecret = secret
 
-            adapter.authenticated(userName, secret, adapter.cachedServerUrl)
+            adapter.authenticated(userName, secret, adapter.cachedServerUrl, adapter.cachedAccountId, adapter.cachedServiceId)
             if (adapter.pendingCallback) {
                 var callback = adapter.pendingCallback
                 adapter.pendingCallback = null
-                callback(userName, secret, adapter.cachedServerUrl)
+                callback(userName, secret, adapter.cachedServerUrl, adapter.cachedAccountId, adapter.cachedServiceId)
             }
         }
 
         onAuthenticationError: {
             var message = error && error.message ? error.message : JSON.stringify(error)
+            if (!adapter.pendingAuthMatchesCurrent()) {
+                console.log("NextNews NewsApi auth ignored stale error accountId=" + adapter.pendingAuthAccountId + " serviceId=" + adapter.pendingAuthServiceId)
+                return
+            }
             console.log(
                 "NextNews NewsApi auth error"
                 + " accountId=" + adapter.effectiveAccountId()
@@ -112,11 +124,11 @@ Item {
             cachedUserName = envTestUserName
             cachedSecret = envTestSecret
             console.log("NextNews NewsApi auth using desktop test environment credentials serverUrlConfigured=" + hasValue(testServerUrl))
-            authenticated(cachedUserName, cachedSecret, cachedServerUrl)
+            authenticated(cachedUserName, cachedSecret, cachedServerUrl, cachedAccountId, cachedServiceId)
             if (pendingCallback) {
                 var callback = pendingCallback
                 pendingCallback = null
-                callback(cachedUserName, cachedSecret, cachedServerUrl)
+                callback(cachedUserName, cachedSecret, cachedServerUrl, cachedAccountId, cachedServiceId)
             }
             return
         }
@@ -140,11 +152,11 @@ Item {
                 + " serviceId=" + effectiveServiceId()
                 + " serverUrlConfigured=" + hasValue(serverUrl)
             )
-            authenticated(cachedUserName, cachedSecret, cachedServerUrl)
+            authenticated(cachedUserName, cachedSecret, cachedServerUrl, cachedAccountId, cachedServiceId)
             if (pendingCallback) {
                 var callback = pendingCallback
                 pendingCallback = null
-                callback(cachedUserName, cachedSecret, cachedServerUrl)
+                callback(cachedUserName, cachedSecret, cachedServerUrl, cachedAccountId, cachedServiceId)
             }
             return
         }
@@ -162,6 +174,9 @@ Item {
 
         pendingServiceHandle = false
         accountService.objectHandle = handle
+        pendingAuthAccountId = effectiveAccountId()
+        pendingAuthServiceId = effectiveServiceId()
+        pendingAuthServerUrl = serverUrl
         console.log(
             "NextNews NewsApi auth requesting"
             + " accountId=" + effectiveAccountId()
@@ -192,6 +207,9 @@ Item {
             cachedServerUrl = ""
             cachedUserName = ""
             cachedSecret = ""
+            pendingAuthAccountId = 0
+            pendingAuthServiceId = ""
+            pendingAuthServerUrl = ""
             accountService.objectHandle = null
         }
 
@@ -207,6 +225,12 @@ Item {
             && cachedServerUrl === serverUrl
             && cachedUserName.length > 0
             && cachedSecret.length > 0
+    }
+
+    function pendingAuthMatchesCurrent() {
+        return pendingAuthAccountId === effectiveAccountId()
+            && pendingAuthServiceId === effectiveServiceId()
+            && pendingAuthServerUrl === normalizeServerUrl(effectiveServerUrl())
     }
 
     function findSelectedAccountService() {

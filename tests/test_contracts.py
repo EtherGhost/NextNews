@@ -225,8 +225,10 @@ class NewsApiContractTests(unittest.TestCase):
             self.assertIn(snippet, controller)
         for snippet in ["folderCreated", "folderRenamed", "folderDeleted", "feedRenamed", "feedMoved", "feedDeleted"]:
             self.assertIn(snippet, client)
-        self.assertIn("folderCreated(result.folders)", client)
-        self.assertIn("folderDeleted(Number(folderId || 0))", client)
+        self.assertIn("property int requestGeneration: 0", client)
+        self.assertIn("folderCreated(result.folders, generation)", client)
+        self.assertIn("folderDeleted(Number(folderId || 0), generation)", client)
+        self.assertIn("failed(string message, int generation)", client)
         for snippet in ["onFolderCreated", "onFolderDeleted", "onFeedMoved", "onFeedDeleted"]:
             self.assertIn(snippet, controller)
         self.assertIn("cache.saveFolders(folders)", controller)
@@ -234,6 +236,10 @@ class NewsApiContractTests(unittest.TestCase):
         self.assertIn("foldersModel.append", controller)
         self.assertIn("feedsModel.append", controller)
         self.assertIn("deleteNextFeedInFolder", controller)
+        self.assertIn("property int accountRequestGeneration: 0", controller)
+        self.assertIn("function stopAccountActivity()", controller)
+        self.assertIn("function isCurrentApiGeneration(generation)", controller)
+        self.assertIn("ignored stale", controller)
         for snippet in [
             "feedOptionsDialog",
             "folderOptionsDialog",

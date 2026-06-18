@@ -48,6 +48,7 @@ Item {
     property int feedDeleteInProgressId: 0
     property int folderDeleteInProgressId: 0
     property var folderDeleteFeedIds: []
+    property int accountRequestGeneration: 0
 
     signal itemOpened(int itemId)
     signal folderAvailable(int folderId, string name)
@@ -98,7 +99,11 @@ Item {
     AccountSessionAdapter {
         id: accountSession
 
-        onAuthenticated: {
+        onAuthenticated: function(userName, secret, serverUrl, accountId, serviceId) {
+            if (!controller.isCurrentAccountResponse(accountId, serviceId, serverUrl)) {
+                console.log("NextNews Controller ignored stale auth response accountId=" + accountId + " serviceId=" + serviceId)
+                return
+            }
             controller.runtimeUserName = userName
             controller.runtimeSecret = secret
             if (serverUrl && serverUrl.length > 0) {
@@ -124,7 +129,11 @@ Item {
     NewsApiClient {
         id: api
 
-        onFoldersLoaded: {
+        onFoldersLoaded: function(folders, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale folders response generation=" + generation)
+                return
+            }
             cache.saveFolders(folders)
             controller.allFolders = folders
             controller.rebuildFolderFeedModels()
@@ -133,7 +142,11 @@ Item {
             api.fetchFeeds(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFolderCreated: {
+        onFolderCreated: function(folders, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale folder-created response generation=" + generation)
+                return
+            }
             controller.folderCreateRunning = false
             if (folders && folders.length > 0) {
                 cache.saveFolders(folders)
@@ -148,7 +161,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFolderRenamed: {
+        onFolderRenamed: function(folderId, name, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale folder-renamed response generation=" + generation)
+                return
+            }
             controller.finishManagementOperation()
             cache.renameFolder(folderId, name)
             controller.statusText = i18n.tr("Folder renamed. Refreshing...")
@@ -158,7 +175,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFeedsLoaded: {
+        onFeedsLoaded: function(feeds, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale feeds response generation=" + generation)
+                return
+            }
             cache.saveFeeds(feeds)
             controller.allFeeds = feeds
             controller.rebuildFolderFeedModels()
@@ -166,7 +187,11 @@ Item {
             controller.fetchItemsFromServer()
         }
 
-        onFeedCreated: {
+        onFeedCreated: function(generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale feed-created response generation=" + generation)
+                return
+            }
             controller.feedCreateRunning = false
             controller.statusText = i18n.tr("Feed added. Refreshing...")
             controller.syncStateText = i18n.tr("Syncing")
@@ -174,7 +199,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFeedRenamed: {
+        onFeedRenamed: function(feedId, title, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale feed-renamed response generation=" + generation)
+                return
+            }
             controller.finishManagementOperation()
             cache.renameFeed(feedId, title)
             controller.statusText = i18n.tr("Feed renamed. Refreshing...")
@@ -184,7 +213,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFeedMoved: {
+        onFeedMoved: function(generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale feed-moved response generation=" + generation)
+                return
+            }
             controller.finishManagementOperation()
             controller.statusText = i18n.tr("Feed moved. Refreshing...")
             controller.syncStateText = i18n.tr("Syncing")
@@ -192,7 +225,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFeedDeleted: {
+        onFeedDeleted: function(feedId, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale feed-deleted response generation=" + generation)
+                return
+            }
             var deletedFeedId = feedId > 0 ? feedId : feedDeleteInProgressId
             cache.removeFeed(deletedFeedId)
             if (folderDeleteInProgressId > 0) {
@@ -209,7 +246,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onFolderDeleted: {
+        onFolderDeleted: function(folderId, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale folder-deleted response generation=" + generation)
+                return
+            }
             controller.finishManagementOperation()
             cache.removeFolder(folderId)
             controller.statusText = i18n.tr("Folder deleted. Refreshing...")
@@ -222,7 +263,11 @@ Item {
             api.fetchFolders(accountSettings.serverUrl, controller.runtimeUserName, controller.runtimeSecret)
         }
 
-        onItemsLoaded: {
+        onItemsLoaded: function(items, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale items response generation=" + generation)
+                return
+            }
             cache.saveItems(items)
             controller.loadCached()
             controller.loading = false
@@ -231,13 +276,21 @@ Item {
             controller.syncStateColor = "#5a8f3c"
         }
 
-        onItemStateUploaded: {
+        onItemStateUploaded: function(itemId, unread, starred, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale item-state response generation=" + generation)
+                return
+            }
             cache.clearPending(itemId)
             controller.clearPendingInModels(itemId)
             controller.processNextPending()
         }
 
-        onItemStatesUploaded: {
+        onItemStatesUploaded: function(itemIds, unread, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale item-states response generation=" + generation)
+                return
+            }
             for (var i = 0; i < itemIds.length; ++i) {
                 cache.clearPending(itemIds[i])
                 controller.clearPendingInModels(itemIds[i])
@@ -245,7 +298,11 @@ Item {
             controller.processNextPending()
         }
 
-        onFailed: {
+        onFailed: function(message, generation) {
+            if (!controller.isCurrentApiGeneration(generation)) {
+                console.log("NextNews Controller ignored stale API failure generation=" + generation)
+                return
+            }
             var queuedManagement = controller.queueCurrentManagementOperation()
             controller.loading = false
             controller.syncRunning = false
@@ -326,6 +383,7 @@ Item {
 
     function loadNews() {
         accountSession.setAccount(accountSettings.accountId, accountSettings.providerId, accountSettings.serviceId, accountSettings.serverUrl)
+        api.requestGeneration = accountRequestGeneration
         loadCached()
         if (!accountReady()) {
             statusText = i18n.tr("Add a Nextcloud or ownCloud account in System Settings > Accounts, then authorize it here.")
@@ -337,7 +395,11 @@ Item {
         statusText = hasCachedItems ? i18n.tr("Showing cached articles. Refreshing...") : i18n.tr("Loading articles...")
         syncStateText = i18n.tr("Syncing")
         syncStateColor = "#2c7fb8"
-        accountSession.withCredentials(function(userName, secret) {
+        accountSession.withCredentials(function(userName, secret, serverUrl, accountId, serviceId) {
+            if (!controller.isCurrentAccountResponse(accountId, serviceId, serverUrl)) {
+                console.log("NextNews Controller ignored stale load auth callback accountId=" + accountId + " serviceId=" + serviceId)
+                return
+            }
             controller.runtimeUserName = userName
             controller.runtimeSecret = secret
             syncPendingThenPull()
@@ -345,6 +407,8 @@ Item {
     }
 
     function applyAccountSelection(accountId, displayName, providerId, serviceId, serverUrl, avatarUrl) {
+        accountRequestGeneration += 1
+        stopAccountActivity()
         accountSettings.accountId = accountId
         accountSettings.displayName = displayName || ""
         accountSettings.providerId = providerId || ""
@@ -355,6 +419,28 @@ Item {
         clearAccountData()
         activeAccountKey = accountKey()
         accountRefreshTimer.restart()
+    }
+
+    function stopAccountActivity() {
+        localStateUploadTimer.stop()
+        accountRefreshTimer.stop()
+        loading = false
+        syncRunning = false
+        folderCreateRunning = false
+        feedCreateRunning = false
+        localStateUploadOnly = false
+        createFolderRequestedName = ""
+        runtimeUserName = ""
+        runtimeSecret = ""
+        pendingOperations = []
+        pendingManagementOperations = []
+        currentManagementOperation = null
+        processingQueuedManagement = false
+        feedDeleteInProgressId = 0
+        folderDeleteInProgressId = 0
+        folderDeleteFeedIds = []
+        accountSession.setAccount(accountSettings.accountId, accountSettings.providerId, accountSettings.serviceId, accountSettings.serverUrl)
+        api.requestGeneration = accountRequestGeneration
     }
 
     function clearAccountData() {
@@ -380,6 +466,16 @@ Item {
             + "|" + String(accountSettings.providerId || "")
             + "|" + String(accountSettings.serviceId || "")
             + "|" + String(accountSettings.serverUrl || "")
+    }
+
+    function isCurrentAccountResponse(accountId, serviceId, serverUrl) {
+        return Number(accountId || 0) === Number(accountSettings.accountId || 0)
+            && String(serviceId || "") === String(accountSettings.serviceId || "")
+            && String(serverUrl || "").replace(/\/+$/, "") === String(accountSettings.serverUrl || "").replace(/\/+$/, "")
+    }
+
+    function isCurrentApiGeneration(generation) {
+        return Number(generation || 0) === Number(accountRequestGeneration || 0)
     }
 
     function syncPendingThenPull() {
