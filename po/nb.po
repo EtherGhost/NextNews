@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-17 18:37+0000\n"
+"POT-Creation-Date: 2026-06-18 21:59+0200\n"
 "PO-Revision-Date: 2026-06-13 00:00+0200\n"
 "Last-Translator: AI-assisted starter translation\n"
 "Language-Team: Norwegian Bokmal\n"
@@ -49,45 +49,45 @@ msgid ""
 "account again."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:25
+#: qml/backend/NewsApiClient.qml:26
 msgid "Could not parse folders from Nextcloud News."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:39
+#: qml/backend/NewsApiClient.qml:40
 msgid ""
 "Folder was created, but NextNews could not read the updated folder list. "
 "Refresh and try again."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:67
+#: qml/backend/NewsApiClient.qml:68
 msgid "Could not parse feeds from Nextcloud News."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:111
+#: qml/backend/NewsApiClient.qml:112
 msgid "Could not parse articles from Nextcloud News."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:145
+#: qml/backend/NewsApiClient.qml:154
 msgid "Nextcloud News request failed with HTTP %1."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:206
+#: qml/backend/NewsApiClient.qml:215
 msgid "Could not add feed: %1"
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:209
+#: qml/backend/NewsApiClient.qml:218
 msgid "That feed already exists."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:212
+#: qml/backend/NewsApiClient.qml:221
 msgid "Nextcloud could not read that feed URL."
 msgstr ""
 
-#: qml/backend/NewsApiClient.qml:214
+#: qml/backend/NewsApiClient.qml:223
 msgid "Could not add feed. Nextcloud News returned HTTP %1."
 msgstr ""
 
-#: qml/backend/NewsCache.qml:335 qml/backend/NewsController.qml:737
+#: qml/backend/NewsCache.qml:335 qml/backend/NewsController.qml:749
 msgid "Untitled article"
 msgstr "Artikkel uten tittel"
 
@@ -95,8 +95,8 @@ msgstr "Artikkel uten tittel"
 msgid "Idle"
 msgstr "Klar"
 
-#: qml/backend/NewsController.qml:18 qml/backend/NewsController.qml:497
-#: qml/backend/NewsController.qml:1034 qml/backend/NewsController.qml:1059
+#: qml/backend/NewsController.qml:18 qml/backend/NewsController.qml:509
+#: qml/backend/NewsController.qml:1062 qml/backend/NewsController.qml:1087
 msgid "All articles"
 msgstr "Alle artikler"
 
@@ -111,12 +111,12 @@ msgstr ""
 #: qml/backend/NewsController.qml:146 qml/backend/NewsController.qml:155
 #: qml/backend/NewsController.qml:172 qml/backend/NewsController.qml:181
 #: qml/backend/NewsController.qml:190 qml/backend/NewsController.qml:204
-#: qml/backend/NewsController.qml:216 qml/backend/NewsController.qml:326
-#: qml/backend/NewsController.qml:764 qml/backend/NewsController.qml:775
-#: qml/backend/NewsController.qml:833 qml/backend/NewsController.qml:861
-#: qml/backend/NewsController.qml:902 qml/backend/NewsController.qml:930
-#: qml/backend/NewsController.qml:950 qml/backend/NewsController.qml:970
-#: qml/backend/NewsController.qml:996
+#: qml/backend/NewsController.qml:216 qml/backend/NewsController.qml:338
+#: qml/backend/NewsController.qml:776 qml/backend/NewsController.qml:787
+#: qml/backend/NewsController.qml:861 qml/backend/NewsController.qml:889
+#: qml/backend/NewsController.qml:930 qml/backend/NewsController.qml:958
+#: qml/backend/NewsController.qml:978 qml/backend/NewsController.qml:998
+#: qml/backend/NewsController.qml:1024
 msgid "Syncing"
 msgstr "Synkroniserer"
 
@@ -148,246 +148,246 @@ msgstr ""
 msgid "Articles refreshed."
 msgstr "Artikler oppdatert."
 
-#: qml/backend/NewsController.qml:230 qml/backend/NewsController.qml:451
-#: qml/backend/NewsController.qml:639
+#: qml/backend/NewsController.qml:230 qml/backend/NewsController.qml:463
+#: qml/backend/NewsController.qml:651
 msgid "Up to date"
 msgstr "Oppdatert"
 
-#: qml/backend/NewsController.qml:251
+#: qml/backend/NewsController.qml:259
 msgid "Offline cache"
 msgstr "Frakoblet hurtiglager"
 
-#: qml/backend/NewsController.qml:251
+#: qml/backend/NewsController.qml:259
 msgid "Sync failed"
 msgstr "Synkronisering mislyktes"
 
-#: qml/backend/NewsController.qml:319 qml/backend/NewsController.qml:363
+#: qml/backend/NewsController.qml:331 qml/backend/NewsController.qml:375
 msgid ""
 "Add a Nextcloud or ownCloud account in System Settings > Accounts, then "
 "authorize it here."
 msgstr ""
 
-#: qml/backend/NewsController.qml:320 qml/backend/NewsController.qml:759
-#: qml/backend/NewsController.qml:825 qml/backend/NewsController.qml:853
-#: qml/backend/NewsController.qml:895 qml/backend/NewsController.qml:923
-#: qml/backend/NewsController.qml:944 qml/backend/NewsController.qml:964
-#: qml/backend/NewsController.qml:985
+#: qml/backend/NewsController.qml:332 qml/backend/NewsController.qml:771
+#: qml/backend/NewsController.qml:853 qml/backend/NewsController.qml:881
+#: qml/backend/NewsController.qml:923 qml/backend/NewsController.qml:951
+#: qml/backend/NewsController.qml:972 qml/backend/NewsController.qml:992
+#: qml/backend/NewsController.qml:1013
 msgid "No account"
 msgstr "Ingen konto"
 
-#: qml/backend/NewsController.qml:325
+#: qml/backend/NewsController.qml:337
 msgid "Loading articles..."
 msgstr "Laster artikler..."
 
-#: qml/backend/NewsController.qml:325
+#: qml/backend/NewsController.qml:337
 msgid "Showing cached articles. Refreshing..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:362
+#: qml/backend/NewsController.qml:374
 #, fuzzy
 msgid "Account changed. Refreshing..."
 msgstr "Oppdaterer..."
 
-#: qml/backend/NewsController.qml:400
+#: qml/backend/NewsController.qml:412
 msgid "Uploading subscription changes"
 msgstr ""
 
-#: qml/backend/NewsController.qml:439
+#: qml/backend/NewsController.qml:451
 msgid "Subscription change saved and will retry on next sync."
 msgstr ""
 
-#: qml/backend/NewsController.qml:450
+#: qml/backend/NewsController.qml:462
 msgid "Local article changes uploaded."
 msgstr ""
 
-#: qml/backend/NewsController.qml:461 qml/backend/NewsController.qml:648
-#: qml/backend/NewsController.qml:794
+#: qml/backend/NewsController.qml:473 qml/backend/NewsController.qml:660
+#: qml/backend/NewsController.qml:806 qml/backend/NewsController.qml:834
 msgid "Uploading local changes"
 msgstr ""
 
-#: qml/backend/NewsController.qml:638
+#: qml/backend/NewsController.qml:650
 msgid "No unread articles in this view."
 msgstr ""
 
-#: qml/backend/NewsController.qml:646
+#: qml/backend/NewsController.qml:658
 msgid "Marked 1 article as read."
 msgstr ""
 
-#: qml/backend/NewsController.qml:647
+#: qml/backend/NewsController.qml:659
 msgid "Marked %1 articles as read."
 msgstr ""
 
-#: qml/backend/NewsController.qml:736
+#: qml/backend/NewsController.qml:748
 msgid "Read state change"
 msgstr "Read state change"
 
-#: qml/backend/NewsController.qml:736
+#: qml/backend/NewsController.qml:748
 msgid "Star change"
 msgstr "Star change"
 
-#: qml/backend/NewsController.qml:739
+#: qml/backend/NewsController.qml:751
 msgid "Will be starred on the server."
 msgstr "Will be starred on the server."
 
-#: qml/backend/NewsController.qml:739
+#: qml/backend/NewsController.qml:751
 msgid "Will be unstarred on the server."
 msgstr "Will be unstarred on the server."
 
-#: qml/backend/NewsController.qml:740
+#: qml/backend/NewsController.qml:752
 msgid "Will be marked read on the server."
 msgstr "Will be marked read on the server."
 
-#: qml/backend/NewsController.qml:740
+#: qml/backend/NewsController.qml:752
 msgid "Will be marked unread on the server."
 msgstr "Will be marked unread on the server."
 
-#: qml/backend/NewsController.qml:748
+#: qml/backend/NewsController.qml:760
 msgid "Subscription change"
 msgstr "Subscription change"
 
-#: qml/backend/NewsController.qml:749
+#: qml/backend/NewsController.qml:761
 msgid "Queued operation"
 msgstr "Queued operation"
 
-#: qml/backend/NewsController.qml:750
+#: qml/backend/NewsController.qml:762
 msgid "Will retry on the next sync."
 msgstr "Will retry on the next sync."
 
-#: qml/backend/NewsController.qml:758
+#: qml/backend/NewsController.qml:770
 msgid "Authorize a Nextcloud account before retrying sync."
 msgstr "Authorize a Nextcloud account before retrying sync."
 
-#: qml/backend/NewsController.qml:763
+#: qml/backend/NewsController.qml:775
 msgid "Retrying local changes..."
 msgstr "Retrying local changes..."
 
-#: qml/backend/NewsController.qml:774
+#: qml/backend/NewsController.qml:786
 msgid "Local pending changes discarded. Refreshing..."
 msgstr "Local pending changes discarded. Refreshing..."
 
-#: qml/backend/NewsController.qml:793
+#: qml/backend/NewsController.qml:805
 msgid "Local article change saved."
 msgstr ""
 
-#: qml/backend/NewsController.qml:815
+#: qml/backend/NewsController.qml:843
 msgid "Enter a feed URL."
 msgstr ""
 
-#: qml/backend/NewsController.qml:816
+#: qml/backend/NewsController.qml:844
 msgid "Feed not added"
 msgstr ""
 
-#: qml/backend/NewsController.qml:824
+#: qml/backend/NewsController.qml:852
 msgid "Authorize a Nextcloud account before adding feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:832
+#: qml/backend/NewsController.qml:860
 msgid "Adding feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:846 qml/backend/NewsController.qml:916
+#: qml/backend/NewsController.qml:874 qml/backend/NewsController.qml:944
 msgid "Enter a folder name."
 msgstr ""
 
-#: qml/backend/NewsController.qml:847
+#: qml/backend/NewsController.qml:875
 msgid "Folder not added"
 msgstr ""
 
-#: qml/backend/NewsController.qml:852
+#: qml/backend/NewsController.qml:880
 msgid "Authorize a Nextcloud account before adding folders."
 msgstr ""
 
-#: qml/backend/NewsController.qml:860
+#: qml/backend/NewsController.qml:888
 msgid "Adding folder..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:888
+#: qml/backend/NewsController.qml:916
 msgid "Enter a feed name."
 msgstr ""
 
-#: qml/backend/NewsController.qml:889
+#: qml/backend/NewsController.qml:917
 msgid "Feed not renamed"
 msgstr ""
 
-#: qml/backend/NewsController.qml:894
+#: qml/backend/NewsController.qml:922
 msgid "Authorize a Nextcloud account before renaming feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:901
+#: qml/backend/NewsController.qml:929
 msgid "Renaming feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:917
+#: qml/backend/NewsController.qml:945
 msgid "Folder not renamed"
 msgstr ""
 
-#: qml/backend/NewsController.qml:922
+#: qml/backend/NewsController.qml:950
 msgid "Authorize a Nextcloud account before renaming folders."
 msgstr ""
 
-#: qml/backend/NewsController.qml:929
+#: qml/backend/NewsController.qml:957
 msgid "Renaming folder..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:943
+#: qml/backend/NewsController.qml:971
 msgid "Authorize a Nextcloud account before moving feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:949
+#: qml/backend/NewsController.qml:977
 msgid "Moving feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:963
+#: qml/backend/NewsController.qml:991
 msgid "Authorize a Nextcloud account before deleting feeds."
 msgstr ""
 
-#: qml/backend/NewsController.qml:969
+#: qml/backend/NewsController.qml:997
 msgid "Deleting feed..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:984
+#: qml/backend/NewsController.qml:1012
 msgid "Authorize a Nextcloud account before deleting folders."
 msgstr ""
 
-#: qml/backend/NewsController.qml:994 qml/backend/NewsController.qml:1023
+#: qml/backend/NewsController.qml:1022 qml/backend/NewsController.qml:1051
 msgid "Deleting folder feeds..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:995
+#: qml/backend/NewsController.qml:1023
 msgid "Deleting folder..."
 msgstr ""
 
-#: qml/backend/NewsController.qml:1059 qml/backend/NewsController.qml:1060
-#: qml/backend/NewsController.qml:1061
+#: qml/backend/NewsController.qml:1087 qml/backend/NewsController.qml:1088
+#: qml/backend/NewsController.qml:1089
 msgid "Views"
 msgstr "Visninger"
 
-#: qml/backend/NewsController.qml:1060 qml/pages/ArticleDetailPage.qml:88
+#: qml/backend/NewsController.qml:1088 qml/pages/ArticleDetailPage.qml:88
 #: qml/pages/NewsListPage.qml:1098
 msgid "Unread"
 msgstr "Uleste"
 
-#: qml/backend/NewsController.qml:1061 qml/pages/ArticleDetailPage.qml:94
+#: qml/backend/NewsController.qml:1089 qml/pages/ArticleDetailPage.qml:94
 msgid "Starred"
 msgstr "Stjernemerket"
 
-#: qml/backend/NewsController.qml:1063 qml/pages/NewsListPage.qml:1386
+#: qml/backend/NewsController.qml:1091 qml/pages/NewsListPage.qml:1386
 msgid "Folders"
 msgstr "Mapper"
 
-#: qml/backend/NewsController.qml:1066 qml/pages/NewsListPage.qml:1397
+#: qml/backend/NewsController.qml:1094 qml/pages/NewsListPage.qml:1397
 msgid "Feeds"
 msgstr "Feeder"
 
-#: qml/backend/NewsController.qml:1130
+#: qml/backend/NewsController.qml:1158
 msgid "Older"
 msgstr "Eldre"
 
-#: qml/backend/NewsController.qml:1137
+#: qml/backend/NewsController.qml:1165
 msgid "Today"
 msgstr "I dag"
 
-#: qml/backend/NewsController.qml:1140
+#: qml/backend/NewsController.qml:1168
 msgid "Yesterday"
 msgstr "I går"
 
@@ -421,144 +421,185 @@ msgid ""
 "or the Nextcloud project. Nextcloud is a trademark of its respective owners."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:30
+#: qml/pages/AccountSelectionPage.qml:32
 msgid "Select an account and authorize it for NextNews."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:37
+#: qml/pages/AccountSelectionPage.qml:39
 msgid "Accounts"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:84
+#: qml/pages/AccountSelectionPage.qml:87
 msgid ""
 "Authorization succeeded, but the Ubuntu Touch account did not expose a "
 "server address for NextNews."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:86
+#: qml/pages/AccountSelectionPage.qml:89
 msgid ""
 "Authorization succeeded for %1. Credentials are available to the app, but "
 "were not displayed or stored."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:118
+#: qml/pages/AccountSelectionPage.qml:121
 msgid ""
 "Authorization failed: %1. If the system did not show an Online Accounts "
 "prompt, open System Settings > Accounts and allow NextNews for this account, "
 "then try again."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:141
+#: qml/pages/AccountSelectionPage.qml:144
 msgid "System account authorization completed. Verifying access..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:144
+#: qml/pages/AccountSelectionPage.qml:147
 msgid ""
 "System account authorization was cancelled or did not return an account."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:201
+#: qml/pages/AccountSelectionPage.qml:208
+msgid "Open system accounts?"
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:212
+#, fuzzy
+msgid "Open accounts"
+msgstr "Ingen konto"
+
+#: qml/pages/AccountSelectionPage.qml:221
+msgid "Later"
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:250
 msgid "Account"
 msgstr "Konto"
 
-#: qml/pages/AccountSelectionPage.qml:268
+#: qml/pages/AccountSelectionPage.qml:317
 msgid "Server address"
 msgstr "Serveradresse"
 
-#: qml/pages/AccountSelectionPage.qml:276
+#: qml/pages/AccountSelectionPage.qml:325
 msgid "https://cloud.example.com"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:285
+#: qml/pages/AccountSelectionPage.qml:334
 msgid ""
 "The account still comes from Ubuntu Touch Online Accounts. Edit this only if "
 "the system account did not expose the correct server address."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:293
+#: qml/pages/AccountSelectionPage.qml:342
 msgid "Available accounts"
 msgstr "Tilgjengelige kontoer"
 
-#: qml/pages/AccountSelectionPage.qml:319
+#: qml/pages/AccountSelectionPage.qml:368
 msgid "No Nextcloud account found"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:326
+#: qml/pages/AccountSelectionPage.qml:375
 msgid ""
 "Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings > "
 "Accounts. Then return here and select it."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:443
+#: qml/pages/AccountSelectionPage.qml:492
 msgid "Allow NextNews in Ubuntu Touch account settings first"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:443
+#: qml/pages/AccountSelectionPage.qml:492
 msgid "Allowed for NextNews"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:444
+#: qml/pages/AccountSelectionPage.qml:493
 msgid "Nextcloud account discovered"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:457
+#: qml/pages/AccountSelectionPage.qml:506
 msgid "Verify selected account"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:457
+#: qml/pages/AccountSelectionPage.qml:506
 msgid "Verifying account..."
 msgstr "Kontrollerer konto..."
 
-#: qml/pages/AccountSelectionPage.qml:508
+#: qml/pages/AccountSelectionPage.qml:557
 msgid "Selected %1. Verifying authorization..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:565
+#: qml/pages/AccountSelectionPage.qml:614
 msgid "Saved account selected. Verify again if needed."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:683
-#: qml/pages/AccountSelectionPage.qml:696
+#: qml/pages/AccountSelectionPage.qml:732
+#: qml/pages/AccountSelectionPage.qml:745
 msgid "Select an account first."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:701
+#: qml/pages/AccountSelectionPage.qml:750
 msgid "Verifying Online Accounts authorization..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:720
+#: qml/pages/AccountSelectionPage.qml:770
 msgid ""
 "This account is not allowed for NextNews yet. Open Ubuntu Touch System "
-"Settings > Accounts, select the Nextcloud account, allow NextNews, then "
-"return here and select the account again."
+"Settings > Accounts, allow NextNews for this account, then return here."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:774
+#: qml/pages/AccountSelectionPage.qml:800
+msgid ""
+"Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings, then "
+"return to NextNews."
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:807
+msgid ""
+"Open Ubuntu Touch System Settings, select %1, allow NextNews for that "
+"account, then return here. NextNews will verify it automatically."
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:811
+msgid ""
+"Open Ubuntu Touch System Settings, select the Nextcloud account, allow "
+"NextNews for that account, then return here. NextNews will verify it "
+"automatically."
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:821
+msgid "Account permission detected. Verifying access..."
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:825
+msgid ""
+"Waiting for account permission. If you already allowed NextNews, return here "
+"and wait a moment."
+msgstr ""
+
+#: qml/pages/AccountSelectionPage.qml:861
 msgid ""
 "No account is saved yet. Select a Nextcloud account below, authorize it, and "
 "verify access."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:777
+#: qml/pages/AccountSelectionPage.qml:864
 msgid ""
 "%1 on %2\n"
 "providerId=%3 serviceId=%4"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:778
+#: qml/pages/AccountSelectionPage.qml:865
 msgid "Saved account"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:779
+#: qml/pages/AccountSelectionPage.qml:866
 msgid "server URL missing"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:791
-#: qml/pages/AccountSelectionPage.qml:819
+#: qml/pages/AccountSelectionPage.qml:878
+#: qml/pages/AccountSelectionPage.qml:906
 msgid "No account selected"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:802
+#: qml/pages/AccountSelectionPage.qml:889
 msgid "The selected Ubuntu Touch account did not expose a server address."
 msgstr ""
 

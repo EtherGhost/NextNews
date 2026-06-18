@@ -62,7 +62,7 @@ The first version intentionally does not implement:
 
 NextNews always uses Ubuntu Touch Online Accounts only.
 
-Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings > Accounts, then select that account inside NextNews. If Ubuntu Touch has not yet allowed NextNews to use the account, the account page tells you to allow it in System Settings > Accounts and then select it again. Credentials are taken from the selected system account. The server address is read from the account when available and can be corrected in the account page if Ubuntu Touch does not expose the correct host. Credentials are requested from Online Accounts at runtime and are not stored by NextNews. After successful runtime authentication, credentials may be kept only in process memory for the current app session.
+Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings > Accounts, then select that account inside NextNews. If Ubuntu Touch has not yet allowed NextNews to use the account, the account page opens a guided prompt to System Settings > Accounts, keeps the account selected, and verifies access automatically when you return. Credentials are taken from the selected system account. The server address is read from the account when available and can be corrected in the account page if Ubuntu Touch does not expose the correct host. Credentials are requested from Online Accounts at runtime and are not stored by NextNews. After successful runtime authentication, credentials may be kept only in process memory for the current app session.
 
 ## Languages
 

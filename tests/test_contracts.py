@@ -30,6 +30,13 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("nextnews.cloudsite_nextnews_owncloud", page)
         self.assertIn("findPreferredAppService", page)
         self.assertIn("service-not-enabled", page)
+        self.assertIn("openSystemAccountsDialog", page)
+        self.assertIn('Qt.openUrlExternally("settings://system/online-accounts")', page)
+        self.assertIn("function systemAccountsDialogText()", page)
+        self.assertIn("function retryAfterSystemApproval()", page)
+        self.assertIn("waitingForSystemApproval", page)
+        self.assertIn("verify it automatically", page)
+        self.assertIn('i18n.tr("Open system accounts")', page)
         self.assertIn("clearSelectedAccount()", page)
         self.assertIn("newsController.applyAccountSelection(", page)
         self.assertIn("authorizationRunning", page)
@@ -37,6 +44,7 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("page.selectAccount(", page)
         self.assertIn("function restoreSelectedAccountFromSettings()", page)
         self.assertIn("Open Ubuntu Touch System Settings > Accounts", page)
+        self.assertNotIn("select it again", page)
         self.assertNotIn("selectedService.updateServiceEnabled(true)", page)
         self.assertNotIn('text: row.isSelected ? i18n.tr("Selected") : i18n.tr("Use")', page)
         self.assertNotIn("accountSetup.exec()", page)
@@ -418,7 +426,7 @@ class UiContractTests(unittest.TestCase):
         self.assertIn("serverUrlField", page)
         self.assertIn("serverUrlCommitTimer", page)
         self.assertIn("commitServerUrlInput", page)
-        self.assertIn("The account still comes from Ubuntu Touch Online Accounts", page)
+        self.assertIn("This app uses Ubuntu Touch Online Accounts", page)
         self.assertNotIn("app password", page.lower())
 
     def test_settings_page_controls_sync_search_and_reading_options(self):
@@ -479,10 +487,11 @@ class UiContractTests(unittest.TestCase):
     def test_about_page_records_version_license_and_disclaimer(self):
         page = read_text("qml/pages/AboutPage.qml")
         manifest = json.loads(read_text("manifest.json.in"))
+        cmake = read_text("CMakeLists.txt")
         changelog = read_text("CHANGELOG.md")
 
         for snippet in [
-            "0.1.5",
+            "nextnewsAppVersion",
             "Version %1",
             "MIT License",
             "Etherghost",
@@ -490,7 +499,8 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertEqual(manifest["version"], "0.1.5")
+        self.assertIn('set(NEXTNEWS_VERSION "0.1.5.1")', cmake)
+        self.assertEqual(manifest["version"], "@NEXTNEWS_VERSION@")
         self.assertIn("## 0.1.5", changelog)
         self.assertIn("## 0.1.4", changelog)
         self.assertIn("## 0.1.2", changelog)

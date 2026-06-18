@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Improved the account setup prompt so a selected account stays selected and is verified automatically after the user returns from Ubuntu Touch account settings.
+
 ## 0.1.5 - 2026-06-17
 
 - Replaced the height-changing article-list status strip with a compact top-bar sync status icon.
