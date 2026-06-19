@@ -10,7 +10,7 @@ find_package(Qt5Quick REQUIRED)
 
 set(PROJECT_NAME "nextnews")
 set(FULL_PROJECT_NAME "nextnews.cloudsite")
-set(NEXTNEWS_VERSION "0.1.5.1")
+set(NEXTNEWS_VERSION "0.1.6")
 set(DATA_DIR /)
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
