@@ -38,6 +38,9 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("selectedHasServiceHandle", page)
         self.assertIn("if (!selectedEnabled && !selectedHasServiceHandle)", page)
         self.assertIn("if (selectedEnabled || selectedHasServiceHandle)", page)
+        self.assertIn("page.waitingForSystemApproval = true", page)
+        self.assertIn("PopupUtils.open(openSystemAccountsDialog)", page)
+        self.assertIn("visible: page.selectedAccountId > 0 && page.waitingForSystemApproval", page)
         self.assertIn("verify it automatically", page)
         self.assertIn('i18n.tr("Open system accounts")', page)
         self.assertIn("clearSelectedAccount()", page)
@@ -532,7 +535,7 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertIn('set(NEXTNEWS_VERSION "0.1.6")', cmake)
+        self.assertIn('set(NEXTNEWS_VERSION "0.1.7")', cmake)
         self.assertIn("## 0.1.6", changelog)
         self.assertEqual(manifest["version"], "@NEXTNEWS_VERSION@")
         self.assertIn("## 0.1.5", changelog)

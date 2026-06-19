@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 0.1.7 - 2026-06-19
+
+- Fixed account setup for accounts that are not yet approved for NextNews in Ubuntu Touch Online Accounts. If authorization fails, the account page now shows the system accounts dialog and an Open system accounts button so the user can grant access.
+
 ## 0.1.6 - 2026-06-19
 
 - Improved the account setup prompt so a selected account stays selected and is verified automatically after the user returns from Ubuntu Touch account settings.

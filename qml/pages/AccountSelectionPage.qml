@@ -110,6 +110,7 @@ Page {
 
         onAuthenticationError: {
             page.authorizationRunning = false
+            page.waitingForSystemApproval = true
             var message = error && error.message ? error.message : JSON.stringify(error)
             console.log(
                 "NextNews OnlineAccountsAuthorization error"
@@ -121,6 +122,7 @@ Page {
             )
             page.authorizationStatus = i18n.tr("Authorization failed: %1. If the system did not show an Online Accounts prompt, open System Settings > Accounts and allow NextNews for this account, then try again.")
                 .arg(message)
+            PopupUtils.open(openSystemAccountsDialog)
         }
     }
 
@@ -513,6 +515,14 @@ Page {
                 text: page.authorizationRunning ? i18n.tr("Verifying account...") : i18n.tr("Verify selected account")
                 enabled: page.selectedAccountId > 0 && !page.authorizationRunning
                 onClicked: page.authenticateSelectedAccount()
+            }
+
+            Button {
+                Layout.fillWidth: true
+                visible: page.selectedAccountId > 0 && page.waitingForSystemApproval && !page.authorizationRunning
+                text: i18n.tr("Open system accounts")
+                color: theme.palette.normal.positive
+                onClicked: PopupUtils.open(openSystemAccountsDialog)
             }
 
             Label {
