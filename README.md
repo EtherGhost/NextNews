@@ -185,14 +185,6 @@ Never use a personal account for live tests. `.env.test.local` is ignored by git
 
 NextNews is intended for OpenStore distribution as a click package.
 
-Before release:
-
-- Build and review amd64 and arm64 packages.
-- Test on Ubuntu Touch Stable.
-- Prepare OpenStore screenshots and banner.
-- Verify Online Accounts setup on a fresh install.
-- Verify Nextcloud News API behavior against a dedicated test account.
-
 Release notes are maintained in [CHANGELOG.md](CHANGELOG.md).
 
 ## Dependencies
