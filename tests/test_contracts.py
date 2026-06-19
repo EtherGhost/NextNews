@@ -373,7 +373,7 @@ class UiContractTests(unittest.TestCase):
             "markAllTarget",
             "Mark read",
             "Mark unread",
-            "cardContent.x > 0",
+            "actionForOffset(cardContent.x)",
             "readStateBadgeLabel",
             "pendingBadgeLabel",
             "feedFaviconLink",
@@ -450,9 +450,18 @@ class UiContractTests(unittest.TestCase):
             "Active sync interval",
             "Oldest articles first",
             "Open articles in browser directly",
+            "Android-compatible swipe direction",
+            "Ubuntu Touch style is the default",
             "Title",
             "Content",
             "Both",
+        ]:
+            self.assertIn(snippet, page)
+        for snippet in [
+            "function setSwipeActionLayout(value)",
+            'property string swipeActionLayout: "ut"',
+            "page.newsListPage.setSwipeActionLayout(normalized)",
+            "enabled: newsController.autoSyncEnabled",
         ]:
             self.assertIn(snippet, page)
         self.assertNotIn("Mark articles read while scrolling", page)
@@ -466,6 +475,21 @@ class UiContractTests(unittest.TestCase):
         ]:
             self.assertIn(snippet, controller)
         self.assertIn("property bool markReadWhileScrolling: false", controller)
+
+    def test_article_list_supports_configurable_swipe_direction(self):
+        page = read_text("qml/pages/NewsListPage.qml")
+
+        for snippet in [
+            "property string activeSwipeActionLayout",
+            'property string swipeActionLayout: "ut"',
+            "function actionForOffset(offset)",
+            'page.activeSwipeActionLayout === "android" ? "star" : "read"',
+            'page.activeSwipeActionLayout === "android" ? "read" : "star"',
+            "function setSwipeActionLayout(value)",
+            '"swipeActionLayout": page.activeSwipeActionLayout',
+            '"newsListPage": page',
+        ]:
+            self.assertIn(snippet, page)
 
     def test_account_page_and_controller_match_avatar_contract(self):
         account_page = read_text("qml/pages/AccountSelectionPage.qml")

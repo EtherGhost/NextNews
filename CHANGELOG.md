@@ -4,6 +4,9 @@
 
 - Improved the account setup prompt so a selected account stays selected and is verified automatically after the user returns from Ubuntu Touch account settings.
 - Hardened account switching so stale Online Accounts callbacks and delayed News API responses from a previous account are ignored after selecting another account.
+- Restyled the Settings page into compact grouped cards matching NextNotes.
+- Added a swipe-direction setting with Ubuntu Touch style as default and Android-compatible behavior as an option.
+- Disabled the active sync interval controls when "Sync while app is active" is turned off.
 
 ## 0.1.5 - 2026-06-17
 

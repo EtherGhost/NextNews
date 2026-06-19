@@ -28,6 +28,7 @@ Page {
     property real markAllOriginX: 0
     property real markAllOriginY: 0
     property bool userScrolledArticleList: false
+    property string activeSwipeActionLayout: appSettings.swipeActionLayout
     readonly property real pullRefreshThreshold: units.gu(7)
     property bool pullRefreshArmed: false
     readonly property real oskOverlap: Qt.inputMethod.visible && Qt.inputMethod.keyboardRectangle.height > 0
@@ -41,6 +42,12 @@ Page {
         id: accountSettings
         category: "account"
         property string displayName: ""
+    }
+
+    Settings {
+        id: appSettings
+        category: "app"
+        property string swipeActionLayout: "ut"
     }
 
     Connections {
@@ -949,7 +956,9 @@ Page {
                     leftMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-                text: model.starred ? i18n.tr("Unstar") : i18n.tr("Star")
+                text: articleDelegate.actionForOffset(articleDelegate.width * 0.3) === "star"
+                    ? (model.starred ? i18n.tr("Unstar") : i18n.tr("Star"))
+                    : (model.unread ? i18n.tr("Mark read") : i18n.tr("Mark unread"))
                 color: "white"
                 font.bold: true
                 opacity: cardContent.x > width * 0.08 ? 1 : 0
@@ -961,7 +970,9 @@ Page {
                     rightMargin: units.gu(2)
                     verticalCenter: parent.verticalCenter
                 }
-                text: model.unread ? i18n.tr("Mark read") : i18n.tr("Mark unread")
+                text: articleDelegate.actionForOffset(-articleDelegate.width * 0.3) === "star"
+                    ? (model.starred ? i18n.tr("Unstar") : i18n.tr("Star"))
+                    : (model.unread ? i18n.tr("Mark read") : i18n.tr("Mark unread"))
                 color: "white"
                 font.bold: true
                 opacity: cardContent.x < -width * 0.08 ? 1 : 0
@@ -1143,7 +1154,7 @@ Page {
                 onReleased: {
                     if (Math.abs(cardContent.x) > articleDelegate.width * 0.25) {
                         var previousY = articleList.contentY
-                        if (cardContent.x > 0) {
+                        if (articleDelegate.actionForOffset(cardContent.x) === "star") {
                             newsController.toggleStar(model.itemId)
                         } else {
                             newsController.toggleRead(model.itemId)
@@ -1182,6 +1193,16 @@ Page {
                         newsController.markReadFromScroll(model.itemId)
                     }
                 }
+            }
+
+            function actionForOffset(offset) {
+                if (offset > 0) {
+                    return page.activeSwipeActionLayout === "android" ? "star" : "read"
+                }
+                if (offset < 0) {
+                    return page.activeSwipeActionLayout === "android" ? "read" : "star"
+                }
+                return ""
             }
         }
     }
@@ -1334,7 +1355,9 @@ Page {
                 onClicked: {
                     page.menuOpen = false
                     pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), {
-                        "newsController": newsController
+                        "newsController": newsController,
+                        "swipeActionLayout": page.activeSwipeActionLayout,
+                        "newsListPage": page
                     })
                 }
             }
@@ -1549,6 +1572,12 @@ Page {
             return "#c65d00"
         }
         return newsController.syncStateColor
+    }
+
+    function setSwipeActionLayout(value) {
+        var normalized = value === "android" ? "android" : "ut"
+        page.activeSwipeActionLayout = normalized
+        appSettings.swipeActionLayout = normalized
     }
 
     function statusDetailsText() {

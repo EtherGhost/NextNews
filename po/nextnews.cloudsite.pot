@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-18 22:04+0000\n"
+"POT-Creation-Date: 2026-06-19 09:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -363,7 +363,7 @@ msgid "Views"
 msgstr ""
 
 #: qml/backend/NewsController.qml:1184 qml/pages/ArticleDetailPage.qml:88
-#: qml/pages/NewsListPage.qml:1098
+#: qml/pages/NewsListPage.qml:1109
 msgid "Unread"
 msgstr ""
 
@@ -371,11 +371,11 @@ msgstr ""
 msgid "Starred"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1187 qml/pages/NewsListPage.qml:1386
+#: qml/backend/NewsController.qml:1187 qml/pages/NewsListPage.qml:1409
 msgid "Folders"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1190 qml/pages/NewsListPage.qml:1397
+#: qml/backend/NewsController.qml:1190 qml/pages/NewsListPage.qml:1420
 msgid "Feeds"
 msgstr ""
 
@@ -391,11 +391,11 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: qml/pages/AboutPage.qml:11 qml/pages/NewsListPage.qml:1344
+#: qml/pages/AboutPage.qml:11 qml/pages/NewsListPage.qml:1367
 msgid "About"
 msgstr ""
 
-#: qml/pages/AboutPage.qml:44 qml/pages/NewsListPage.qml:1307
+#: qml/pages/AboutPage.qml:44 qml/pages/NewsListPage.qml:1328
 msgid "NextNews"
 msgstr ""
 
@@ -421,188 +421,188 @@ msgid ""
 "or the Nextcloud project. Nextcloud is a trademark of its respective owners."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:32
+#: qml/pages/AccountSelectionPage.qml:33
 msgid "Select an account and authorize it for NextNews."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:39
+#: qml/pages/AccountSelectionPage.qml:40
 msgid "Accounts"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:87
+#: qml/pages/AccountSelectionPage.qml:88
 msgid ""
 "Authorization succeeded, but the Ubuntu Touch account did not expose a "
 "server address for NextNews."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:89
+#: qml/pages/AccountSelectionPage.qml:90
 msgid ""
 "Authorization succeeded for %1. Credentials are available to the app, but "
 "were not displayed or stored."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:121
+#: qml/pages/AccountSelectionPage.qml:122
 msgid ""
 "Authorization failed: %1. If the system did not show an Online Accounts "
 "prompt, open System Settings > Accounts and allow NextNews for this account, "
 "then try again."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:144
+#: qml/pages/AccountSelectionPage.qml:145
 msgid "System account authorization completed. Verifying access..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:147
+#: qml/pages/AccountSelectionPage.qml:148
 msgid ""
 "System account authorization was cancelled or did not return an account."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:208
+#: qml/pages/AccountSelectionPage.qml:209
 msgid "Open system accounts?"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:212
+#: qml/pages/AccountSelectionPage.qml:213
 msgid "Open accounts"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:221
+#: qml/pages/AccountSelectionPage.qml:222
 msgid "Later"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:250
+#: qml/pages/AccountSelectionPage.qml:251
 msgid "Account"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:317
+#: qml/pages/AccountSelectionPage.qml:318
 msgid "Server address"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:325
+#: qml/pages/AccountSelectionPage.qml:326
 msgid "https://cloud.example.com"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:334
+#: qml/pages/AccountSelectionPage.qml:335
 msgid ""
 "This app uses Ubuntu Touch Online Accounts. Edit this only if the system "
 "account did not expose the correct server address."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:342
+#: qml/pages/AccountSelectionPage.qml:343
 msgid "Available accounts"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:368
+#: qml/pages/AccountSelectionPage.qml:369
 msgid "No Nextcloud account found"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:375
+#: qml/pages/AccountSelectionPage.qml:376
 msgid ""
 "Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings > "
 "Accounts. Then return here and select it."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:383
+#: qml/pages/AccountSelectionPage.qml:384
 msgid "Open system accounts"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:498
+#: qml/pages/AccountSelectionPage.qml:499
 msgid "Allow NextNews in Ubuntu Touch account settings first"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:498
+#: qml/pages/AccountSelectionPage.qml:499
 msgid "Allowed for NextNews"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:499
+#: qml/pages/AccountSelectionPage.qml:500
 msgid "Nextcloud account discovered"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:512
+#: qml/pages/AccountSelectionPage.qml:513
 msgid "Verify selected account"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:512
+#: qml/pages/AccountSelectionPage.qml:513
 msgid "Verifying account..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:563
+#: qml/pages/AccountSelectionPage.qml:565
 msgid "Selected %1. Verifying authorization..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:620
+#: qml/pages/AccountSelectionPage.qml:623
 msgid "Saved account selected. Verify again if needed."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:738
-#: qml/pages/AccountSelectionPage.qml:751
+#: qml/pages/AccountSelectionPage.qml:741
+#: qml/pages/AccountSelectionPage.qml:754
 msgid "Select an account first."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:756
+#: qml/pages/AccountSelectionPage.qml:759
 msgid "Verifying Online Accounts authorization..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:776
+#: qml/pages/AccountSelectionPage.qml:779
 msgid ""
 "This account is not allowed for NextNews yet. Open Ubuntu Touch System "
 "Settings > Accounts, allow NextNews for this account, then return here."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:806
+#: qml/pages/AccountSelectionPage.qml:810
 msgid ""
 "Add a Nextcloud or ownCloud account in Ubuntu Touch System Settings, then "
 "return to NextNews."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:813
+#: qml/pages/AccountSelectionPage.qml:817
 msgid ""
 "Open Ubuntu Touch System Settings, select %1, allow NextNews for that "
 "account, then return here. NextNews will verify it automatically."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:817
+#: qml/pages/AccountSelectionPage.qml:821
 msgid ""
 "Open Ubuntu Touch System Settings, select the Nextcloud account, allow "
 "NextNews for that account, then return here. NextNews will verify it "
 "automatically."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:827
+#: qml/pages/AccountSelectionPage.qml:831
 msgid "Account permission detected. Verifying access..."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:831
+#: qml/pages/AccountSelectionPage.qml:835
 msgid ""
 "Waiting for account permission. If you already allowed NextNews, return here "
 "and wait a moment."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:867
+#: qml/pages/AccountSelectionPage.qml:872
 msgid ""
 "No account is saved yet. Select a Nextcloud account below, authorize it, and "
 "verify access."
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:870
+#: qml/pages/AccountSelectionPage.qml:875
 msgid ""
 "%1 on %2\n"
 "providerId=%3 serviceId=%4"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:871
+#: qml/pages/AccountSelectionPage.qml:876
 msgid "Saved account"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:872
+#: qml/pages/AccountSelectionPage.qml:877
 msgid "server URL missing"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:884
-#: qml/pages/AccountSelectionPage.qml:912
+#: qml/pages/AccountSelectionPage.qml:889
+#: qml/pages/AccountSelectionPage.qml:917
 msgid "No account selected"
 msgstr ""
 
-#: qml/pages/AccountSelectionPage.qml:895
+#: qml/pages/AccountSelectionPage.qml:900
 msgid "The selected Ubuntu Touch account did not expose a server address."
 msgstr ""
 
@@ -618,19 +618,23 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:952
+#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:960
+#: qml/pages/NewsListPage.qml:974
 msgid "Star"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:952
+#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:960
+#: qml/pages/NewsListPage.qml:974
 msgid "Unstar"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:964
+#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:961
+#: qml/pages/NewsListPage.qml:975
 msgid "Mark read"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:964
+#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:961
+#: qml/pages/NewsListPage.qml:975
 msgid "Mark unread"
 msgstr ""
 
@@ -638,7 +642,7 @@ msgstr ""
 msgid "Article not cached"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:88 qml/pages/NewsListPage.qml:1098
+#: qml/pages/ArticleDetailPage.qml:88 qml/pages/NewsListPage.qml:1109
 msgid "Read"
 msgstr ""
 
@@ -712,7 +716,7 @@ msgstr ""
 msgid "AI-assisted translation"
 msgstr ""
 
-#: qml/pages/LanguageSelectionPage.qml:23 qml/pages/NewsListPage.qml:1324
+#: qml/pages/LanguageSelectionPage.qml:23 qml/pages/NewsListPage.qml:1345
 msgid "Language"
 msgstr ""
 
@@ -736,275 +740,293 @@ msgstr ""
 msgid "NextNews will use %1 after restart."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:16 qml/pages/NewsListPage.qml:104
-#: qml/pages/NewsListPage.qml:476 qml/pages/NewsListPage.qml:480
-#: qml/pages/NewsListPage.qml:612
+#: qml/pages/NewsListPage.qml:16 qml/pages/NewsListPage.qml:111
+#: qml/pages/NewsListPage.qml:483 qml/pages/NewsListPage.qml:487
+#: qml/pages/NewsListPage.qml:619
 msgid "No folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:143
+#: qml/pages/NewsListPage.qml:150
 msgid "Search articles"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:313
+#: qml/pages/NewsListPage.qml:320
 msgid "Sync status"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:318
+#: qml/pages/NewsListPage.qml:325
 msgid "Review pending changes"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:326
+#: qml/pages/NewsListPage.qml:333
 msgid "Close"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:423
+#: qml/pages/NewsListPage.qml:430
 msgid "Add feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:438
+#: qml/pages/NewsListPage.qml:445
 msgid "Add an RSS or Atom feed to the selected Nextcloud News account."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:446
+#: qml/pages/NewsListPage.qml:453
 msgid "Feed URL"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:459
+#: qml/pages/NewsListPage.qml:466
 msgid "Clear feed URL"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:470
+#: qml/pages/NewsListPage.qml:477
 msgid "Folder: %1"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:491
+#: qml/pages/NewsListPage.qml:498
 msgid "New folder name"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:497 qml/pages/NewsListPage.qml:529
-#: qml/pages/NewsListPage.qml:581
+#: qml/pages/NewsListPage.qml:504 qml/pages/NewsListPage.qml:536
+#: qml/pages/NewsListPage.qml:588
 msgid "Adding..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:497
+#: qml/pages/NewsListPage.qml:504
 msgid "Create"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:527
+#: qml/pages/NewsListPage.qml:534
 msgid "Waiting for folder..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:530 qml/pages/NewsListPage.qml:581
+#: qml/pages/NewsListPage.qml:537 qml/pages/NewsListPage.qml:588
 msgid "Add"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:543 qml/pages/NewsListPage.qml:592
-#: qml/pages/NewsListPage.qml:666 qml/pages/NewsListPage.qml:712
-#: qml/pages/NewsListPage.qml:739 qml/pages/NewsListPage.qml:772
-#: qml/pages/NewsListPage.qml:818 qml/pages/NewsListPage.qml:845
+#: qml/pages/NewsListPage.qml:550 qml/pages/NewsListPage.qml:599
+#: qml/pages/NewsListPage.qml:673 qml/pages/NewsListPage.qml:719
+#: qml/pages/NewsListPage.qml:746 qml/pages/NewsListPage.qml:779
+#: qml/pages/NewsListPage.qml:825 qml/pages/NewsListPage.qml:852
 msgid "Cancel"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:556
+#: qml/pages/NewsListPage.qml:563
 msgid "New folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:557
+#: qml/pages/NewsListPage.qml:564
 msgid "Create a folder in Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:561 qml/pages/NewsListPage.qml:788
+#: qml/pages/NewsListPage.qml:568 qml/pages/NewsListPage.qml:795
 msgid "Folder name"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:604
+#: qml/pages/NewsListPage.qml:611
 msgid "Feed options"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:607
+#: qml/pages/NewsListPage.qml:614
 msgid "Move to folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:638 qml/pages/NewsListPage.qml:677
+#: qml/pages/NewsListPage.qml:645 qml/pages/NewsListPage.qml:684
 msgid "Rename feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:648
+#: qml/pages/NewsListPage.qml:655
 msgid "Open in app"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:649
+#: qml/pages/NewsListPage.qml:656
 msgid "Open in browser"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:657
+#: qml/pages/NewsListPage.qml:664
 msgid "Delete feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:678
+#: qml/pages/NewsListPage.qml:685
 msgid "Change the feed name on Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:682
+#: qml/pages/NewsListPage.qml:689
 msgid "Feed name"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:701 qml/pages/NewsListPage.qml:807
+#: qml/pages/NewsListPage.qml:708 qml/pages/NewsListPage.qml:814
 msgid "Save"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:701 qml/pages/NewsListPage.qml:807
+#: qml/pages/NewsListPage.qml:708 qml/pages/NewsListPage.qml:814
 msgid "Saving..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:723
+#: qml/pages/NewsListPage.qml:730
 msgid "Delete feed?"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:724
+#: qml/pages/NewsListPage.qml:731
 msgid "This will remove \"%1\" from Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:727 qml/pages/NewsListPage.qml:833
+#: qml/pages/NewsListPage.qml:734 qml/pages/NewsListPage.qml:840
 msgid "Delete"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:751
+#: qml/pages/NewsListPage.qml:758
 msgid "Folder options"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:754 qml/pages/NewsListPage.qml:783
+#: qml/pages/NewsListPage.qml:761 qml/pages/NewsListPage.qml:790
 msgid "Rename folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:763
+#: qml/pages/NewsListPage.qml:770
 msgid "Delete folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:784
+#: qml/pages/NewsListPage.qml:791
 msgid "Change the folder name on Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:829
+#: qml/pages/NewsListPage.qml:836
 msgid "Delete folder?"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:830
+#: qml/pages/NewsListPage.qml:837
 msgid ""
 "This will remove \"%1\" and all feeds in that folder from Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:906 qml/pages/NewsListPage.qml:1314
+#: qml/pages/NewsListPage.qml:913 qml/pages/NewsListPage.qml:1335
 msgid "Refreshing..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:908
+#: qml/pages/NewsListPage.qml:915
 msgid "Release to refresh"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:909
+#: qml/pages/NewsListPage.qml:916
 msgid "Pull to refresh"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1078
+#: qml/pages/NewsListPage.qml:1089
 msgid "Unknown feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1113
+#: qml/pages/NewsListPage.qml:1124
 msgid "Pending"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1272
+#: qml/pages/NewsListPage.qml:1293
 msgid "No articles to show"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1272
+#: qml/pages/NewsListPage.qml:1293
 msgid "No matching articles"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1280
+#: qml/pages/NewsListPage.qml:1301
 msgid "Try another feed or clear search."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1281
+#: qml/pages/NewsListPage.qml:1302
 msgid "Connect to Nextcloud while online to cache articles on this device."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1314
+#: qml/pages/NewsListPage.qml:1335
 msgid "Refresh"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1333 qml/pages/SettingsPage.qml:12
+#: qml/pages/NewsListPage.qml:1354 qml/pages/SettingsPage.qml:15
 msgid "Settings"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1525
+#: qml/pages/NewsListPage.qml:1548
 msgid "%1m"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1528
+#: qml/pages/NewsListPage.qml:1551
 msgid "%1h"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1560
+#: qml/pages/NewsListPage.qml:1589
 msgid "Sync: %1"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1563
+#: qml/pages/NewsListPage.qml:1592
 msgid "%1 local changes are waiting for sync."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1566
+#: qml/pages/NewsListPage.qml:1595
 msgid "No status message."
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:34
+#: qml/pages/SettingsPage.qml:60
 msgid "Sync"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:40
+#: qml/pages/SettingsPage.qml:71
 msgid "Sync while app is active"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:46
+#: qml/pages/SettingsPage.qml:87
 msgid "Sync on startup"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:57
+#: qml/pages/SettingsPage.qml:99
 msgid "Active sync interval"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:81
+#: qml/pages/SettingsPage.qml:133
 msgid ""
 "Ubuntu Touch does not provide Android-style background services for this "
 "app. Sync runs while NextNews is open or activated."
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:88
+#: qml/pages/SettingsPage.qml:158
 msgid "List"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:94
+#: qml/pages/SettingsPage.qml:169
 msgid "Oldest articles first"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:100
+#: qml/pages/SettingsPage.qml:185
 msgid "Open articles in browser directly"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:107
+#: qml/pages/SettingsPage.qml:205
+msgid "Android-compatible swipe direction"
+msgstr ""
+
+#: qml/pages/SettingsPage.qml:213
+msgid "Swipe right to star, left to mark read or unread."
+msgstr ""
+
+#: qml/pages/SettingsPage.qml:214
+msgid "Swipe right to mark read or unread, left to star."
+msgstr ""
+
+#: qml/pages/SettingsPage.qml:228
+msgid ""
+"Ubuntu Touch style is the default. Enable Android-compatible direction if "
+"you prefer the upstream Android News swipe behavior."
+msgstr ""
+
+#: qml/pages/SettingsPage.qml:253
 msgid "Search"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:118
+#: qml/pages/SettingsPage.qml:264
 msgid "Title"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:125
+#: qml/pages/SettingsPage.qml:271
 msgid "Content"
 msgstr ""
 
-#: qml/pages/SettingsPage.qml:132
+#: qml/pages/SettingsPage.qml:278
 msgid "Both"
 msgstr ""
