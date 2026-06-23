@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.1.8 - 2026-06-23
+
+- Polish release.
+- Updates the app icon and banner artwork.
+- Introduces a cleaner, more modern navigation drawer and account page design.
+- Removes the drawer Refresh action; pull-to-refresh remains available in the article list.
+
 ## 0.1.7 - 2026-06-19
 
 - Fixed account setup for accounts that are not yet approved for NextNews in Ubuntu Touch Online Accounts. If authorization fails, the account page now shows the system accounts dialog and an Open system accounts button so the user can grant access.

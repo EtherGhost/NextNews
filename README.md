@@ -1,10 +1,10 @@
 # NextNews
 
-NextNews is a native Ubuntu Touch client for the official Nextcloud News app.
+NextNews is a native Ubuntu Touch client for Nextcloud News.
 
-The project uses NextNotes as its technical implementation template, but NextNews is a separate application focused on feeds and articles. The Android Nextcloud News app is used only as a functional and layout reference.
+This project follows the same Ubuntu Touch development approach as NextNotes, NextTasks, and the rest of the Nextcloud app suite.
 
-NextNews is not affiliated with, endorsed by, or sponsored by Nextcloud GmbH or the Nextcloud project. Nextcloud is a trademark of its respective owners.
+NextNews is not affiliated with, endorsed by, or sponsored by Nextcloud GmbH or the Nextcloud project.
 
 ## Features
 
@@ -20,7 +20,7 @@ Current V1 scaffold:
 - Add feeds to the selected Nextcloud News account.
 - Create folders, rename folders, move feeds to folders, rename feeds, and delete feeds.
 - Create a folder directly from the Add feed dialog and wait for the server folder id before posting the feed.
-- Delete folders; feeds inside the folder are deleted first, matching the Android client behavior.
+- Delete folders; feeds inside the folder are deleted first, matching the established Nextcloud News workflow.
 - Keep folder/feed selector models in sync with the cached/server folder list.
 - Show cached articles first, then refresh from the server.
 - Group articles by date sections such as Today, Yesterday, and calendar date.
@@ -42,14 +42,14 @@ Current V1 scaffold:
 - Configure individual feeds to open directly in the browser.
 - Open or share article links from the article detail page.
 - Use a local SQLite cache through Qt LocalStorage.
-- Show an About page with version, license, copyright, and Nextcloud affiliation disclaimer.
+- Show an About page with version, license, copyright, and Nextcloud affiliation disclaimer. Longer product/license/disclaimer text intentionally remains in English across translations.
 
 ## Not Included
 
 The first version intentionally does not implement:
 
 - In-app username/password/app-password login
-- Android-style always-running background service
+- Always-running background service
 - Background push notifications
 - Full-text web archive download
 - Podcast playback
@@ -209,7 +209,7 @@ NextNews does not request unconfined mode.
 
 ## Current Status
 
-Initial NextNews scaffold is complete. The app builds as `nextnews.cloudsite`, includes a News-specific API/cache/controller boundary, passes local contract tests, and has been installed on Ubuntu Touch for Online Accounts testing. The account flow is intentionally OS-account-only and does not expose manual login. Account switching clears stale in-memory credentials and ignores delayed auth/API responses from the previous account. Feed creation, folder creation, feed/folder rename, feed move/delete, folder delete, active sync settings, unread navigation counts, search scope, sort settings, direct browser opening, and mail sharing are implemented. Version 0.1.7 is prepared as the next public bugfix release after 0.1.6. The experimental mark-read-while-scrolling option is disabled and hidden because device testing showed unreliable behavior; it is deferred to a future release.
+Initial NextNews scaffold is complete. The app builds as `nextnews.cloudsite`, includes a News-specific API/cache/controller boundary, passes local contract tests, and has been installed on Ubuntu Touch for Online Accounts testing. The account flow is intentionally OS-account-only and does not expose manual login. Account switching clears stale in-memory credentials and ignores delayed auth/API responses from the previous account. Feed creation, folder creation, feed/folder rename, feed move/delete, folder delete, active sync settings, unread navigation counts, search scope, sort settings, direct browser opening, and mail sharing are implemented. Version 0.1.8 is prepared as the next public bugfix release after 0.1.7, with icon/banner polish, drawer/account styling updates, About text cleanup, and sync status color cleanup after resolving pending local changes. The experimental mark-read-while-scrolling option is disabled and hidden because device testing showed unreliable behavior; it is deferred to a future release.
 
 ## License
 

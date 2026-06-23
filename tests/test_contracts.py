@@ -119,6 +119,7 @@ class ProjectIdentityTests(unittest.TestCase):
 
         self.assertIn("accountSession.envTestAuthEnabled", controller)
         self.assertIn("accountSettings.serverUrl = serverUrl", controller)
+        self.assertIn('String(serviceId || "") === "desktop-test-env"', controller)
         self.assertIn("desktop-test: bash scripts/desktop-test.sh", clickable)
         self.assertIn("desktop-dark: bash scripts/desktop-dark.sh", clickable)
         self.assertIn("desktop-test-dark: bash scripts/desktop-test.sh --dark", clickable)
@@ -388,6 +389,7 @@ class UiContractTests(unittest.TestCase):
             "ConflictResolutionPage.qml",
             "navigationRowSelected",
             "color: page.navigationRowSelected(model.type, model.id) ? \"white\" : theme.palette.normal.backgroundText",
+            "visible: model.count > 0",
             "rightMargin: model.type === \"feed\" || model.type === \"folder\" ? units.gu(5) : 0",
             "toggleStar",
             "toggleRead",
@@ -453,7 +455,7 @@ class UiContractTests(unittest.TestCase):
             "Active sync interval",
             "Oldest articles first",
             "Open articles in browser directly",
-            "Android-compatible swipe direction",
+            "Upstream-compatible swipe direction",
             "Ubuntu Touch style is the default",
             "Title",
             "Content",
@@ -535,7 +537,9 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertIn('set(NEXTNEWS_VERSION "0.1.7")', cmake)
+        self.assertIn('set(NEXTNEWS_VERSION "0.1.8")', cmake)
+        self.assertIn("## 0.1.8", changelog)
+        self.assertIn("## 0.1.7", changelog)
         self.assertIn("## 0.1.6", changelog)
         self.assertEqual(manifest["version"], "@NEXTNEWS_VERSION@")
         self.assertIn("## 0.1.5", changelog)
@@ -550,7 +554,9 @@ class DocumentationTests(unittest.TestCase):
         readme = read_text("README.md")
         license_text = read_text("LICENSE")
 
-        self.assertIn("NextNotes as its technical implementation template", readme)
+        self.assertIn("same Ubuntu Touch development approach", readme)
+        self.assertIn("Nextcloud app suite", readme)
+        self.assertNotIn("technical implementation template", readme)
         self.assertIn("Ubuntu Touch Online Accounts only", readme)
         self.assertIn("/index.php/apps/news/api/v1-2/", readme)
         self.assertIn("MIT License", readme)
