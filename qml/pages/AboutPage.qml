@@ -56,7 +56,7 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                text: i18n.tr("Native but simple Ubuntu Touch client for Nextcloud News.")
+                text: "Native but simple Ubuntu Touch client for Nextcloud News."
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
             }
@@ -75,7 +75,7 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                text: i18n.tr("NextNews is licensed under the MIT License.")
+                text: "NextNews is licensed under the MIT License."
                 wrapMode: Text.WordWrap
             }
 
@@ -88,7 +88,7 @@ Page {
 
             Label {
                 Layout.fillWidth: true
-                text: i18n.tr("NextNews is not affiliated with, endorsed by, or sponsored by Nextcloud GmbH or the Nextcloud project. Nextcloud is a trademark of its respective owners.")
+                text: "NextNews is not affiliated with, endorsed by, or sponsored by Nextcloud GmbH or the Nextcloud project. Nextcloud is a trademark of its respective owners."
                 wrapMode: Text.WordWrap
                 opacity: 0.75
             }

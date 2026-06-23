@@ -132,16 +132,27 @@ Page {
         contents: RowLayout {
             anchors {
                 fill: parent
-                leftMargin: units.gu(1)
-                rightMargin: units.gu(1)
+                leftMargin: units.gu(0.5)
+                rightMargin: units.gu(0.5)
             }
             spacing: units.gu(0.75)
 
-            Button {
-                Layout.preferredWidth: units.gu(5)
+            Item {
+                Layout.preferredWidth: units.gu(3.4)
                 Layout.preferredHeight: units.gu(5)
-                text: "\u2630"
-                onClicked: page.menuOpen = true
+
+                Label {
+                    anchors.centerIn: parent
+                    text: "\u2630"
+                    color: theme.palette.normal.backgroundText
+                    font.pixelSize: units.gu(2.6)
+                    font.bold: true
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: page.menuOpen = true
+                }
             }
 
             TextField {
@@ -152,13 +163,25 @@ Page {
                 onTextChanged: newsController.setSearchQuery(text)
             }
 
-            Button {
-                width: units.gu(5)
-                text: "\u2715"
+            Item {
+                Layout.preferredWidth: units.gu(5)
+                Layout.preferredHeight: units.gu(5)
                 visible: searchField.text.length > 0
-                onClicked: {
-                    searchField.text = ""
-                    newsController.clearSearch()
+
+                Label {
+                    anchors.centerIn: parent
+                    text: "\u2715"
+                    color: theme.palette.normal.backgroundText
+                    font.pixelSize: units.gu(2.2)
+                    font.bold: true
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        searchField.text = ""
+                        newsController.clearSearch()
+                    }
                 }
             }
 
@@ -1306,79 +1329,78 @@ Page {
         }
     }
 
-    Rectangle {
+    Item {
+        anchors.fill: parent
+        visible: page.menuOpen
+        z: 10
+
+        Rectangle {
+            anchors.fill: parent
+            color: "black"
+            opacity: 0.32
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: page.menuOpen = false
+        }
+
+        Rectangle {
         id: drawer
         anchors {
-            top: header.bottom
+            top: parent.top
             bottom: parent.bottom
             left: parent.left
         }
         width: Math.min(parent.width * 0.82, units.gu(42))
-        visible: page.menuOpen
         color: theme.palette.normal.background
+        border.width: 1
         border.color: theme.palette.normal.base
-        z: 10
 
         ColumnLayout {
             anchors.fill: parent
-            anchors.margins: units.gu(2)
+            anchors.margins: units.gu(1.5)
             spacing: units.gu(1)
 
-            Label {
-                text: i18n.tr("NextNews")
-                fontSize: "x-large"
-                font.bold: true
-            }
-
-            Button {
+            RowLayout {
                 Layout.fillWidth: true
-                text: newsController.loading ? i18n.tr("Refreshing...") : i18n.tr("Refresh")
-                enabled: !newsController.loading
-                onClicked: {
-                    page.menuOpen = false
-                    newsController.loadNews()
+
+                Label {
+                    Layout.fillWidth: true
+                    text: i18n.tr("NextNews")
+                    fontSize: "large"
+                    font.bold: true
+                    elide: Text.ElideRight
+                }
+
+                Item {
+                    Layout.preferredWidth: units.gu(5)
+                    Layout.preferredHeight: units.gu(5)
+
+                    Label {
+                        anchors.centerIn: parent
+                        text: "\u2715"
+                        color: theme.palette.normal.backgroundText
+                        font.pixelSize: units.gu(2.2)
+                        font.bold: true
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: page.menuOpen = false
+                    }
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                text: i18n.tr("Language")
-                onClicked: {
-                    page.menuOpen = false
-                    pageStack.push(Qt.resolvedUrl("LanguageSelectionPage.qml"))
-                }
-            }
-
-            Button {
-                Layout.fillWidth: true
-                text: i18n.tr("Settings")
-                onClicked: {
-                    page.menuOpen = false
-                    pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), {
-                        "newsController": newsController,
-                        "swipeActionLayout": page.activeSwipeActionLayout,
-                        "newsListPage": page
-                    })
-                }
-            }
-
-            Button {
-                Layout.fillWidth: true
-                text: i18n.tr("About")
-                onClicked: {
-                    page.menuOpen = false
-                    pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-                }
-            }
-
-            ListView {
-                id: navigationList
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                clip: true
-                model: newsController.navigation
-                section.property: "groupLabel"
-                section.criteria: ViewSection.FullString
+                ListView {
+                    id: navigationList
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    clip: true
+                    spacing: units.gu(0.5)
+                    model: newsController.navigation
+                    section.property: "groupLabel"
+                    section.criteria: ViewSection.FullString
                 section.delegate: Rectangle {
                     width: navigationList.width
                     height: units.gu(5)
@@ -1403,25 +1425,53 @@ Page {
                             elide: Text.ElideRight
                         }
 
-                        Button {
+                        Item {
                             Layout.preferredWidth: units.gu(5)
-                            text: "+"
+                            Layout.preferredHeight: units.gu(5)
                             visible: section === i18n.tr("Folders")
                             enabled: !newsController.folderCreateRunning
-                            onClicked: {
-                                page.menuOpen = false
-                                PopupUtils.open(addFolderDialog)
+
+                            Label {
+                                anchors.centerIn: parent
+                                text: "+"
+                                color: theme.palette.normal.backgroundText
+                                font.pixelSize: units.gu(2.6)
+                                font.bold: true
+                                opacity: parent.enabled ? 1.0 : 0.45
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                enabled: parent.enabled
+                                onClicked: {
+                                    page.menuOpen = false
+                                    PopupUtils.open(addFolderDialog)
+                                }
                             }
                         }
 
-                        Button {
+                        Item {
                             Layout.preferredWidth: units.gu(5)
-                            text: "+"
+                            Layout.preferredHeight: units.gu(5)
                             visible: section === i18n.tr("Feeds")
                             enabled: !newsController.feedCreateRunning
-                            onClicked: {
-                                page.menuOpen = false
-                                page.openAddFeedPanel()
+
+                            Label {
+                                anchors.centerIn: parent
+                                text: "+"
+                                color: theme.palette.normal.backgroundText
+                                font.pixelSize: units.gu(2.6)
+                                font.bold: true
+                                opacity: parent.enabled ? 1.0 : 0.45
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                enabled: parent.enabled
+                                onClicked: {
+                                    page.menuOpen = false
+                                    page.openAddFeedPanel()
+                                }
                             }
                         }
                     }
@@ -1429,11 +1479,18 @@ Page {
 
                 delegate: Rectangle {
                     width: navigationList.width
-                    height: units.gu(5)
+                    height: units.gu(5.2)
+                    radius: units.gu(0.5)
                     color: page.navigationRowSelected(model.type, model.id) ? "#2c7fb8" : theme.palette.normal.background
+                    border.width: page.navigationRowSelected(model.type, model.id) ? 0 : 1
+                    border.color: "#7a7a7a"
 
                     RowLayout {
-                        anchors.fill: parent
+                        anchors {
+                            fill: parent
+                            leftMargin: units.gu(1)
+                            rightMargin: units.gu(1)
+                        }
                         spacing: units.gu(0.5)
 
                         Item {
@@ -1443,11 +1500,10 @@ Page {
                             Label {
                                 anchors {
                                     fill: parent
-                                    leftMargin: units.gu(1)
-                                    rightMargin: units.gu(1)
                                 }
                                 text: model.label
                                 color: page.navigationRowSelected(model.type, model.id) ? "white" : theme.palette.normal.backgroundText
+                                font.bold: page.navigationRowSelected(model.type, model.id)
                                 verticalAlignment: Text.AlignVCenter
                                 elide: Text.ElideRight
                             }
@@ -1457,7 +1513,8 @@ Page {
                             visible: model.count > 0
                             text: model.count
                             color: page.navigationRowSelected(model.type, model.id) ? "white" : theme.palette.normal.backgroundText
-                            opacity: 0.75
+                            opacity: page.navigationRowSelected(model.type, model.id) ? 1.0 : 0.62
+                            font.bold: page.navigationRowSelected(model.type, model.id)
                         }
 
                         Item {
@@ -1505,14 +1562,36 @@ Page {
                     }
                 }
             }
-        }
-    }
 
-    MouseArea {
-        anchors.fill: parent
-        visible: page.menuOpen
-        z: 9
-        onClicked: page.menuOpen = false
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: units.gu(5)
+                Label { anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; anchors.leftMargin: units.gu(1); text: i18n.tr("Language"); color: theme.palette.normal.backgroundText; font.bold: true }
+                MouseArea { anchors.fill: parent; onClicked: { page.menuOpen = false; pageStack.push(Qt.resolvedUrl("LanguageSelectionPage.qml")) } }
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: units.gu(5)
+                Label { anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; anchors.leftMargin: units.gu(1); text: i18n.tr("Account"); color: theme.palette.normal.backgroundText; font.bold: true }
+                MouseArea { anchors.fill: parent; onClicked: { page.menuOpen = false; pageStack.push(Qt.resolvedUrl("AccountSelectionPage.qml"), { "newsController": newsController }) } }
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: units.gu(5)
+                Label { anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; anchors.leftMargin: units.gu(1); text: i18n.tr("Settings"); color: theme.palette.normal.backgroundText; font.bold: true }
+                MouseArea { anchors.fill: parent; onClicked: { page.menuOpen = false; pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), { "newsController": newsController, "swipeActionLayout": page.activeSwipeActionLayout, "newsListPage": page }) } }
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: units.gu(5)
+                Label { anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; anchors.leftMargin: units.gu(1); text: i18n.tr("About"); color: theme.palette.normal.backgroundText; font.bold: true }
+                MouseArea { anchors.fill: parent; onClicked: { page.menuOpen = false; pageStack.push(Qt.resolvedUrl("AboutPage.qml")) } }
+            }
+        }
+        }
     }
 
     function displaySectionLabel(sectionKey) {

@@ -202,7 +202,7 @@ Page {
 
                             Label {
                                 Layout.fillWidth: true
-                                text: i18n.tr("Android-compatible swipe direction")
+                                text: i18n.tr("Upstream-compatible swipe direction")
                                 font.bold: true
                                 wrapMode: Text.WordWrap
                             }
@@ -225,7 +225,7 @@ Page {
 
                     Label {
                         Layout.fillWidth: true
-                        text: i18n.tr("Ubuntu Touch style is the default. Enable Android-compatible direction if you prefer the upstream Android News swipe behavior.")
+                        text: i18n.tr("Ubuntu Touch style is the default. Enable upstream-compatible direction if you prefer the upstream News swipe behavior.")
                         wrapMode: Text.WordWrap
                         opacity: 0.68
                     }

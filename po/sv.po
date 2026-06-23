@@ -1042,8 +1042,8 @@ msgid "Open articles in browser directly"
 msgstr "Öppna artiklar direkt i webbläsare"
 
 #: qml/pages/SettingsPage.qml:203
-msgid "Android-compatible swipe direction"
-msgstr "Android-kompatibel svepriktning"
+msgid "Upstream-compatible swipe direction"
+msgstr "Kompatibel svepriktning"
 
 #: qml/pages/SettingsPage.qml:211
 msgid "Swipe right to star, left to mark read or unread."
@@ -1055,11 +1055,11 @@ msgstr "Svep höger för att markera läst eller oläst, vänster för att stjä
 
 #: qml/pages/SettingsPage.qml:226
 msgid ""
-"Ubuntu Touch style is the default. Enable Android-compatible direction if "
-"you prefer the upstream Android News swipe behavior."
+"Ubuntu Touch style is the default. Enable upstream-compatible direction if "
+"you prefer the upstream News swipe behavior."
 msgstr ""
-"Ubuntu Touch-stil är standard. Aktivera Android-kompatibel riktning om du "
-"föredrar svepbeteendet från Android-versionen av News."
+"Ubuntu Touch-stil är standard. Aktivera kompatibel riktning om du "
+"föredrar det etablerade News-svepbeteendet."
 
 #: qml/pages/SettingsPage.qml:107
 msgid "Search"
