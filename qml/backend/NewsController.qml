@@ -375,10 +375,18 @@ Item {
         allFeeds = cache.loadFeeds()
         allItems = cache.loadItems()
         hasCachedItems = allItems.length > 0
-        pendingCount = cache.loadPendingItems().length + cache.loadPendingManagementOperations().length
+        refreshPendingCount(false)
         rebuildFolderFeedModels()
         rebuildNavigation()
         rebuildModel()
+    }
+
+    function refreshPendingCount(normalizeIdleStatus) {
+        pendingCount = cache.loadPendingItems().length + cache.loadPendingManagementOperations().length
+        if (normalizeIdleStatus === true && pendingCount === 0 && !loading && !syncRunning) {
+            syncStateText = i18n.tr("Up to date")
+            syncStateColor = "#5a8f3c"
+        }
     }
 
     function loadNews() {
@@ -469,6 +477,11 @@ Item {
     }
 
     function isCurrentAccountResponse(accountId, serviceId, serverUrl) {
+        if (typeof desktopTestAuthEnabled !== "undefined" && desktopTestAuthEnabled
+                && Number(accountId || 0) === -1
+                && String(serviceId || "") === "desktop-test-env") {
+            return true
+        }
         return Number(accountId || 0) === Number(accountSettings.accountId || 0)
             && String(serviceId || "") === String(accountSettings.serviceId || "")
             && String(serverUrl || "").replace(/\/+$/, "") === String(accountSettings.serverUrl || "").replace(/\/+$/, "")
@@ -481,6 +494,7 @@ Item {
     function syncPendingThenPull() {
         pendingOperations = SyncPlanner.planPendingItems(cache.loadPendingItems())
         pendingManagementOperations = cache.loadPendingManagementOperations()
+        pendingCount = pendingOperations.length + pendingManagementOperations.length
         if (pendingManagementOperations.length > 0) {
             syncRunning = true
             processNextManagementOperation()
@@ -550,7 +564,7 @@ Item {
 
     function processNextPending() {
         pendingOperations = SyncPlanner.planPendingItems(cache.loadPendingItems())
-        pendingCount = pendingOperations.length
+        pendingCount = pendingOperations.length + cache.loadPendingManagementOperations().length
         if (pendingOperations.length === 0) {
             syncRunning = false
             if (localStateUploadOnly) {
@@ -832,7 +846,7 @@ Item {
                 break
             }
         }
-        pendingCount = cache.loadPendingItems().length + cache.loadPendingManagementOperations().length
+        refreshPendingCount(true)
     }
 
     function pendingChangeRows() {
@@ -884,6 +898,9 @@ Item {
         syncStateColor = "#2c7fb8"
         if (accountReady()) {
             loadNews()
+        } else {
+            statusText = i18n.tr("Local pending changes discarded.")
+            refreshPendingCount(true)
         }
     }
 
