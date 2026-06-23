@@ -9,8 +9,8 @@ MainView {
     applicationName: "nextnews.cloudsite"
     automaticOrientation: true
 
-    width: desktopLarge ? units.gu(90) : units.gu(85)
-    height: desktopLarge ? units.gu(120) : units.gu(80)
+    width: desktopLarge ? units.gu(45) : units.gu(85)
+    height: desktopLarge ? units.gu(80) : units.gu(80)
 
     Component.onCompleted: {
         if (desktopDarkMode) {
