@@ -22,10 +22,10 @@ Page {
                 onTriggered: Qt.openUrlExternally(article.url)
             },
             Action {
-                iconName: "mail-send"
+                iconName: "share"
                 text: i18n.tr("Share")
                 visible: article && article.url.length > 0
-                onTriggered: Qt.openUrlExternally(page.mailtoUrl())
+                onTriggered: page.shareArticle()
             },
             Action {
                 iconName: "starred"
@@ -109,17 +109,6 @@ Page {
                 lineHeight: 1.2
             }
 
-            Button {
-                visible: article && article.url.length > 0
-                text: i18n.tr("Open original link")
-                onClicked: Qt.openUrlExternally(article.url)
-            }
-
-            Button {
-                visible: article && article.url.length > 0
-                text: i18n.tr("Share by email")
-                onClicked: Qt.openUrlExternally(page.mailtoUrl())
-            }
         }
     }
 
@@ -137,12 +126,52 @@ Page {
         return Qt.formatDateTime(new Date(Number(seconds) * 1000), Qt.DefaultLocaleShortDate)
     }
 
-    function mailtoUrl() {
+    function shareTitle() {
         if (!article) {
-            return "mailto:"
+            return i18n.tr("Article")
         }
-        var subject = encodeURIComponent(article.title || i18n.tr("Article"))
-        var body = encodeURIComponent((article.title || "") + "\n" + (article.url || ""))
-        return "mailto:?subject=" + subject + "&body=" + body
+        return article.title || i18n.tr("Article")
+    }
+
+    function shareText() {
+        if (!article) {
+            return ""
+        }
+        var parts = []
+        if (article.title && article.title.length > 0) {
+            parts.push(article.title)
+        }
+        if (article.url && article.url.length > 0) {
+            parts.push(article.url)
+        }
+        return parts.join("\n")
+    }
+
+    function shareArticle() {
+        var text = shareText()
+        if (text.length === 0) {
+            return
+        }
+        var props = {
+            "shareTitle": shareTitle(),
+            "shareText": text
+        }
+        var pageObject = pageStack.push(Qt.resolvedUrl("../backend/ArticleShareExportPage.qml"), props)
+        if (pageObject) {
+            pageObject.shareFinished.connect(function() { pageStack.pop() })
+            pageObject.shareFailed.connect(function(message) {
+                pageStack.pop()
+                console.log("NextNews ContentHub share failed: " + message)
+            })
+            return
+        }
+        pageObject = pageStack.push(Qt.resolvedUrl("../backend/ArticleShareExportPageUbuntu.qml"), props)
+        if (pageObject) {
+            pageObject.shareFinished.connect(function() { pageStack.pop() })
+            pageObject.shareFailed.connect(function(message) {
+                pageStack.pop()
+                console.log("NextNews ContentHub share failed: " + message)
+            })
+        }
     }
 }

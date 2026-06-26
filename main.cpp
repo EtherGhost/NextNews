@@ -1,3 +1,5 @@
+#include "ContentHubBridge.h"
+
 #include <QGuiApplication>
 #include <QQmlContext>
 #include <QQuickView>
@@ -152,7 +154,10 @@ int main(int argc, char *argv[])
         && !desktopTestUserName.isEmpty()
         && !desktopTestSecret.isEmpty();
 
+    ContentHubBridge contentHubBridge;
+
     QQuickView view;
+    view.rootContext()->setContextProperty(QStringLiteral("contentHubBridge"), &contentHubBridge);
     view.rootContext()->setContextProperty(QStringLiteral("nextnewsAppVersion"), QStringLiteral(NEXTNEWS_VERSION));
     view.rootContext()->setContextProperty(QStringLiteral("desktopLarge"), desktopLarge);
     view.rootContext()->setContextProperty(QStringLiteral("desktopDarkMode"), desktopDarkMode);

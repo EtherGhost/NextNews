@@ -9,6 +9,8 @@
         <file>pages/NewsListPage.qml</file>
         <file>pages/ArticleDetailPage.qml</file>
         <file>backend/AccountSessionAdapter.qml</file>
+        <file>backend/ArticleShareExportPage.qml</file>
+        <file>backend/ArticleShareExportPageUbuntu.qml</file>
         <file>backend/AuthCore.js</file>
         <file>backend/NewsCache.qml</file>
         <file>backend/NewsApiClient.qml</file>

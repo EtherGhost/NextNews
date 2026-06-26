@@ -18,11 +18,12 @@ configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json @ONLY)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 install(FILES ${PROJECT_NAME}.accounts DESTINATION ${DATA_DIR})
+install(FILES ${PROJECT_NAME}-contenthub.json DESTINATION ${DATA_DIR})
 install(FILES assets/logo.svg DESTINATION assets)
 
 qt5_add_resources(QT_RESOURCES qml/qml.qrc assets/assets.qrc)
 
-add_executable(${PROJECT_NAME} main.cpp ${QT_RESOURCES})
+add_executable(${PROJECT_NAME} main.cpp ContentHubBridge.cpp ContentHubBridge.h ${QT_RESOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE -s)
 target_compile_definitions(${PROJECT_NAME} PRIVATE NEXTNEWS_VERSION="${NEXTNEWS_VERSION}")
 target_link_libraries(${PROJECT_NAME} Qt5::Gui Qt5::Qml Qt5::Quick)
@@ -53,6 +54,8 @@ file(GLOB_RECURSE PROJECT_SRC_FILES
     po/*.po
     po/*.pot
     main.cpp
+    ContentHubBridge.cpp
+    ContentHubBridge.h
 )
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})

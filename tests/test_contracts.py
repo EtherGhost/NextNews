@@ -20,6 +20,7 @@ class ProjectIdentityTests(unittest.TestCase):
         self.assertIn("nextnews", manifest["hooks"])
         self.assertEqual(manifest["hooks"]["nextnews"]["accounts"], "nextnews.accounts")
         self.assertEqual(manifest["hooks"]["nextnews"]["apparmor"], "nextnews.apparmor")
+        self.assertEqual(manifest["hooks"]["nextnews"]["content-hub"], "nextnews-contenthub.json")
         self.assertEqual(manifest["hooks"]["nextnews"]["desktop"], "nextnews.desktop")
 
     def test_online_accounts_service_ids_are_current(self):
@@ -68,12 +69,16 @@ class ProjectIdentityTests(unittest.TestCase):
 
     def test_apparmor_is_minimal(self):
         apparmor = json.loads(read_text("nextnews.apparmor"))
+        content_hub = json.loads(read_text("nextnews-contenthub.json"))
 
         self.assertEqual(
             sorted(apparmor["policy_groups"]),
             ["accounts", "content_exchange", "content_exchange_source", "networking"],
         )
         self.assertNotIn("unconfined", json.dumps(apparmor).lower())
+        self.assertIn("source", content_hub)
+        self.assertNotIn("share", content_hub)
+        self.assertNotIn("destination", content_hub)
 
     def test_qml_resources_include_news_runtime_files(self):
         qrc = read_text("qml/qml.qrc")
@@ -82,6 +87,8 @@ class ProjectIdentityTests(unittest.TestCase):
             "pages/NewsListPage.qml",
             "pages/ArticleDetailPage.qml",
             "pages/AboutPage.qml",
+            "backend/ArticleShareExportPage.qml",
+            "backend/ArticleShareExportPageUbuntu.qml",
             "backend/NewsCache.qml",
             "backend/NewsApiClient.qml",
             "backend/NewsApiCore.js",
@@ -509,18 +516,33 @@ class UiContractTests(unittest.TestCase):
 
     def test_article_detail_has_read_and_star_actions(self):
         page = read_text("qml/pages/ArticleDetailPage.qml")
+        cmake = read_text("CMakeLists.txt")
+        main = read_text("main.cpp")
+        export_page = read_text("qml/backend/ArticleShareExportPage.qml")
+        bridge = read_text("ContentHubBridge.cpp")
 
         for snippet in [
             "Mark read",
             "Mark unread",
             "Star",
             "Unstar",
-            "Open original link",
-            "Share by email",
-            "mailto:",
+            "Open",
+            "Share",
+            "shareArticle",
+            "ArticleShareExportPage.qml",
+            "ArticleShareExportPageUbuntu.qml",
             "stripHtml",
         ]:
             self.assertIn(snippet, page)
+        self.assertNotIn("mailto:", page)
+        self.assertNotIn("Share by email", page)
+        self.assertNotIn("Open original link", page)
+        self.assertIn("ContentHubBridge.cpp", cmake)
+        self.assertIn("${PROJECT_NAME}-contenthub.json", cmake)
+        self.assertIn("setContextProperty(QStringLiteral(\"contentHubBridge\")", main)
+        self.assertIn("ContentHandler.Share", export_page)
+        self.assertIn("item.text = shareText", export_page)
+        self.assertIn("writeSharedTextFile", bridge)
 
     def test_about_page_records_version_license_and_disclaimer(self):
         page = read_text("qml/pages/AboutPage.qml")

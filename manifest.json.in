@@ -7,6 +7,7 @@
         "nextnews": {
             "accounts": "nextnews.accounts",
             "apparmor": "nextnews.apparmor",
+            "content-hub": "nextnews-contenthub.json",
             "desktop": "nextnews.desktop"
         }
     },

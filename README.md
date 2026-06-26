@@ -40,7 +40,8 @@ Current V1 scaffold:
 - Separate views, folders, and feeds in the navigation drawer.
 - Configure oldest/newest sort order, open articles directly in the browser, and mark articles read while scrolling.
 - Configure individual feeds to open directly in the browser.
-- Open or share article links from the article detail page.
+- Open article links from the article detail page.
+- Share article title and link to other Ubuntu Touch apps through Content Hub.
 - Use a local SQLite cache through Qt LocalStorage.
 - Show an About page with version, license, copyright, and Nextcloud affiliation disclaimer. Longer product/license/disclaimer text intentionally remains in English across translations.
 
@@ -54,7 +55,6 @@ The first version intentionally does not implement:
 - Full-text web archive download
 - Podcast playback
 - Image caching
-- Native content-hub sharing
 - Complex merge-style conflict UI
 - Rich article rendering
 

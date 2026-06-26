@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-23 11:29+0000\n"
+"POT-Creation-Date: 2026-06-26 20:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,24 @@ msgstr ""
 msgid ""
 "Selected Online Accounts service was not found. Open Account and verify the "
 "account again."
+msgstr ""
+
+#: qml/backend/ArticleShareExportPage.qml:7
+#: qml/backend/ArticleShareExportPageUbuntu.qml:7
+#: qml/pages/ArticleDetailPage.qml:26
+msgid "Share"
+msgstr ""
+
+#: qml/backend/ArticleShareExportPage.qml:40
+#: qml/backend/ArticleShareExportPageUbuntu.qml:40
+msgid "The article could not be prepared for sharing."
+msgstr ""
+
+#: qml/backend/ArticleShareExportPage.qml:46
+#: qml/backend/ArticleShareExportPageUbuntu.qml:46
+#: qml/pages/ArticleDetailPage.qml:15 qml/pages/ArticleDetailPage.qml:131
+#: qml/pages/ArticleDetailPage.qml:133
+msgid "Article"
 msgstr ""
 
 #: qml/backend/NewsApiClient.qml:28
@@ -597,16 +615,8 @@ msgstr ""
 msgid "The selected Ubuntu Touch account did not expose a server address."
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:15 qml/pages/ArticleDetailPage.qml:144
-msgid "Article"
-msgstr ""
-
 #: qml/pages/ArticleDetailPage.qml:20
 msgid "Open"
-msgstr ""
-
-#: qml/pages/ArticleDetailPage.qml:26
-msgid "Share"
 msgstr ""
 
 #: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:983
@@ -643,14 +653,6 @@ msgstr ""
 
 #: qml/pages/ArticleDetailPage.qml:107
 msgid "Open this article online once to cache it for offline reading."
-msgstr ""
-
-#: qml/pages/ArticleDetailPage.qml:114
-msgid "Open original link"
-msgstr ""
-
-#: qml/pages/ArticleDetailPage.qml:120
-msgid "Share by email"
 msgstr ""
 
 #: qml/pages/ConflictResolutionPage.qml:12
