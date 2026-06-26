@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.2.0 - 2026-06-26
+
+- Added Ubuntu Touch Content Hub article sharing.
+- Article title and link can now be shared to other Ubuntu Touch apps.
+- Removed the old email-only article sharing action.
+
 ## 0.1.8 - 2026-06-23
 
 - Polish release.

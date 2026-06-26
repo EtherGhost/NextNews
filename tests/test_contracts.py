@@ -559,7 +559,8 @@ class UiContractTests(unittest.TestCase):
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
-        self.assertIn('set(NEXTNEWS_VERSION "0.1.8")', cmake)
+        self.assertIn('set(NEXTNEWS_VERSION "0.2.0")', cmake)
+        self.assertIn("## 0.2.0", changelog)
         self.assertIn("## 0.1.8", changelog)
         self.assertIn("## 0.1.7", changelog)
         self.assertIn("## 0.1.6", changelog)
