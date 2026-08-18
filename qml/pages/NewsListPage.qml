@@ -4,10 +4,12 @@ import Lomiri.Components 1.3
 import Lomiri.Components.Popups 1.3
 import QtGraphicalEffects 1.0
 import Qt.labs.settings 1.0
+import UTControls 1.0
 
 Page {
     id: page
 
+    readonly property string deleteRed: "#c7162b"
     property var newsController
     property bool menuOpen: false
     property bool addFeedPanelOpen: false
@@ -606,10 +608,12 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: newsController.folderCreateRunning ? i18n.tr("Adding...") : i18n.tr("Add")
+                variant: "primary"
                 enabled: !newsController.folderCreateRunning
-                color: "#2c7fb8"
                 onClicked: {
                     Qt.inputMethod.commit()
                     folderNameField.focus = false
@@ -617,7 +621,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }
@@ -637,7 +643,9 @@ Page {
                 font.bold: true
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("No folder")
                 onClicked: {
                     if (newsController.moveFeed(page.selectedFeedId, 0)) {
@@ -652,8 +660,9 @@ Page {
                 clip: true
                 model: newsController.folders
 
-                delegate: Button {
+                delegate: AppButton {
                     width: parent ? parent.width : units.gu(32)
+                    height: units.gu(4.8)
                     text: name
                     onClicked: {
                         if (newsController.moveFeed(page.selectedFeedId, folderId)) {
@@ -663,7 +672,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Rename feed")
                 onClicked: {
                     page.selectedFeedRenameTitle = page.selectedFeedTitle
@@ -672,7 +683,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: newsController.feedOpenExternal(page.selectedFeedId)
                     ? i18n.tr("Open in app")
                     : i18n.tr("Open in browser")
@@ -682,16 +695,21 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Delete feed")
-                color: "#c7162b"
+                variant: "destructive"
+                destructiveColor: page.deleteRed
                 onClicked: {
                     PopupUtils.close(dialog)
                     Qt.callLater(function() { PopupUtils.open(deleteFeedConfirmDialog) })
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }
@@ -726,10 +744,12 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: newsController.loading ? i18n.tr("Saving...") : i18n.tr("Save")
+                variant: "primary"
                 enabled: !newsController.loading
-                color: "#2c7fb8"
                 onClicked: {
                     Qt.inputMethod.commit()
                     feedTitleField.focus = false
@@ -737,7 +757,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }
@@ -752,9 +774,12 @@ Page {
             title: i18n.tr("Delete feed?")
             text: i18n.tr("This will remove \"%1\" from Nextcloud News.").arg(page.selectedFeedTitle)
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Delete")
-                color: "#c7162b"
+                variant: "destructive"
+                destructiveColor: page.deleteRed
                 onClicked: {
                     if (newsController.deleteFeed(page.selectedFeedId)) {
                         PopupUtils.close(dialog)
@@ -764,7 +789,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }
@@ -779,7 +806,9 @@ Page {
             title: page.selectedFolderTitle
             text: i18n.tr("Folder options")
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Rename folder")
                 onClicked: {
                     page.selectedFolderRenameTitle = page.selectedFolderTitle
@@ -788,16 +817,21 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Delete folder")
-                color: "#c7162b"
+                variant: "destructive"
+                destructiveColor: page.deleteRed
                 onClicked: {
                     PopupUtils.close(dialog)
                     Qt.callLater(function() { PopupUtils.open(deleteFolderConfirmDialog) })
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }
@@ -832,10 +866,12 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: newsController.loading ? i18n.tr("Saving...") : i18n.tr("Save")
+                variant: "primary"
                 enabled: !newsController.loading
-                color: "#2c7fb8"
                 onClicked: {
                     Qt.inputMethod.commit()
                     folderTitleField.focus = false
@@ -843,7 +879,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }
@@ -858,9 +896,12 @@ Page {
             title: i18n.tr("Delete folder?")
             text: i18n.tr("This will remove \"%1\" and all feeds in that folder from Nextcloud News.").arg(page.selectedFolderTitle)
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Delete")
-                color: "#c7162b"
+                variant: "destructive"
+                destructiveColor: page.deleteRed
                 onClicked: {
                     if (newsController.deleteFolder(page.selectedFolderId)) {
                         PopupUtils.close(dialog)
@@ -870,7 +911,9 @@ Page {
                 }
             }
 
-            Button {
+            AppButton {
+                width: parent ? parent.width : units.gu(34)
+                height: units.gu(4.8)
                 text: i18n.tr("Cancel")
                 onClicked: PopupUtils.close(dialog)
             }

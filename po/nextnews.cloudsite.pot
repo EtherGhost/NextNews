@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nextnews.cloudsite\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 22:07+0000\n"
+"POT-Creation-Date: 2026-08-18 20:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,11 +31,11 @@ msgid "Clear"
 msgstr ""
 
 #: qml/UTControls/CalendarDatePicker.qml:15 qml/UTControls/ConfirmDialog.qml:11
-#: qml/UTControls/TimePicker.qml:16 qml/pages/NewsListPage.qml:572
-#: qml/pages/NewsListPage.qml:621 qml/pages/NewsListPage.qml:695
-#: qml/pages/NewsListPage.qml:741 qml/pages/NewsListPage.qml:768
-#: qml/pages/NewsListPage.qml:801 qml/pages/NewsListPage.qml:847
-#: qml/pages/NewsListPage.qml:874
+#: qml/UTControls/TimePicker.qml:16 qml/pages/NewsListPage.qml:574
+#: qml/pages/NewsListPage.qml:627 qml/pages/NewsListPage.qml:713
+#: qml/pages/NewsListPage.qml:763 qml/pages/NewsListPage.qml:795
+#: qml/pages/NewsListPage.qml:835 qml/pages/NewsListPage.qml:885
+#: qml/pages/NewsListPage.qml:917
 msgid "Cancel"
 msgstr ""
 
@@ -474,7 +474,7 @@ msgid "Views"
 msgstr ""
 
 #: qml/backend/NewsController.qml:1186 qml/pages/ArticleDetailPage.qml:133
-#: qml/pages/NewsListPage.qml:1131
+#: qml/pages/NewsListPage.qml:1174
 msgid "Unread"
 msgstr ""
 
@@ -482,11 +482,11 @@ msgstr ""
 msgid "Starred"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1189 qml/pages/NewsListPage.qml:1430
+#: qml/backend/NewsController.qml:1189 qml/pages/NewsListPage.qml:1473
 msgid "Folders"
 msgstr ""
 
-#: qml/backend/NewsController.qml:1192 qml/pages/NewsListPage.qml:1455
+#: qml/backend/NewsController.qml:1192 qml/pages/NewsListPage.qml:1498
 msgid "Feeds"
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: qml/pages/AboutPage.qml:5 qml/pages/NewsListPage.qml:1369
+#: qml/pages/AboutPage.qml:5 qml/pages/NewsListPage.qml:1412
 msgid "NextNews"
 msgstr ""
 
@@ -506,23 +506,23 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:982
-#: qml/pages/NewsListPage.qml:996
+#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:1025
+#: qml/pages/NewsListPage.qml:1039
 msgid "Star"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:982
-#: qml/pages/NewsListPage.qml:996
+#: qml/pages/ArticleDetailPage.qml:32 qml/pages/NewsListPage.qml:1025
+#: qml/pages/NewsListPage.qml:1039
 msgid "Unstar"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:983
-#: qml/pages/NewsListPage.qml:997
+#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:1026
+#: qml/pages/NewsListPage.qml:1040
 msgid "Mark read"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:983
-#: qml/pages/NewsListPage.qml:997
+#: qml/pages/ArticleDetailPage.qml:40 qml/pages/NewsListPage.qml:1026
+#: qml/pages/NewsListPage.qml:1040
 msgid "Mark unread"
 msgstr ""
 
@@ -530,7 +530,7 @@ msgstr ""
 msgid "Article not cached"
 msgstr ""
 
-#: qml/pages/ArticleDetailPage.qml:133 qml/pages/NewsListPage.qml:1131
+#: qml/pages/ArticleDetailPage.qml:133 qml/pages/NewsListPage.qml:1174
 msgid "Read"
 msgstr ""
 
@@ -543,7 +543,7 @@ msgid "Open this article online once to cache it for offline reading."
 msgstr ""
 
 #: qml/pages/ArticleDetailPage.qml:181 qml/pages/ArticleDetailPage.qml:190
-#: qml/pages/ArticleDetailPage.qml:206 qml/pages/NewsListPage.qml:1111
+#: qml/pages/ArticleDetailPage.qml:206 qml/pages/NewsListPage.qml:1154
 msgid "Unknown feed"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid "AI-assisted translation"
 msgstr ""
 
-#: qml/pages/LanguageSelectionPage.qml:28 qml/pages/NewsListPage.qml:1568
+#: qml/pages/LanguageSelectionPage.qml:28 qml/pages/NewsListPage.qml:1611
 #: vendor/NextCommon/qml/NextCommon/LanguagePage.qml:14
 msgid "Language"
 msgstr ""
@@ -631,222 +631,222 @@ msgstr ""
 msgid "NextNews will use %1 after restart."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:16 qml/pages/NewsListPage.qml:110
-#: qml/pages/NewsListPage.qml:505 qml/pages/NewsListPage.qml:509
-#: qml/pages/NewsListPage.qml:641
+#: qml/pages/NewsListPage.qml:18 qml/pages/NewsListPage.qml:112
+#: qml/pages/NewsListPage.qml:507 qml/pages/NewsListPage.qml:511
+#: qml/pages/NewsListPage.qml:649
 msgid "No folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:160
+#: qml/pages/NewsListPage.qml:162
 msgid "Search articles"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:342
+#: qml/pages/NewsListPage.qml:344
 msgid "Sync status"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:347
+#: qml/pages/NewsListPage.qml:349
 msgid "Review pending changes"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:355
+#: qml/pages/NewsListPage.qml:357
 msgid "Close"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:452
+#: qml/pages/NewsListPage.qml:454
 msgid "Add feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:467
+#: qml/pages/NewsListPage.qml:469
 msgid "Add an RSS or Atom feed to the selected Nextcloud News account."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:475
+#: qml/pages/NewsListPage.qml:477
 msgid "Feed URL"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:488
+#: qml/pages/NewsListPage.qml:490
 msgid "Clear feed URL"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:499
+#: qml/pages/NewsListPage.qml:501
 msgid "Folder: %1"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:520
+#: qml/pages/NewsListPage.qml:522
 msgid "New folder name"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:526 qml/pages/NewsListPage.qml:558
-#: qml/pages/NewsListPage.qml:610
+#: qml/pages/NewsListPage.qml:528 qml/pages/NewsListPage.qml:560
+#: qml/pages/NewsListPage.qml:614
 msgid "Adding..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:526
+#: qml/pages/NewsListPage.qml:528
 msgid "Create"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:556
+#: qml/pages/NewsListPage.qml:558
 msgid "Waiting for folder..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:559 qml/pages/NewsListPage.qml:610
+#: qml/pages/NewsListPage.qml:561 qml/pages/NewsListPage.qml:614
 msgid "Add"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:585
+#: qml/pages/NewsListPage.qml:587
 msgid "New folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:586
+#: qml/pages/NewsListPage.qml:588
 msgid "Create a folder in Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:590 qml/pages/NewsListPage.qml:817
+#: qml/pages/NewsListPage.qml:592 qml/pages/NewsListPage.qml:851
 msgid "Folder name"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:633
+#: qml/pages/NewsListPage.qml:639
 msgid "Feed options"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:636
+#: qml/pages/NewsListPage.qml:642
 msgid "Move to folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:667 qml/pages/NewsListPage.qml:706
+#: qml/pages/NewsListPage.qml:678 qml/pages/NewsListPage.qml:724
 msgid "Rename feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:677
+#: qml/pages/NewsListPage.qml:690
 msgid "Open in app"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:678
+#: qml/pages/NewsListPage.qml:691
 msgid "Open in browser"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:686
+#: qml/pages/NewsListPage.qml:701
 msgid "Delete feed"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:707
+#: qml/pages/NewsListPage.qml:725
 msgid "Change the feed name on Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:711
+#: qml/pages/NewsListPage.qml:729
 msgid "Feed name"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:730 qml/pages/NewsListPage.qml:836
+#: qml/pages/NewsListPage.qml:750 qml/pages/NewsListPage.qml:872
 msgid "Save"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:730 qml/pages/NewsListPage.qml:836
+#: qml/pages/NewsListPage.qml:750 qml/pages/NewsListPage.qml:872
 msgid "Saving..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:752
+#: qml/pages/NewsListPage.qml:774
 msgid "Delete feed?"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:753
+#: qml/pages/NewsListPage.qml:775
 msgid "This will remove \"%1\" from Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:756 qml/pages/NewsListPage.qml:862
+#: qml/pages/NewsListPage.qml:780 qml/pages/NewsListPage.qml:902
 msgid "Delete"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:780
+#: qml/pages/NewsListPage.qml:807
 msgid "Folder options"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:783 qml/pages/NewsListPage.qml:812
+#: qml/pages/NewsListPage.qml:812 qml/pages/NewsListPage.qml:846
 msgid "Rename folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:792
+#: qml/pages/NewsListPage.qml:823
 msgid "Delete folder"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:813
+#: qml/pages/NewsListPage.qml:847
 msgid "Change the folder name on Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:858
+#: qml/pages/NewsListPage.qml:896
 msgid "Delete folder?"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:859
+#: qml/pages/NewsListPage.qml:897
 msgid ""
 "This will remove \"%1\" and all feeds in that folder from Nextcloud News."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:935
+#: qml/pages/NewsListPage.qml:978
 msgid "Refreshing..."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:937
+#: qml/pages/NewsListPage.qml:980
 msgid "Release to refresh"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:938
+#: qml/pages/NewsListPage.qml:981
 msgid "Pull to refresh"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1146
+#: qml/pages/NewsListPage.qml:1189
 msgid "Pending"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1315
+#: qml/pages/NewsListPage.qml:1358
 msgid "No articles to show"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1315
+#: qml/pages/NewsListPage.qml:1358
 msgid "No matching articles"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1323
+#: qml/pages/NewsListPage.qml:1366
 msgid "Try another feed or clear search."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1324
+#: qml/pages/NewsListPage.qml:1367
 msgid "Connect to Nextcloud while online to cache articles on this device."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1575
+#: qml/pages/NewsListPage.qml:1618
 #: vendor/NextCommon/qml/NextCommon/AccountPage.qml:160
 msgid "Account"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1582 qml/pages/SettingsPage.qml:15
+#: qml/pages/NewsListPage.qml:1625 qml/pages/SettingsPage.qml:15
 #: vendor/NextCommon/qml/NextCommon/SettingsShell.qml:8
 msgid "Settings"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1589
+#: qml/pages/NewsListPage.qml:1632
 #: vendor/NextCommon/qml/NextCommon/AboutPage.qml:18
 msgid "About"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1626
+#: qml/pages/NewsListPage.qml:1669
 msgid "%1m"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1629
+#: qml/pages/NewsListPage.qml:1672
 msgid "%1h"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1667
+#: qml/pages/NewsListPage.qml:1710
 msgid "Sync: %1"
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1670
+#: qml/pages/NewsListPage.qml:1713
 msgid "%1 local changes are waiting for sync."
 msgstr ""
 
-#: qml/pages/NewsListPage.qml:1673
+#: qml/pages/NewsListPage.qml:1716
 msgid "No status message."
 msgstr ""
 

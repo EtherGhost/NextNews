@@ -6,6 +6,11 @@
   gone stale after the 0.4.0 About page change - it still checked the
   app's thin `AboutPage.qml` wrapper for the "Version %1" label, which now
   lives in the shared `NextCommon.AboutPage` component it wraps.
+- Restyled the feed/folder management popups (feed options, rename feed,
+  delete feed, folder options, rename folder, delete folder, new folder) to
+  use the shared `UTControls.AppButton` component instead of plain Lomiri
+  buttons with hardcoded colors, matching the rest of the suite's current
+  look.
 
 ## 0.4.0 - 2026-07-14
 
