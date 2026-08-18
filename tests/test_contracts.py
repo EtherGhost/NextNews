@@ -604,19 +604,21 @@ class UiContractTests(unittest.TestCase):
 
     def test_about_page_records_version_license_and_disclaimer(self):
         page = read_text("qml/pages/AboutPage.qml")
+        common_about = read_text("vendor/NextCommon/qml/NextCommon/AboutPage.qml")
         manifest = json.loads(read_text("manifest.json.in"))
         cmake = read_text("CMakeLists.txt")
         changelog = read_text("CHANGELOG.md")
 
         for snippet in [
+            "NextCommon.AboutPage",
             "nextnewsAppVersion",
-            "Version %1",
             "MIT License",
             "Etherghost",
             "not affiliated",
             "qrc:/assets/logo.svg",
         ]:
             self.assertIn(snippet, page)
+        self.assertIn('i18n.tr("Version %1")', common_about)
         self.assertIn('set(NEXTNEWS_VERSION "0.4.0")', cmake)
         self.assertIn("## 0.4.0", changelog)
         self.assertIn("## 0.3.0", changelog)

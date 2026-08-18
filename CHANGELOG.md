@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Fixed `test_about_page_records_version_license_and_disclaimer`, which had
+  gone stale after the 0.4.0 About page change - it still checked the
+  app's thin `AboutPage.qml` wrapper for the "Version %1" label, which now
+  lives in the shared `NextCommon.AboutPage` component it wraps.
+
 ## 0.4.0 - 2026-07-14
 
 Translation and reliability release.
