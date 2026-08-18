@@ -8,5 +8,6 @@ NextCommon.AboutPage {
     logoSource: "qrc:/assets/logo.svg"
     licenseText: "NextNews is licensed under the MIT License."
     copyrightText: "Copyright (c) 2026 Etherghost"
+    contributorsText: "brennoflavio: article swipe navigation"
     disclaimerText: "NextNews is not affiliated with, endorsed by, or sponsored by Nextcloud GmbH or the Nextcloud project. Nextcloud is a trademark of its respective owners."
 }

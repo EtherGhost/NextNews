@@ -11,6 +11,13 @@
   use the shared `UTControls.AppButton` component instead of plain Lomiri
   buttons with hardcoded colors, matching the rest of the suite's current
   look.
+- Added swipe left/right in the article detail view to move between
+  articles, contributed by brennoflavio (PR #2). Articles from feeds set
+  to open in browser are skipped during swipe navigation rather than
+  opened or interrupting the current article, matching how they're
+  already handled from the article list.
+- Credited brennoflavio on the About page's new Contributors section for
+  the swipe navigation feature.
 
 ## 0.4.0 - 2026-07-14
 
