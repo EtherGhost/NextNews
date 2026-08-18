@@ -1237,6 +1237,7 @@ Page {
                     if (newsController.openItem(model.itemId) === "detail") {
                         pageStack.push(Qt.resolvedUrl("ArticleDetailPage.qml"), {
                             "itemId": model.itemId,
+                            "itemIds": page.visibleItemIds(),
                             "newsController": newsController
                         })
                     }
@@ -1693,6 +1694,17 @@ Page {
             return "#c65d00"
         }
         return newsController.syncStateColor
+    }
+
+    function visibleItemIds() {
+        var ids = []
+        for (var i = 0; i < newsController.model.count; ++i) {
+            var item = newsController.model.get(i)
+            if (!newsController.feedOpenExternal(item.feedId)) {
+                ids.push(item.itemId)
+            }
+        }
+        return ids
     }
 
     function setSwipeActionLayout(value) {
